@@ -10,7 +10,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity
+            android:name=".Kompetenz"
+            android:label="@string/title_activity_kompetenz"
+            android:parentActivityName=".Student"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myapplication.Student" />
+        </activity>
+        <activity
+            android:name=".Student"
+            android:label="@string/title_activity_student"
+            android:parentActivityName=".Rezeption"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myapplication.Rezeption" />
+        </activity>
         <activity
             android:name=".Rezeption"
             android:label="@string/title_activity_rezeption"

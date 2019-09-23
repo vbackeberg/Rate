@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    public fun rezeption(view: View) {
+    fun rezeption(view: View) {
         val intent = Intent(this, Rezeption::class.java)
         startActivity(intent)
     }

@@ -1,23 +1,16 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 
-import kotlinx.android.synthetic.main.activity_rezeption.*
+import kotlinx.android.synthetic.main.activity_kompetenz.*
 
-class Rezeption : AppCompatActivity() {
-
-    fun student(view: View) {
-        val intent = Intent(this, Student::class.java)
-        startActivity(intent)
-    }
+class Kompetenz : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rezeption)
+        setContentView(R.layout.activity_kompetenz)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->

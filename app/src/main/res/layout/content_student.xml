@@ -5,25 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Rezeption"
-    tools:showIn="@layout/activity_rezeption">
+    tools:context=".Student"
+    tools:showIn="@layout/activity_student">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="student"
+        android:onClick="kompetenz"
         android:text="Button"
-        tools:layout_editor_absoluteX="76dp"
-        tools:layout_editor_absoluteY="110dp"
-        tools:text="Student" />
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="91dp"
+        tools:text="Kompetenz" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        tools:layout_editor_absoluteX="584dp"
-        tools:layout_editor_absoluteY="60dp"
-        tools:text="@string/title_activity_rezeption" />
+        tools:layout_editor_absoluteX="526dp"
+        tools:layout_editor_absoluteY="55dp"
+        tools:text="Student" />
 </androidx.constraintlayout.widget.ConstraintLayout>
