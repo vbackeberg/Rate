@@ -12,34 +12,34 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".Kompetenz"
-            android:label="@string/title_activity_kompetenz"
-            android:parentActivityName=".Student"
+            android:name=".activities.Kompetenz"
+            android:label="@string/t"
+            android:parentActivityName=".activities.Applicants"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.Student" />
+                android:value="com.example.myapplication.activities.Applicants" />
         </activity>
         <activity
-            android:name=".Student"
+            android:name=".activities.Applicants"
             android:label="@string/title_activity_student"
-            android:parentActivityName=".Rezeption"
+            android:parentActivityName=".activities.Rezeption"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.Rezeption" />
+                android:value="com.example.myapplication.activities.Rezeption" />
         </activity>
         <activity
-            android:name=".Rezeption"
+            android:name=".activities.Rezeption"
             android:label="@string/title_activity_rezeption"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.MainActivity" />
+                android:value="com.example.myapplication.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -1,17 +1,18 @@
-package com.example.myapplication
+package com.example.myapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.R
 
 import kotlinx.android.synthetic.main.activity_rezeption.*
 
 class Rezeption : AppCompatActivity() {
 
     fun student(view: View) {
-        val intent = Intent(this, Student::class.java)
+        val intent = Intent(this, Applicants::class.java)
         startActivity(intent)
     }
 
