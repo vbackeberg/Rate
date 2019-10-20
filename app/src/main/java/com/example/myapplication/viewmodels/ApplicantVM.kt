@@ -16,8 +16,11 @@ class ApplicantVM : ViewModel() {
         return applicant
     }
 
-    private fun loadApplicant() {
-        applicant.value = Applicant("")
+    fun setCompetency(competency: Int) {
+        applicant.value!!.competency = competency
+    }
 
+    private fun loadApplicant() {
+        applicant.value = Applicant()
     }
 }
