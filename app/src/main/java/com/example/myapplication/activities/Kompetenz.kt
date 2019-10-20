@@ -18,19 +18,17 @@ class Kompetenz : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val viewModel = ViewModelProviders.of(this)[ApplicantVM::class.java]
-//        viewModel.getApplicant().observe(this, Observer<Applicant> {  })
+//        viewModel.getApplicant().observe(this, Observer<Applicant> { })
 
-        seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 viewModel.setCompetency(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
         })
@@ -40,5 +38,6 @@ class Kompetenz : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 }

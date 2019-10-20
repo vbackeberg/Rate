@@ -6,21 +6,22 @@ import androidx.lifecycle.ViewModel
 import com.example.myapplication.models.Applicant
 
 class ApplicantVM : ViewModel() {
-    private val applicant: MutableLiveData<Applicant> by lazy {
-        MutableLiveData<Applicant>().also {
+    private val applicant: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>().also {
             loadApplicant()
         }
     }
 
-    fun getApplicant(): LiveData<Applicant> {
+    fun getApplicant(): LiveData<Int> {
         return applicant
     }
 
     fun setCompetency(competency: Int) {
-        applicant.value!!.competency = competency
+//        applicant.value!!.competency = competency
+            applicant.value = competency
     }
 
     private fun loadApplicant() {
-        applicant.value = Applicant()
+        applicant.value = 0
     }
 }
