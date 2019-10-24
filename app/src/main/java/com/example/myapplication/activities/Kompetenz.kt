@@ -12,23 +12,26 @@ import kotlinx.android.synthetic.main.content_kompetenz.*
 
 class Kompetenz : AppCompatActivity() {
 
+    private lateinit var applicantVM: ApplicantVM
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kompetenz)
         setSupportActionBar(toolbar)
 
-        val viewModel = ViewModelProviders.of(this)[ApplicantVM::class.java]
-//        viewModel.getApplicant().observe(this, Observer<Applicant> { })
+        applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.setCompetency(progress)
+                applicantVM.competency.value = progress
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
             }
 
         })
