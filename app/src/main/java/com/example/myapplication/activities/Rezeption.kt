@@ -2,9 +2,11 @@ package com.example.myapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.viewmodels.ApplicantVM
@@ -23,8 +25,15 @@ class Rezeption : AppCompatActivity() {
 
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
 
+        val competencyObserver = Observer<Int> { newCompetency ->
+            seekBar2.progress = newCompetency
+        }
+
+        applicantVM.competency.observe(this, competencyObserver)
+
         seekBar2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                Log.d("progressintr", applicantVM.competency.value.toString())
                 applicantVM.competency.value = progress
             }
 
@@ -46,8 +55,7 @@ class Rezeption : AppCompatActivity() {
     }
 
     fun student(@Suppress("UNUSED_PARAMETER") view: View) {
-        val intent = Intent(this, Applicants::class.java)
+        val intent = Intent(this, Kompetenz::class.java)
         startActivity(intent)
     }
-
 }

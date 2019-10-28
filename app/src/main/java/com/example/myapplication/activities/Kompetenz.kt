@@ -1,8 +1,10 @@
 package com.example.myapplication.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.viewmodels.ApplicantVM
@@ -21,8 +23,15 @@ class Kompetenz : AppCompatActivity() {
 
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
 
+        val competencyObserver = Observer<Int> { newCompetency ->
+            textViewProgress.text = newCompetency.toString()
+        }
+
+        applicantVM.competency.observe(this, competencyObserver)
+
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                Log.d("progressint", applicantVM.competency.value.toString())
                 applicantVM.competency.value = progress
             }
 
