@@ -5,15 +5,15 @@ import javax.inject.Singleton
 
 @Singleton
 class ApplicantRepository {
-    private lateinit var applicantCache: HashMap<String, Int>
+    private var applicantCache: HashMap<String, Int> = HashMap()
 
     fun getCompetency(applicantId: String): Int? {
-        Log.d("get", applicantCache[applicantId].toString())
+        Log.d("Applicant ApplicantRepository get", applicantCache[applicantId].toString())
         return applicantCache[applicantId]
     }
 
     fun updateCompetency(applicantId: String, value: Int) {
-        Log.d("update", applicantCache[applicantId].toString())
         applicantCache[applicantId] = value
+        Log.d("Applicant ApplicantRepository update", applicantCache[applicantId].toString())
     }
 }

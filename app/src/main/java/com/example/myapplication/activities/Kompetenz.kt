@@ -29,7 +29,7 @@ class Kompetenz : AppCompatActivity() {
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                Log.d("progressint", "$progress")
+                Log.d("Applicant Kompetenz progressint", "$progress")
                 applicantVM.setCompetency(progress)
             }
 

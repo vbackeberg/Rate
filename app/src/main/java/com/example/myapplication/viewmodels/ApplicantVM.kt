@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.repositories.ApplicantRepository
-import javax.inject.Inject
 
-class ApplicantVM @Inject constructor(
-    private val applicantRepository: ApplicantRepository
-) : ViewModel() {
+class ApplicantVM: ViewModel() {
+    private var applicantRepository: ApplicantRepository = ApplicantRepository()
 
     private val competency: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>().also {
