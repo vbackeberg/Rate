@@ -2,19 +2,18 @@ package com.example.myapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
-
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    fun rezeption(view: View) {
-        val intent = Intent(this, Rezeption::class.java)
+    fun rezeption(@Suppress("UNUSED_PARAMETER")view: View) {
+        val intent = Intent(this, Kompetenz::class.java)
         startActivity(intent)
     }
 
