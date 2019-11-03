@@ -12,9 +12,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:text="@string/textview"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Abteilungen" />
@@ -25,7 +26,9 @@
         android:layout_height="wrap_content"
         android:onClick="rezeption"
         android:text="@string/button"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="134dp"
-        tools:text="Rezeption" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        tools:text="Neuer Bewerber" />
 </androidx.constraintlayout.widget.ConstraintLayout>
