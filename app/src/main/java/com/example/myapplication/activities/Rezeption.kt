@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.viewmodels.ApplicantVM
@@ -22,6 +23,14 @@ class Rezeption : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
+
+        val applicantId = intent.getLongExtra("applicantId", 0L)
+
+        textViewApplicationId.text = "applicantId $applicantId"
+
+        applicantVM.getCompetency().observe(this, Observer<Int> {
+                newCompetency -> textViewCompetency.text = newCompetency.toString()
+        })
 
         seekBar2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {

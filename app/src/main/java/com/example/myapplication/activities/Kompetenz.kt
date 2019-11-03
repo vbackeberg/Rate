@@ -1,7 +1,9 @@
 package com.example.myapplication.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -53,6 +55,10 @@ class Kompetenz : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
+    fun nextPage(@Suppress("UNUSED_PARAMETER") view: View) {
+        val intent = Intent(this, Rezeption::class.java)
+        startActivity(intent)
     }
 }
