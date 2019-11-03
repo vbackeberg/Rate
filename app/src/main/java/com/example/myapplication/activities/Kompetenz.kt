@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.content_kompetenz.*
 class Kompetenz : AppCompatActivity() {
 
     private lateinit var applicantVM: ApplicantVM
+    var applicantId: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,7 @@ class Kompetenz : AppCompatActivity() {
 
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
 
-        var applicantId = intent.getLongExtra("applicantId", 0L)
+        applicantId = intent.getLongExtra("applicantId", 0L)
         if (applicantId == 0L) {
             applicantId = applicantVM.newApplicant()
         }
@@ -58,7 +59,7 @@ class Kompetenz : AppCompatActivity() {
     }
 
     fun nextPage(@Suppress("UNUSED_PARAMETER") view: View) {
-        val intent = Intent(this, Rezeption::class.java)
+        val intent = Intent(this, Rezeption::class.java).putExtra("applicantId", applicantId)
         startActivity(intent)
     }
 }
