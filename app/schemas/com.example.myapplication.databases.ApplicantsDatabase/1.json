@@ -1,0 +1,40 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5f45acfa65306df18d7da87ce4548543",
+    "entities": [
+      {
+        "tableName": "Applicant",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`applicantId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `competency` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "applicantId",
+            "columnName": "applicantId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "competency",
+            "columnName": "competency",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "applicantId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f45acfa65306df18d7da87ce4548543')"
+    ]
+  }
+}

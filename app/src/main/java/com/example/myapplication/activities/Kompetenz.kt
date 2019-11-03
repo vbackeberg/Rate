@@ -23,14 +23,19 @@ class Kompetenz : AppCompatActivity() {
 
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
 
+        var applicantId = intent.getLongExtra("applicantId", 0L)
+        if (applicantId == 0L) {
+            applicantId = applicantVM.newApplicant()
+        }
+
         applicantVM.getCompetency().observe(this, Observer<Int> {
-            newCompetency -> textViewProgress.text = newCompetency.toString()
+                newCompetency -> textViewProgress.text = newCompetency.toString()
         })
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 Log.d("Applicant Kompetenz progressint", "$progress")
-                applicantVM.setCompetency(progress)
+                applicantVM.updateCompetency(applicantId, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

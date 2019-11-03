@@ -1,29 +1,36 @@
 package com.example.myapplication.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.myapplication.repositories.ApplicantRepository
+import com.example.myapplication.databases.ApplicantsDatabase
+import com.example.myapplication.repositories.ApplicantsRepository
 
-class ApplicantVM: ViewModel() {
-    private var applicantRepository: ApplicantRepository = ApplicantRepository()
+class ApplicantVM(application: Application) : AndroidViewModel(application) {
+    private val applicantsRepository: ApplicantsRepository
 
-    private val competency: MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>().also {
-            loadCompetency()
-        }
+    init {
+        val applicantDao = ApplicantsDatabase.getDatabase(application).applicantDao()
+        applicantsRepository = ApplicantsRepository(applicantDao)
     }
+
+    private val competency: MutableLiveData<Int> = MutableLiveData()
 
     fun getCompetency(): LiveData<Int> {
         return competency
     }
 
-    fun setCompetency(value: Int) {
-        competency.postValue(value)
-        applicantRepository.updateCompetency("1", value)
+    fun updateCompetency(applicantId: Long, newCompetency: Int) {
+        competency.postValue(newCompetency)
+        applicantsRepository.updateCompetency(applicantId, newCompetency)
     }
 
-    private fun loadCompetency() {
-        applicantRepository.getCompetency("1")
+    private fun loadCompetency(applicantId: Long) {
+        competency.postValue(applicantsRepository.getApplicant(applicantId).competency)
+    }
+
+    fun newApplicant(): Long {
+        return applicantsRepository.create()
     }
 }
