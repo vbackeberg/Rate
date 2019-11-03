@@ -26,10 +26,6 @@ class ApplicantVM(application: Application) : AndroidViewModel(application) {
         applicantsRepository.updateCompetency(applicantId, newCompetency)
     }
 
-    private fun loadCompetency(applicantId: Long) {
-        competency.postValue(applicantsRepository.getApplicant(applicantId).competency)
-    }
-
     fun newApplicant(): Long {
         return applicantsRepository.create()
     }
