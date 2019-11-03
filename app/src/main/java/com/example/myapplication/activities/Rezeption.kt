@@ -23,12 +23,12 @@ class Rezeption : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
-
         val applicantId = intent.getLongExtra("applicantId", 0L)
+        applicantVM.loadApplicant(applicantId)
 
         textViewApplicationId.text = "applicantId $applicantId"
 
-        applicantVM.getCompetency().observe(this, Observer<Int> {
+        applicantVM.getCompetency().observe(this, Observer<Int?> {
                 newCompetency -> textViewCompetency.text = newCompetency.toString()
         })
 
