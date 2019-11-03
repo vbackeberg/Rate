@@ -1,5 +1,6 @@
 package com.example.myapplication.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
@@ -10,7 +11,7 @@ import com.example.myapplication.entities.Applicant
 interface ApplicantDao {
 
     @Query("SELECT * FROM applicant WHERE applicantId LIKE :applicantId")
-    fun findById(applicantId: Long): Applicant
+    fun findById(applicantId: Long): LiveData<Applicant>
 
     @Insert(onConflict = REPLACE)
     fun insert(applicant: Applicant): Long

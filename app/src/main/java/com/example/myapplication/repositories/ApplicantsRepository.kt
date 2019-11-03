@@ -1,6 +1,7 @@
 package com.example.myapplication.repositories
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.example.myapplication.daos.ApplicantDao
 import com.example.myapplication.entities.Applicant
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class ApplicantsRepository @Inject constructor(
         return applicantDao.insert(applicant = Applicant(0, null))
     }
 
-    fun getApplicant(applicantId: Long): Applicant {
+    fun get(applicantId: Long): LiveData<Applicant> {
         return applicantDao.findById(applicantId)
     }
 
