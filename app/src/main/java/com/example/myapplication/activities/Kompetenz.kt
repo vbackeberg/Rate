@@ -25,13 +25,7 @@ class Kompetenz : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
-
-        applicantId = intent.getLongExtra("applicantId", 0L)
-        if (applicantId == 0L) {
-            applicantId = applicantVM.newApplicant()
-        }
-
-        applicantVM.getCompetency().observe(this, Observer<Int> {
+        applicantVM.getCompetency().observe(this, Observer {
                 newCompetency -> textViewProgress.text = newCompetency.toString()
         })
 
