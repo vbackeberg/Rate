@@ -1,6 +1,9 @@
 package com.example.myapplication.activities
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.viewmodels.ApplicantVM
+import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_kompetenz.*
 import kotlinx.android.synthetic.main.content_kompetenz.*
@@ -17,17 +21,27 @@ import kotlinx.android.synthetic.main.content_kompetenz.*
 class Kompetenz : AppCompatActivity() {
 
     private lateinit var applicantVM: ApplicantVM
-    var applicantId: Long = 0L
+    private lateinit var sharedPreferences: SharedPreferences
+    private var applicantId = 0L
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kompetenz)
         setSupportActionBar(toolbar)
 
+        sharedPreferences = this
+            .getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+
+        applicantId = sharedPreferences
+            .getLong(CURRENT_APPLICANT_ID, 0L)
+
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
-        applicantVM.getCompetency().observe(this, Observer {
-                newCompetency -> textViewProgress.text = newCompetency.toString()
+        applicantVM.getCompetency().observe(this, Observer { newCompetency ->
+            textViewProgress.text = "Progress: $newCompetency."
         })
+
+        Log.d("Applicant Kompetenz Id", "$applicantId")
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -42,7 +56,6 @@ class Kompetenz : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
 
             }
-
         })
 
         fab.setOnClickListener { view ->

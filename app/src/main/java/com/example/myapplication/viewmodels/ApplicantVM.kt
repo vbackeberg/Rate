@@ -25,13 +25,10 @@ class ApplicantVM(application: Application) : AndroidViewModel(application) {
             )
 
     init {
-        val applicantDao = ApplicantsDatabase.getDatabase(application)
+        val applicantDao = ApplicantsDatabase
+            .getDatabase(application)
             .applicantDao()
         applicantsRepository = ApplicantsRepository(applicantDao)
-        sharedPref.edit()
-            .putLong(CURRENT_APPLICANT_ID, 4L)
-            .apply()
-
         loadApplicant()
     }
 
@@ -49,14 +46,10 @@ class ApplicantVM(application: Application) : AndroidViewModel(application) {
     }
 
     private fun loadApplicant() {
-//        val applicant: LiveData<Applicant> = applicantsRepository.get(applicantId)
-//        competency.postValue(applicant.value?.competency)
-//        Log.d("Applicant view model load applicant before", "${competency.value}")
         val id = sharedPref.getLong(CURRENT_APPLICANT_ID, 0L)
         Log.d("Applicant view model load shared pref id", "$id")
-//        competency.value = 4
         val applicant = applicantsRepository.get(id)
-        competency.value = applicant.value?.competency
+        competency.value = applicant.competency
         Log.d("Applicant view model load applicant after", "${competency.value}")
     }
 }
