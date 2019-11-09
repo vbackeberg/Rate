@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -43,12 +44,21 @@ class Kompetenz : AppCompatActivity() {
         }
 
         kompetenzVM.getBerufserfahrung().observe(this, Observer { newBerufserfahrung ->
-            textViewProgress.text = "Progress: $newBerufserfahrung."
+            seekBarBerufserfahrung.progress = newBerufserfahrung ?: 0
         })
-
         Log.d("Applicant Kompetenz Id", "$applicantId")
 
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        initSeekBars()
+
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initSeekBars() {
+        seekBarBerufserfahrung.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 Log.d("Applicant Kompetenz progressint", "$progress")
                 kompetenzVM.updateBerufserfahrung(applicantId, progress)
@@ -62,12 +72,6 @@ class Kompetenz : AppCompatActivity() {
 
             }
         })
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     fun nextPage(@Suppress("UNUSED_PARAMETER") view: View) {
