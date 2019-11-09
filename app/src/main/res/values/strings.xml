@@ -7,4 +7,9 @@
     <string name="title_activity_student">Student</string>
     <string name="title_activity_kompetenz">Kompetenz</string>
     <string name="button_rezeption">Button</string>
+    <string name="fachkenntnisse">Fachkenntnisse</string>
+    <string name="sprachkenntnisse">Sprachkenntnisse</string>
+    <string name="berufserfahrung">Berufserfahrung</string>
+    <string name="firmenkenntnisse">Firmenkenntnisse</string>
+    <string name="buttonKompetenz">Button</string>
 </resources>

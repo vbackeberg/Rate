@@ -6,52 +6,101 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.Kompetenz"
+    tools:layout_editor_absoluteY="56dp"
     tools:showIn="@layout/activity_kompetenz">
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBarBerufserfahrung"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="149dp"
         android:layout_height="55dp"
         android:max="10"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewBerufserfahrung"
+        app:layout_constraintEnd_toEndOf="@+id/seekBarFirmenkenntnisse"
+        app:layout_constraintTop_toTopOf="@+id/textViewBerufserfahrung" />
+
+    <SeekBar
+        android:id="@+id/seekBarFachkenntnisse"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="149dp"
+        android:layout_height="55dp"
+        android:max="10"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFirmenkenntnisse"
+        app:layout_constraintEnd_toEndOf="@+id/seekBarSprachkenntnisse"
+        app:layout_constraintTop_toTopOf="@+id/textViewFirmenkenntnisse" />
+
+
+    <SeekBar
+        android:id="@+id/seekBarFirmenkenntnisse"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="149dp"
+        android:layout_height="55dp"
+        android:max="10"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFachkenntnisse"
+        app:layout_constraintEnd_toEndOf="@+id/seekBarFachkenntnisse"
+        app:layout_constraintTop_toTopOf="@+id/textViewFachkenntnisse" />
+
+    <SeekBar
+        android:id="@+id/seekBarSprachkenntnisse"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="149dp"
+        android:layout_height="55dp"
+        android:max="10"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewSprachkenntnisse"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.236"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewSprachkenntnisse"
+        app:layout_constraintTop_toTopOf="@+id/textViewSprachkenntnisse"
+        app:layout_constraintVertical_bias="0.444" />
+
+    <TextView
+        android:id="@+id/textViewBerufserfahrung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/berufserfahrung"
+        app:layout_constraintBottom_toTopOf="@+id/textViewFachkenntnisse"
+        app:layout_constraintStart_toStartOf="@+id/textViewFachkenntnisse"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewFirmenkenntnisse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Berufserfahrung" />
+        android:text="@string/firmenkenntnisse"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSprachkenntnisse"
+        app:layout_constraintStart_toStartOf="@+id/textViewSprachkenntnisse"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFachkenntnisse" />
 
     <TextView
-        android:id="@+id/textViewProgress"
+        android:id="@+id/textViewSprachkenntnisse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="a"
+        android:text="@string/sprachkenntnisse"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/seekBarSprachkenntnisse"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.339" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewFirmenkenntnisse" />
+
+    <TextView
+        android:id="@+id/textViewFachkenntnisse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fachkenntnisse"
+        app:layout_constraintBottom_toTopOf="@+id/textViewFirmenkenntnisse"
+        app:layout_constraintStart_toStartOf="@+id/textViewFirmenkenntnisse"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBerufserfahrung" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="nextPage"
-        android:text="Button"
+        android:text="@string/buttonKompetenz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.025" />
 </androidx.constraintlayout.widget.ConstraintLayout>
