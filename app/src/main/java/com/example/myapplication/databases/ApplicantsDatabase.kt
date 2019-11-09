@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.myapplication.daos.ApplicantDao
 import com.example.myapplication.entities.Applicant
 
-@Database(entities = [Applicant::class], version = 1)
+@Database(entities = [Applicant::class], version = 2)
 abstract class ApplicantsDatabase : RoomDatabase() {
     abstract fun applicantDao(): ApplicantDao
 
@@ -28,6 +28,7 @@ abstract class ApplicantsDatabase : RoomDatabase() {
                         "applicants_database"
                     )
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 return instance
