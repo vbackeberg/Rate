@@ -16,6 +16,10 @@ class KompetenzVM(application: Application) : AndroidViewModel(application) {
     private val applicantsRepository: ApplicantsRepository
 
     private val berufserfahrung: MutableLiveData<Int?> = MutableLiveData()
+    private val fachkenntnisse: MutableLiveData<Int?> = MutableLiveData()
+    private val firmenkenntnisse: MutableLiveData<Int?> = MutableLiveData()
+    private val sprachkenntnisse: MutableLiveData<Int?> = MutableLiveData()
+
 
     private val sharedPref: SharedPreferences =
         getApplication<Application>()
@@ -47,11 +51,14 @@ class KompetenzVM(application: Application) : AndroidViewModel(application) {
 
     private fun loadApplicant() {
         val id = sharedPref.getLong(CURRENT_APPLICANT_ID, 0L)
-        Log.d("Applicant view model load shared pref id", "$id")
-        val applicant = applicantsRepository.get(id)
-        if (applicant != null) {
+        if (id != 0L) {
+            Log.d("Applicant view model load shared pref id", "$id")
+            val applicant = applicantsRepository.get(id)
             berufserfahrung.value = applicant.berufserfahrung
+            Log.d("Applicant view model load applicant after", "${berufserfahrung.value}")
         }
-        Log.d("Applicant view model load applicant after", "${berufserfahrung.value}")
+        else {
+            throw Exception("No applicant Id")
+        }
     }
 }

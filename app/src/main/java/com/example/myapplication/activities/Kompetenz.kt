@@ -36,7 +36,12 @@ class Kompetenz : AppCompatActivity() {
         applicantId = sharedPreferences
             .getLong(CURRENT_APPLICANT_ID, 0L)
 
-        kompetenzVM = ViewModelProviders.of(this).get(KompetenzVM::class.java)
+        try {
+            kompetenzVM = ViewModelProviders.of(this).get(KompetenzVM::class.java)
+        } catch (e: Exception) {
+            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+        }
+
         kompetenzVM.getBerufserfahrung().observe(this, Observer { newBerufserfahrung ->
             textViewProgress.text = "Progress: $newBerufserfahrung."
         })
