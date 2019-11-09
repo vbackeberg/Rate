@@ -15,7 +15,7 @@ const val CURRENT_APPLICANT_ID = "current_applicant_id"
 class ApplicantVM(application: Application) : AndroidViewModel(application) {
     private val applicantsRepository: ApplicantsRepository
 
-    private val competency: MutableLiveData<Int?> = MutableLiveData()
+    private val berufserfahrung: MutableLiveData<Int?> = MutableLiveData()
 
     private val sharedPref: SharedPreferences =
         getApplication<Application>()
@@ -32,13 +32,13 @@ class ApplicantVM(application: Application) : AndroidViewModel(application) {
         loadApplicant()
     }
 
-    fun getCompetency(): LiveData<Int?> {
-        return competency
+    fun getBerufserfahrung(): LiveData<Int?> {
+        return berufserfahrung
     }
 
-    fun updateCompetency(applicantId: Long, newCompetency: Int) {
-        competency.value = newCompetency
-        applicantsRepository.updateCompetency(applicantId, newCompetency)
+    fun updateBerufserfahrung(applicantId: Long, newBerufserfahrung: Int) {
+        berufserfahrung.value = newBerufserfahrung
+        applicantsRepository.updateBerufserfahrung(applicantId, newBerufserfahrung)
     }
 
     fun newApplicant(): Long {
@@ -49,7 +49,9 @@ class ApplicantVM(application: Application) : AndroidViewModel(application) {
         val id = sharedPref.getLong(CURRENT_APPLICANT_ID, 0L)
         Log.d("Applicant view model load shared pref id", "$id")
         val applicant = applicantsRepository.get(id)
-        competency.value = applicant.competency
-        Log.d("Applicant view model load applicant after", "${competency.value}")
+        if (applicant != null) {
+            berufserfahrung.value = applicant.berufserfahrung
+        }
+        Log.d("Applicant view model load applicant after", "${berufserfahrung.value}")
     }
 }

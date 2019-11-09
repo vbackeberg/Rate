@@ -35,9 +35,9 @@ class Rezeption : AppCompatActivity() {
             .getLong(CURRENT_APPLICANT_ID, 0L)
 
         applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
-        applicantVM.getCompetency().observe(this, Observer { newCompetency ->
-            textViewCompetency.text = newCompetency.toString()
-            seekBar2.progress = newCompetency ?: 0
+        applicantVM.getBerufserfahrung().observe(this, Observer { newBerufserfahrung ->
+            textViewBerufserfahrung.text = newBerufserfahrung.toString()
+            seekBar2.progress = newBerufserfahrung ?: 0
         })
 
         textViewApplicationId.text = "$applicantId"
@@ -45,7 +45,7 @@ class Rezeption : AppCompatActivity() {
         seekBar2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 Log.d("Applicant Rezeption progressint", "$progress")
-                applicantVM.updateCompetency(applicantId, progress)
+                applicantVM.updateBerufserfahrung(applicantId, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

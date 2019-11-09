@@ -11,15 +11,15 @@ class ApplicantsRepository @Inject constructor(
     private val applicantDao: ApplicantDao
 ) {
     fun create(): Long {
-        return applicantDao.insert(applicant = Applicant(0, null))
+        return applicantDao.insert(applicant = Applicant(0, null, null, null, null))
     }
 
     fun get(applicantId: Long): Applicant {
         return applicantDao.findById(applicantId)
     }
 
-    fun updateCompetency(applicantId: Long, competency: Int) {
-        applicantDao.update(applicantId, competency)
-        Log.d("Applicant ApplicantsRepository update", "u")
+    fun updateBerufserfahrung(applicantId: Long, berufserfahrung: Int) {
+        applicantDao.update(applicantId, berufserfahrung)
+        Log.d("Applicant ApplicantsRepository update", "$applicantId")
     }
 }

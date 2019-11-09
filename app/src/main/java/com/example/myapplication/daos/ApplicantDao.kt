@@ -15,6 +15,6 @@ interface ApplicantDao {
     @Insert(onConflict = REPLACE)
     fun insert(applicant: Applicant): Long
 
-    @Query("UPDATE applicant SET competency = :competency WHERE applicantId LIKE :applicantId")
-    fun update(applicantId: Long, competency: Int)
+    @Query("UPDATE applicant SET berufserfahrung = :berufserfahrung WHERE applicantId LIKE :applicantId")
+    fun update(applicantId: Long, berufserfahrung: Int)
 }

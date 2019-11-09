@@ -6,5 +6,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class Applicant(
     @PrimaryKey(autoGenerate = true) val applicantId: Long,
-    val competency: Int?
+    val berufserfahrung: Int?,
+    val fachkenntnisse: Int?,
+    val firmenkenntnisse: Int?,
+    val sprachkenntnisse: Int?
 )
