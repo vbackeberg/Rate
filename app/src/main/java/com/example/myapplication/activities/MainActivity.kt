@@ -11,14 +11,14 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
-import com.example.myapplication.viewmodels.ApplicantVM
 import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
+import com.example.myapplication.viewmodels.KompetenzVM
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var applicantVM: ApplicantVM
+    private lateinit var kompetenzVM: KompetenzVM
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = this
             .getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
 
-        applicantVM = ViewModelProviders.of(this)
-            .get(ApplicantVM::class.java)
+        kompetenzVM = ViewModelProviders.of(this)
+            .get(KompetenzVM::class.java)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun rezeption(@Suppress("UNUSED_PARAMETER") view: View) {
-        val applicantId = applicantVM.newApplicant()
+        val applicantId = kompetenzVM.newApplicant()
         Log.d("Applicant Main Activity Id", "$applicantId")
 
         sharedPreferences

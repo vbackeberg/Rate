@@ -12,15 +12,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
-import com.example.myapplication.viewmodels.ApplicantVM
 import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
+import com.example.myapplication.viewmodels.KompetenzVM
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_kompetenz.*
 import kotlinx.android.synthetic.main.content_kompetenz.*
 
 class Kompetenz : AppCompatActivity() {
 
-    private lateinit var applicantVM: ApplicantVM
+    private lateinit var kompetenzVM: KompetenzVM
     private lateinit var sharedPreferences: SharedPreferences
     private var applicantId = 0L
 
@@ -36,8 +36,8 @@ class Kompetenz : AppCompatActivity() {
         applicantId = sharedPreferences
             .getLong(CURRENT_APPLICANT_ID, 0L)
 
-        applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
-        applicantVM.getBerufserfahrung().observe(this, Observer { newBerufserfahrung ->
+        kompetenzVM = ViewModelProviders.of(this).get(KompetenzVM::class.java)
+        kompetenzVM.getBerufserfahrung().observe(this, Observer { newBerufserfahrung ->
             textViewProgress.text = "Progress: $newBerufserfahrung."
         })
 
@@ -46,7 +46,7 @@ class Kompetenz : AppCompatActivity() {
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 Log.d("Applicant Kompetenz progressint", "$progress")
-                applicantVM.updateBerufserfahrung(applicantId, progress)
+                kompetenzVM.updateBerufserfahrung(applicantId, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

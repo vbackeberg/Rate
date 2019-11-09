@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
-import com.example.myapplication.viewmodels.ApplicantVM
+import com.example.myapplication.viewmodels.KompetenzVM
 import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_rezeption.*
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.content_rezeption.*
 
 class Rezeption : AppCompatActivity() {
 
-    private lateinit var applicantVM: ApplicantVM
+    private lateinit var kompetenzVM: KompetenzVM
     private lateinit var sharedPreferences: SharedPreferences
     private var applicantId = 0L
 
@@ -34,8 +34,8 @@ class Rezeption : AppCompatActivity() {
         applicantId = sharedPreferences
             .getLong(CURRENT_APPLICANT_ID, 0L)
 
-        applicantVM = ViewModelProviders.of(this).get(ApplicantVM::class.java)
-        applicantVM.getBerufserfahrung().observe(this, Observer { newBerufserfahrung ->
+        kompetenzVM = ViewModelProviders.of(this).get(KompetenzVM::class.java)
+        kompetenzVM.getBerufserfahrung().observe(this, Observer { newBerufserfahrung ->
             textViewBerufserfahrung.text = newBerufserfahrung.toString()
             seekBar2.progress = newBerufserfahrung ?: 0
         })
@@ -45,7 +45,7 @@ class Rezeption : AppCompatActivity() {
         seekBar2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 Log.d("Applicant Rezeption progressint", "$progress")
-                applicantVM.updateBerufserfahrung(applicantId, progress)
+                kompetenzVM.updateBerufserfahrung(applicantId, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

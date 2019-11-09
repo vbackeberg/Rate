@@ -12,7 +12,7 @@ import com.example.myapplication.repositories.ApplicantsRepository
 
 const val CURRENT_APPLICANT_ID = "current_applicant_id"
 
-class ApplicantVM(application: Application) : AndroidViewModel(application) {
+class KompetenzVM(application: Application) : AndroidViewModel(application) {
     private val applicantsRepository: ApplicantsRepository
 
     private val berufserfahrung: MutableLiveData<Int?> = MutableLiveData()
