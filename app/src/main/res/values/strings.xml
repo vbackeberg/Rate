@@ -2,11 +2,10 @@
     <string name="app_name">My Application</string>
     <string name="action_settings">Settings</string>
     <string name="textview">TextView</string>
-    <string name="button">Button</string>
+    <string name="rezeption">Rezeption</string>
     <string name="title_activity_rezeption">Rezeption</string>
     <string name="title_activity_student">Student</string>
     <string name="title_activity_kompetenz">Kompetenz</string>
-    <string name="button_rezeption">Button</string>
     <string name="fachkenntnisse">Fachkenntnisse</string>
     <string name="sprachkenntnisse">Sprachkenntnisse</string>
     <string name="berufserfahrung">Berufserfahrung</string>
