@@ -24,9 +24,8 @@ class Abteilungen : AppCompatActivity() {
         abteilungenVM = ViewModelProviders.of(this).get(AbteilungenVM::class.java)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
+            abteilungenVM.newAbteilung()
+            abteilungen.add(Button(this))
         }
     }
 
