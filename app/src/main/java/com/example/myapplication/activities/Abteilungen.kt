@@ -5,24 +5,23 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
+import com.example.myapplication.viewmodels.AbteilungenVM
 import kotlinx.android.synthetic.main.activity_main.*
 
 class Abteilungen : AppCompatActivity() {
-
+    private lateinit var abteilungenVM: AbteilungenVM
+    private lateinit var abteilungen: MutableList<Button>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        sharedPreferences = this
-            .getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
-
-        kompetenzVM = ViewModelProviders.of(this)
-            .get(KompetenzVM::class.java)
+        abteilungenVM = ViewModelProviders.of(this).get(AbteilungenVM::class.java)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -31,21 +30,8 @@ class Abteilungen : AppCompatActivity() {
         }
     }
 
-    fun rezeption(@Suppress("UNUSED_PARAMETER") view: View) {
-        val applicantId = kompetenzVM.newApplicant()
-        Log.d("Applicant Main Activity Id", "$applicantId")
-
-        sharedPreferences
-            .edit()
-            .putLong(CURRENT_APPLICANT_ID, applicantId)
-            .apply()
-
-        Log.d(
-            "Applicant Main Activity shpref id",
-            "${sharedPreferences.getLong(CURRENT_APPLICANT_ID, 0L)}"
-        )
-
-        val intent = Intent(this, Kompetenz::class.java)
+    fun positionen(@Suppress("UNUSED_PARAMETER") view: View) {
+        val intent = Intent(this, Positionen::class.java)
         startActivity(intent)
     }
 
