@@ -8,22 +8,4 @@
     tools:context=".activities.Applicants"
     tools:showIn="@layout/activity_applicants">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="kompetenz"
-        android:text="Button"
-        tools:layout_editor_absoluteX="64dp"
-        tools:layout_editor_absoluteY="91dp"
-        tools:text="Kompetenz" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="526dp"
-        tools:layout_editor_absoluteY="55dp"
-        tools:text="Student" />
 </androidx.constraintlayout.widget.ConstraintLayout>
