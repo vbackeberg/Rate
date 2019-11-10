@@ -12,6 +12,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
+            android:name=".activities.Positionen"
+            android:label="@string/title_activity_positionen"
+            android:parentActivityName=".activities.Abteilungen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myapplication.activities.Abteilungen" />
+        </activity>
+        <activity
             android:name=".activities.Kompetenz"
             android:label="@string/title_activity_kompetenz"
             android:parentActivityName=".activities.Applicants"
@@ -32,14 +41,14 @@
         <activity
             android:name=".activities.Rezeption"
             android:label="@string/title_activity_rezeption"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName=".activities.Abteilungen"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.activities.MainActivity" />
+                android:value="com.example.myapplication.activities.Abteilungen" />
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.Abteilungen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
