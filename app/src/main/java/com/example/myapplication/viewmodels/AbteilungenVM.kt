@@ -35,8 +35,6 @@ class AbteilungenVM(application: Application) : AndroidViewModel(application) {
         val id = sharedPref.getLong(CURRENT_ABTEILUNG_ID, 0L)
         if (id != 0L) {
             val abteilung = abteilungenRepository.get(id)
-        } else {
-            throw Exception("No applicant Id")
         }
     }
 }
