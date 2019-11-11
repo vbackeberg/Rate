@@ -5,27 +5,35 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.viewmodels.AbteilungenVM
+import com.example.myapplication.adapters.AbteilungAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class Abteilungen : AppCompatActivity() {
-    private lateinit var abteilungenVM: AbteilungenVM
-    private lateinit var abteilungen: MutableList<Button>
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        abteilungenVM = ViewModelProviders.of(this).get(AbteilungenVM::class.java)
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = AbteilungAdapter(abteilungen = arrayOf("a", "b"))
 
-        fab.setOnClickListener { view ->
-            abteilungenVM.newAbteilung()
-            abteilungen.add(Button(this))
+        fab.setOnClickListener {
+        }
+
+        recyclerViewAbteilungen.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+
         }
     }
 
