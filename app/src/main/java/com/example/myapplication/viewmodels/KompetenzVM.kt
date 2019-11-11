@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.myapplication.databases.ApplicantsDatabase
+import com.example.myapplication.data.databases.ApplicantsDatabase
 import com.example.myapplication.repositories.ApplicantsRepository
 
 const val CURRENT_APPLICANT_ID = "current_applicant_id"

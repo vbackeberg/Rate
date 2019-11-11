@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
-import com.example.myapplication.databases.AbteilungenDatabase
+import com.example.myapplication.data.databases.AbteilungenDatabase
 import com.example.myapplication.repositories.AbteilungenRepository
 
 const val CURRENT_ABTEILUNG_ID = "current_abteilung_id"

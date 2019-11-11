@@ -1,6 +1,6 @@
 package com.example.myapplication.repositories
 
-import com.example.myapplication.daos.AbteilungDao
+import com.example.myapplication.data.daos.AbteilungDao
 import com.example.myapplication.entities.Abteilung
 import javax.inject.Inject
 import javax.inject.Singleton

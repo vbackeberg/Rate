@@ -1,7 +1,7 @@
 package com.example.myapplication.repositories
 
 import android.util.Log
-import com.example.myapplication.daos.ApplicantDao
+import com.example.myapplication.data.daos.ApplicantDao
 import com.example.myapplication.entities.Applicant
 import javax.inject.Inject
 import javax.inject.Singleton
