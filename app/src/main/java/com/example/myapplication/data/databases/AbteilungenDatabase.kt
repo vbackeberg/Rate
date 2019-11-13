@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.myapplication.data.daos.AbteilungDao
 import com.example.myapplication.entities.Abteilung
 
-@Database(entities = [Abteilung::class], version = 1)
+@Database(entities = [Abteilung::class], version = 2)
 abstract class AbteilungenDatabase : RoomDatabase() {
     abstract fun abteilungDao(): AbteilungDao
 
