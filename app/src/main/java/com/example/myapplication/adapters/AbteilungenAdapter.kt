@@ -1,5 +1,6 @@
 package com.example.myapplication.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.activities.Kompetenz
 import com.example.myapplication.entities.Abteilung
 import kotlinx.android.synthetic.main.abteilung_main.view.*
 
@@ -35,8 +37,14 @@ class AbteilungenAdapter(private var abteilungen: List<Abteilung>) :
 
     override fun getItemCount() = abteilungen.size
 
-    class AbteilungViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class AbteilungViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val name: TextView = view.abteilungText
+
+        init {
+            view.setOnClickListener {
+                view.context.startActivity(Intent(view.context, Kompetenz::class.java))
+            }
+        }
 
         fun bind(abteilung: Abteilung) {
             name.text = abteilung.name
