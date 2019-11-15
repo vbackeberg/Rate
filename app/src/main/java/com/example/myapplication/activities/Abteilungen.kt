@@ -1,10 +1,8 @@
 package com.example.myapplication.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -41,11 +39,6 @@ class Abteilungen : AppCompatActivity() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-    }
-
-    fun positionen(@Suppress("UNUSED_PARAMETER") view: View) {
-        val intent = Intent(this, Positionen::class.java)
-        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
