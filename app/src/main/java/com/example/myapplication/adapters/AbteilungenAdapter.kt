@@ -12,8 +12,8 @@ import com.example.myapplication.activities.Kompetenz
 import com.example.myapplication.entities.Abteilung
 import kotlinx.android.synthetic.main.abteilung_main.view.*
 
-class AbteilungenAdapter(private var abteilungen: List<Abteilung>) :
-    RecyclerView.Adapter<AbteilungenAdapter.AbteilungViewHolder>() {
+class AbteilungenAdapter : RecyclerView.Adapter<AbteilungenAdapter.AbteilungViewHolder>() {
+    private var abteilungen: List<Abteilung> = emptyList()
 
     fun updateData(newData: List<Abteilung>) {
         val diffResult = DiffUtil.calculateDiff(AbteilungenDiffUtilCallback(abteilungen, newData))

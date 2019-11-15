@@ -18,8 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class Abteilungen : AppCompatActivity() {
-    private lateinit var viewAdapter: AbteilungenAdapter
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private var viewAdapter: AbteilungenAdapter = AbteilungenAdapter()
+    private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private lateinit var abteilungenVM: AbteilungenVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,14 +27,10 @@ class Abteilungen : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        viewAdapter = AbteilungenAdapter(abteilungen = emptyList())
-
         abteilungenVM = ViewModelProviders.of(this).get(AbteilungenVM::class.java)
         abteilungenVM.getAbteilungen().observe(this, Observer { abteilungen ->
             viewAdapter.updateData(abteilungen)
         })
-
-        viewManager = LinearLayoutManager(this)
 
         fab.setOnClickListener {
             abteilungenVM.newAbteilung(Abteilung(0L, "asdasd"))
