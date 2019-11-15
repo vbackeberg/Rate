@@ -1,0 +1,46 @@
+package com.example.myapplication.adapters
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
+import com.example.myapplication.entities.Abteilung
+import kotlinx.android.synthetic.main.abteilung_main.view.*
+
+class AbteilungenAdapter(private var abteilungen: List<Abteilung>) :
+    RecyclerView.Adapter<AbteilungenAdapter.AbteilungViewHolder>() {
+
+    fun updateData(newData: List<Abteilung>) {
+        val diffResult = DiffUtil.calculateDiff(AbteilungenDiffUtilCallback(abteilungen, newData))
+        this.abteilungen = newData
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbteilungViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.abteilung_main,
+            parent,
+            false
+        )
+
+        return AbteilungViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: AbteilungViewHolder, position: Int) {
+        holder.bind(abteilungen[position])
+    }
+
+    override fun getItemCount() = abteilungen.size
+
+    class AbteilungViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val name: TextView = view.abteilungText
+
+        fun bind(abteilung: Abteilung) {
+            name.text = abteilung.name
+        }
+    }
+
+}

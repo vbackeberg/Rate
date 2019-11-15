@@ -1,5 +1,6 @@
 package com.example.myapplication.data.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,7 +11,10 @@ import com.example.myapplication.entities.Abteilung
 interface AbteilungDao {
 
     @Query("SELECT * FROM abteilung WHERE id LIKE :id")
-    fun findById(id: Long): Abteilung
+    fun find(id: Long): Abteilung
+
+    @Query("SELECT * FROM abteilung")
+    fun findAll(): LiveData<List<Abteilung>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(abteilung: Abteilung): Long

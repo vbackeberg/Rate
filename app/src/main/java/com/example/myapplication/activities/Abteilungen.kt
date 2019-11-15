@@ -6,33 +6,44 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.adapters.AbteilungAdapter
+import com.example.myapplication.adapters.AbteilungenAdapter
+import com.example.myapplication.entities.Abteilung
+import com.example.myapplication.viewmodels.AbteilungenVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class Abteilungen : AppCompatActivity() {
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: AbteilungenAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var abteilungenVM: AbteilungenVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        viewAdapter = AbteilungenAdapter(abteilungen = emptyList())
+
+        abteilungenVM = ViewModelProviders.of(this).get(AbteilungenVM::class.java)
+        abteilungenVM.getAbteilungen().observe(this, Observer { abteilungen ->
+            viewAdapter.updateData(abteilungen)
+        })
+
         viewManager = LinearLayoutManager(this)
-        viewAdapter = AbteilungAdapter(abteilungen = arrayOf("a", "b"))
 
         fab.setOnClickListener {
+            abteilungenVM.newAbteilung(Abteilung(0L, "asdasd"))
         }
 
         recyclerViewAbteilungen.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
-
         }
     }
 

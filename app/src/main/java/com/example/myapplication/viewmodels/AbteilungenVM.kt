@@ -1,40 +1,38 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.myapplication.data.daos.AbteilungDao
 import com.example.myapplication.data.databases.AbteilungenDatabase
-import com.example.myapplication.repositories.AbteilungenRepository
-
-const val CURRENT_ABTEILUNG_ID = "current_abteilung_id"
+import com.example.myapplication.entities.Abteilung
 
 class AbteilungenVM(application: Application) : AndroidViewModel(application) {
-    private val abteilungenRepository: AbteilungenRepository
-
-    private val sharedPref: SharedPreferences =
-        getApplication<Application>()
-            .getSharedPreferences(
-                CURRENT_ABTEILUNG_ID,
-                Context.MODE_PRIVATE
-            )
+//    private val abteilungenRepository: AbteilungenRepository
+    private val abteilungDao: AbteilungDao
+    private val abteilungen: MutableLiveData<List<Abteilung>> = MutableLiveData()
 
     init {
-        val abteilungDao = AbteilungenDatabase
+        abteilungDao = AbteilungenDatabase
             .getDatabase(application)
             .abteilungDao()
-        abteilungenRepository = AbteilungenRepository(abteilungDao)
-        loadAbteilung()
     }
 
-    fun newAbteilung(): Long {
-        return abteilungenRepository.create()
+    fun getAbteilungen(): LiveData<List<Abteilung>> {
+        return abteilungDao.findAll()
     }
 
-    private fun loadAbteilung() {
-        val id = sharedPref.getLong(CURRENT_ABTEILUNG_ID, 0L)
-        if (id != 0L) {
-            val abteilung = abteilungenRepository.get(id)
-        }
+    fun newAbteilung(abteilung: Abteilung): Long {
+        return abteilungDao.insert(abteilung)
     }
+
+//    private fun loadAbteilungen() {
+//        try {
+//            abteilungen.value = abteilungenRepository.findAll()
+//            Log.d("abteilungenvm load abteilungen", abteilungen.value.toString())
+//        } catch (e: Exception) {
+//            Log.d("abteilungenvm load abteilungen", "failure")
+//        }
+//    }
 }
