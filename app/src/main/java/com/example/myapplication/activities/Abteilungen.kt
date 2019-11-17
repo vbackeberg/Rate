@@ -12,8 +12,8 @@ import com.example.myapplication.R
 import com.example.myapplication.entities.Abteilung
 import com.example.myapplication.viewadapters.AbteilungenAdapter
 import com.example.myapplication.viewmodels.AbteilungenVM
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.activity_abteilungen.*
+import kotlinx.android.synthetic.main.content_abteilungen.*
 
 class Abteilungen : AppCompatActivity() {
     private var viewAdapter: AbteilungenAdapter = AbteilungenAdapter()
@@ -22,7 +22,7 @@ class Abteilungen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_abteilungen)
         setSupportActionBar(toolbar)
 
         abteilungenVM = ViewModelProviders.of(this).get(AbteilungenVM::class.java)

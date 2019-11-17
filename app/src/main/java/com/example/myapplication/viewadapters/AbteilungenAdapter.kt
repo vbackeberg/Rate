@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.activities.Competencies
 import com.example.myapplication.entities.Abteilung
-import kotlinx.android.synthetic.main.abteilung_main.view.*
+import kotlinx.android.synthetic.main.item_abteilungen.view.*
 
 class AbteilungenAdapter : RecyclerView.Adapter<AbteilungenAdapter.AbteilungViewHolder>() {
     private var abteilungen: List<Abteilung> = emptyList()
@@ -23,7 +23,7 @@ class AbteilungenAdapter : RecyclerView.Adapter<AbteilungenAdapter.AbteilungView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbteilungViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.abteilung_main,
+            R.layout.item_abteilungen,
             parent,
             false
         )
