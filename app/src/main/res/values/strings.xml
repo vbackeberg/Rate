@@ -4,7 +4,7 @@
     <string name="rezeption">Rezeption</string>
     <string name="title_activity_rezeption">Rezeption</string>
     <string name="title_activity_student">Student</string>
-    <string name="title_activity_kompetenz">Kompetenz</string>
+    <string name="title_activity_competencies">Kompetenz</string>
     <string name="competencyExampleValue">competency example value</string>
     <string name="buttonKompetenz">Button Kompetenz</string>
     <string name="title_activity_positionen">Positionen</string>

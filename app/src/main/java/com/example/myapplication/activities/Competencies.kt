@@ -13,9 +13,9 @@ import com.example.myapplication.R
 import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
 import com.example.myapplication.viewmodels.CompetenciesVM
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_kompetenz.*
+import kotlinx.android.synthetic.main.activity_competencies.*
 
-class Kompetenz : AppCompatActivity() {
+class Competencies : AppCompatActivity() {
 
     private lateinit var competenciesVM: CompetenciesVM
     private lateinit var sharedPreferences: SharedPreferences
@@ -24,7 +24,7 @@ class Kompetenz : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kompetenz)
+        setContentView(R.layout.activity_competencies)
         setSupportActionBar(toolbar)
 
         sharedPreferences = this
@@ -38,7 +38,7 @@ class Kompetenz : AppCompatActivity() {
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
 
-        Log.d("Applicant Kompetenz Id", "$applicantId")
+        Log.d("Applicant Competencies Id", "$applicantId")
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.activities.Kompetenz
+import com.example.myapplication.activities.Competencies
 import com.example.myapplication.entities.Abteilung
 import kotlinx.android.synthetic.main.abteilung_main.view.*
 
@@ -42,7 +42,7 @@ class AbteilungenAdapter : RecyclerView.Adapter<AbteilungenAdapter.AbteilungView
 
         init {
             view.setOnClickListener {
-                view.context.startActivity(Intent(view.context, Kompetenz::class.java))
+                view.context.startActivity(Intent(view.context, Competencies::class.java))
             }
         }
 

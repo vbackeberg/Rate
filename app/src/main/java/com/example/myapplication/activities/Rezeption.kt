@@ -24,7 +24,7 @@ class Rezeption : AppCompatActivity() {
     }
 
     fun student(@Suppress("UNUSED_PARAMETER") view: View) {
-        val intent = Intent(this, Kompetenz::class.java)
+        val intent = Intent(this, Competencies::class.java)
         startActivity(intent)
     }
 }

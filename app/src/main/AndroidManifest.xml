@@ -21,8 +21,8 @@
                 android:value="com.example.myapplication.activities.Abteilungen" />
         </activity>
         <activity
-            android:name=".activities.Kompetenz"
-            android:label="@string/title_activity_kompetenz"
+            android:name=".activities.Competencies"
+            android:label="@string/title_activity_competencies"
             android:parentActivityName=".activities.Applicants"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

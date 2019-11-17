@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.Kompetenz"
+    tools:context=".activities.Competencies"
     tools:layout_editor_absoluteY="56dp"
-    tools:showIn="@layout/activity_kompetenz">
+    tools:showIn="@layout/activity_competencies">
 
     <SeekBar
         android:id="@+id/seekBar1"
