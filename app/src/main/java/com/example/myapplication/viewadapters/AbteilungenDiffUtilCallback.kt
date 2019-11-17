@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters
+package com.example.myapplication.viewadapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.myapplication.entities.Abteilung

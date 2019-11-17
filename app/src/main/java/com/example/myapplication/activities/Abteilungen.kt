@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.adapters.AbteilungenAdapter
 import com.example.myapplication.entities.Abteilung
+import com.example.myapplication.viewadapters.AbteilungenAdapter
 import com.example.myapplication.viewmodels.AbteilungenVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
