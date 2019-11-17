@@ -2,26 +2,22 @@ package com.example.myapplication.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
-import com.example.myapplication.viewmodels.KompetenzVM
+import com.example.myapplication.viewmodels.CompetenciesVM
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_kompetenz.*
-import kotlinx.android.synthetic.main.content_kompetenz.*
 
 class Kompetenz : AppCompatActivity() {
 
-    private lateinit var kompetenzVM: KompetenzVM
+    private lateinit var competenciesVM: CompetenciesVM
     private lateinit var sharedPreferences: SharedPreferences
     private var applicantId = 0L
 
@@ -34,48 +30,20 @@ class Kompetenz : AppCompatActivity() {
         sharedPreferences = this
             .getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
 
-        applicantId = sharedPreferences
-            .getLong(CURRENT_APPLICANT_ID, 0L)
-
         try {
-            kompetenzVM = ViewModelProviders.of(this).get(KompetenzVM::class.java)
+            competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
+            competenciesVM.get().observe(this, Observer {
+            })
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
 
-        kompetenzVM.getBerufserfahrung().observe(this, Observer { newBerufserfahrung ->
-            seekBarBerufserfahrung.progress = newBerufserfahrung ?: 0
-        })
         Log.d("Applicant Kompetenz Id", "$applicantId")
-
-        initSeekBars()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun initSeekBars() {
-        seekBarBerufserfahrung.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                Log.d("Applicant Kompetenz progressint", "$progress")
-                kompetenzVM.updateBerufserfahrung(applicantId, progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
-            }
-        })
-    }
-
-    fun nextPage(@Suppress("UNUSED_PARAMETER") view: View) {
-        val intent = Intent(this, Rezeption::class.java).putExtra("applicantId", applicantId)
-        startActivity(intent)
     }
 }
