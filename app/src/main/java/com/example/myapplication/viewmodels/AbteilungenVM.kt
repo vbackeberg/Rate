@@ -12,11 +12,11 @@ class AbteilungenVM(application: Application) : AndroidViewModel(application) {
         .getDatabase(application)
         .abteilungDao()
 
-    fun getAbteilungen(): LiveData<List<Abteilung>> {
+    fun get(): LiveData<List<Abteilung>> {
         return abteilungDao.findAll()
     }
 
-    fun newAbteilung(abteilung: Abteilung): Long {
+    fun new(abteilung: Abteilung): Long {
         return abteilungDao.insert(abteilung)
     }
 }

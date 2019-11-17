@@ -26,12 +26,12 @@ class Abteilungen : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         abteilungenVM = ViewModelProviders.of(this).get(AbteilungenVM::class.java)
-        abteilungenVM.getAbteilungen().observe(this, Observer { abteilungen ->
+        abteilungenVM.get().observe(this, Observer { abteilungen ->
             viewAdapter.updateData(abteilungen)
         })
 
         fab.setOnClickListener {
-            abteilungenVM.newAbteilung(Abteilung(0L, "asdasd"))
+            abteilungenVM.new(Abteilung(0L, "asdasd"))
         }
 
         recyclerViewAbteilungen.apply {

@@ -10,9 +10,6 @@ import com.example.myapplication.entities.Abteilung
 @Dao
 interface AbteilungDao {
 
-    @Query("SELECT * FROM abteilung WHERE id LIKE :id")
-    fun find(id: Long): Abteilung
-
     @Query("SELECT * FROM abteilung")
     fun findAll(): LiveData<List<Abteilung>>
 
