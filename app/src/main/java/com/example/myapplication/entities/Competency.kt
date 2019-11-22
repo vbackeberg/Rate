@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Competency(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val applicantId: Long,
-    val area: Int,
-    val value: Int
+    val areaId: Long,
+    val name: String,
+    var value: Int
 )
