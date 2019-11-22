@@ -32,20 +32,11 @@
         <activity
             android:name=".activities.Applicants"
             android:label="@string/title_activity_student"
-            android:parentActivityName=".activities.Rezeption"
+            android:parentActivityName=".activities.Competencies"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.activities.Rezeption" />
-        </activity>
-        <activity
-            android:name=".activities.Rezeption"
-            android:label="@string/title_activity_rezeption"
-            android:parentActivityName=".activities.Abteilungen"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.activities.Abteilungen" />
+                android:value="com.example.myapplication.activities.Competencies" />
         </activity>
         <activity
             android:name=".activities.Abteilungen"
