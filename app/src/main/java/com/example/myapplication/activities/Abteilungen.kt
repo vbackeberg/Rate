@@ -1,5 +1,6 @@
 package com.example.myapplication.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +13,7 @@ import com.example.myapplication.R
 import com.example.myapplication.entities.Abteilung
 import com.example.myapplication.viewadapters.AbteilungenAdapter
 import com.example.myapplication.viewmodels.AbteilungenVM
+import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
 import kotlinx.android.synthetic.main.activity_abteilungen.*
 import kotlinx.android.synthetic.main.content_abteilungen.*
 
@@ -29,6 +31,10 @@ class Abteilungen : AppCompatActivity() {
         abteilungenVM.get().observe(this, Observer { abteilungen ->
             viewAdapter.updateData(abteilungen)
         })
+
+        this.getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+            .edit().putLong(CURRENT_APPLICANT_ID, 20L)
+            .apply()
 
         fabNewAbteilung.setOnClickListener {
             abteilungenVM.new(Abteilung(0L, "asdasd"))
