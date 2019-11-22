@@ -4,9 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.Competencies"
     tools:showIn="@layout/activity_competencies">
+
+    <TextView
+        android:id="@+id/textViewTitleCompetencies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_view_applicant" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCompetencies"
