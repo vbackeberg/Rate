@@ -2,46 +2,34 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "9efa3db5fac499d5a6b7ffed84c7b8da",
+    "identityHash": "ae399a4890197867b60371a6aab75b82",
     "entities": [
       {
         "tableName": "Applicant",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`applicantId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `berufserfahrung` INTEGER, `fachkenntnisse` INTEGER, `firmenkenntnisse` INTEGER, `sprachkenntnisse` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `positionId` INTEGER NOT NULL, `abteilungId` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "applicantId",
-            "columnName": "applicantId",
+            "fieldPath": "id",
+            "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "berufserfahrung",
-            "columnName": "berufserfahrung",
+            "fieldPath": "positionId",
+            "columnName": "positionId",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
-            "fieldPath": "fachkenntnisse",
-            "columnName": "fachkenntnisse",
+            "fieldPath": "abteilungId",
+            "columnName": "abteilungId",
             "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "firmenkenntnisse",
-            "columnName": "firmenkenntnisse",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "sprachkenntnisse",
-            "columnName": "sprachkenntnisse",
-            "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "applicantId"
+            "id"
           ],
           "autoGenerate": true
         },
@@ -52,7 +40,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9efa3db5fac499d5a6b7ffed84c7b8da')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ae399a4890197867b60371a6aab75b82')"
     ]
   }
 }
