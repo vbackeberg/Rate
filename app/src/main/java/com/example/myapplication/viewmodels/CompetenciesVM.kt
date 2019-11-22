@@ -23,6 +23,10 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         return competencyDao.findAllByApplicant(applicantId)
     }
 
+    fun update(competency: Competency) {
+        competencyDao.update(competency)
+    }
+
     fun new(competency: Competency): Long {
         return competencyDao.insert(competency)
     }
