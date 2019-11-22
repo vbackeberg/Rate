@@ -2,24 +2,25 @@ package com.example.myapplication.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.entities.Competency
+import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
 import com.example.myapplication.viewmodels.CompetenciesVM
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_competencies.*
+import kotlinx.android.synthetic.main.content_competencies.*
 
 class Competencies : AppCompatActivity() {
-
-    private lateinit var competenciesVM: CompetenciesVM
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var viewAdapter: CompetenciesAdapter
+    private val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private var applicantId = 0L
+    private lateinit var competenciesVM: CompetenciesVM
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,23 +28,28 @@ class Competencies : AppCompatActivity() {
         setContentView(R.layout.activity_competencies)
         setSupportActionBar(toolbar)
 
-        sharedPreferences = this
+        applicantId = this
             .getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+            .getLong(CURRENT_APPLICANT_ID, 0L)
 
-        try {
-            competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
-            competenciesVM.get().observe(this, Observer {
-            })
-        } catch (e: Exception) {
-            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-        }
+        viewAdapter = CompetenciesAdapter(this)
 
-        Log.d("Applicant Competencies Id", "$applicantId")
+        competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
+        competenciesVM.get().observe(this, Observer { competencies ->
+            viewAdapter.updateData(competencies)
+        })
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fabNewCompetency.setOnClickListener {
+            competenciesVM.new(Competency(0L, applicantId, 29L, "testapplicant", 0))
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        recyclerViewCompetencies.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+
+        textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
     }
 }

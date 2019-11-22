@@ -7,4 +7,5 @@
     <string name="title_activity_competencies">Kompetenz</string>
     <string name="title_activity_positionen">Positionen</string>
     <string name="text_view_applicant">Missing applicant id!</string>
+    <string name="competency_name">Kompetenz</string>
 </resources>
