@@ -10,37 +10,37 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.entities.Abteilung
-import com.example.myapplication.viewadapters.AbteilungenAdapter
-import com.example.myapplication.viewmodels.AbteilungenVM
+import com.example.myapplication.entities.Department
+import com.example.myapplication.viewadapters.DepartmentsAdapter
 import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
-import kotlinx.android.synthetic.main.activity_abteilungen.*
-import kotlinx.android.synthetic.main.content_abteilungen.*
+import com.example.myapplication.viewmodels.DepartmentsVM
+import kotlinx.android.synthetic.main.activity_departments.*
+import kotlinx.android.synthetic.main.content_departments.*
 
-class Abteilungen : AppCompatActivity() {
-    private var viewAdapter: AbteilungenAdapter = AbteilungenAdapter()
+class Departments : AppCompatActivity() {
+    private var viewAdapter: DepartmentsAdapter = DepartmentsAdapter()
     private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-    private lateinit var abteilungenVM: AbteilungenVM
+    private lateinit var departmentsVM: DepartmentsVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_abteilungen)
+        setContentView(R.layout.activity_departments)
         setSupportActionBar(toolbar)
 
-        abteilungenVM = ViewModelProviders.of(this).get(AbteilungenVM::class.java)
-        abteilungenVM.get().observe(this, Observer { abteilungen ->
-            viewAdapter.updateData(abteilungen)
+        departmentsVM = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
+        departmentsVM.get().observe(this, Observer { departments ->
+            viewAdapter.updateData(departments)
         })
 
         this.getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
             .edit().putLong(CURRENT_APPLICANT_ID, 20L)
             .apply()
 
-        fabNewAbteilung.setOnClickListener {
-            abteilungenVM.new(Abteilung(0L, "asdasd"))
+        fabNewDepartment.setOnClickListener {
+            departmentsVM.new(Department(0L, "asdasd"))
         }
 
-        recyclerViewAbteilungen.apply {
+        recyclerViewDepartments.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter

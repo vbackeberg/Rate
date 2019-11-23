@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class Applicant(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val positionId: Long,
-    val abteilungId: Long
+    val departmentId: Long
 )

@@ -5,14 +5,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myapplication.entities.Abteilung
+import com.example.myapplication.entities.Department
 
 @Dao
-interface AbteilungDao {
+interface DepartmentDao {
 
-    @Query("SELECT * FROM abteilung")
-    fun findAll(): LiveData<List<Abteilung>>
+    @Query("SELECT * FROM department")
+    fun findAll(): LiveData<List<Department>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(abteilung: Abteilung): Long
+    fun insert(department: Department): Long
 }

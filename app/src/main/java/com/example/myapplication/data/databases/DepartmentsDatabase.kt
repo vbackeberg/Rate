@@ -4,18 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.myapplication.data.daos.AbteilungDao
-import com.example.myapplication.entities.Abteilung
+import com.example.myapplication.data.daos.DepartmentDao
+import com.example.myapplication.entities.Department
 
-@Database(entities = [Abteilung::class], version = 2)
-abstract class AbteilungenDatabase : RoomDatabase() {
-    abstract fun abteilungDao(): AbteilungDao
+@Database(entities = [Department::class], version = 1)
+abstract class DepartmentsDatabase : RoomDatabase() {
+    abstract fun departmentDao(): DepartmentDao
 
     companion object {
         @Volatile
-        private var INSTANCE: AbteilungenDatabase? = null
+        private var INSTANCE: DepartmentsDatabase? = null
 
-        fun getDatabase(context: Context): AbteilungenDatabase {
+        fun getDatabase(context: Context): DepartmentsDatabase {
             val tempInstance =
                 INSTANCE
             if (tempInstance != null) {
@@ -25,8 +25,8 @@ abstract class AbteilungenDatabase : RoomDatabase() {
                 val instance = Room
                     .databaseBuilder(
                         context.applicationContext,
-                        AbteilungenDatabase::class.java,
-                        "abteilungen_database"
+                        DepartmentsDatabase::class.java,
+                        "departments_database"
                     )
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()

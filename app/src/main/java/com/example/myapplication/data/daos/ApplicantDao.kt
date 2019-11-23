@@ -13,8 +13,8 @@ interface ApplicantDao {
     @Query("SELECT * FROM applicant WHERE id = :id")
     fun findById(id: Long): Applicant
 
-    @Query("SELECT * FROM applicant WHERE (id = :id AND positionId = :positionId AND abteilungId = :abteilungId)")
-    fun findAllByPositionAndAbteilung(id: Long, positionId: Long, abteilungId: Long): LiveData<Applicant>
+    @Query("SELECT * FROM applicant WHERE (id = :id AND positionId = :positionId AND departmentId = :departmentId)")
+    fun findAllByPositionAndDepartment(id: Long, positionId: Long, departmentId: Long): LiveData<Applicant>
 
     @Insert(onConflict = REPLACE)
     fun insert(applicant: Applicant): Long

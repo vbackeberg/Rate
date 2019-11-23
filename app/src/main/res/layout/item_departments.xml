@@ -17,7 +17,7 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/abteilungText"
+                android:id="@+id/departmentName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
