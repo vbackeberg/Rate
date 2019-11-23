@@ -12,7 +12,7 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
         .getDatabase(application)
         .departmentDao()
 
-    fun get(): LiveData<List<Department>> {
+    fun getAll(): LiveData<List<Department>> {
         return departmentDao.findAll()
     }
 

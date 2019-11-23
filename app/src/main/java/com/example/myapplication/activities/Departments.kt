@@ -28,7 +28,7 @@ class Departments : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         departmentsVM = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
-        departmentsVM.get().observe(this, Observer { departments ->
+        departmentsVM.getAll().observe(this, Observer { departments ->
             viewAdapter.updateData(departments)
         })
 
