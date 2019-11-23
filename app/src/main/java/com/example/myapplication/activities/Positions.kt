@@ -4,13 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_positionen.*
+import kotlinx.android.synthetic.main.activity_positions.*
 
-class Positionen : AppCompatActivity() {
+class Positions : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_positionen)
+        setContentView(R.layout.activity_positions)
         setSupportActionBar(toolbar)
 
         fabNewPosition.setOnClickListener { view ->

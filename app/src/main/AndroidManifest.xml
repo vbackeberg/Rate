@@ -12,8 +12,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".activities.Positionen"
-            android:label="@string/title_activity_positionen"
+            android:name=".activities.Positions"
+            android:label="@string/title_activity_positions"
             android:parentActivityName=".activities.Departments"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

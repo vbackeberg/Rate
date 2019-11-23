@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.Positionen">
+    tools:context=".activities.Positions">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_positionen" />
+    <include layout="@layout/content_positions" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNewPosition"
