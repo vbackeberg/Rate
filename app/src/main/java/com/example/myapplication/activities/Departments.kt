@@ -1,6 +1,5 @@
 package com.example.myapplication.activities
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,7 +12,6 @@ import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.Department
 import com.example.myapplication.viewadapters.DepartmentsAdapter
-import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
 import com.example.myapplication.viewmodels.DepartmentsVM
 import kotlinx.android.synthetic.main.activity_departments.*
 import kotlinx.android.synthetic.main.content_departments.*

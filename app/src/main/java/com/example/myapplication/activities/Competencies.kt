@@ -1,7 +1,6 @@
 package com.example.myapplication.activities
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -12,7 +11,6 @@ import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.viewadapters.CompetenciesAdapter
-import com.example.myapplication.viewmodels.CURRENT_APPLICANT_ID
 import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.activity_competencies.*
 import kotlinx.android.synthetic.main.content_competencies.*
