@@ -26,7 +26,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         competencyDao.update(competency)
     }
 
-    fun new(competency: Competency): Long {
+    fun new(competency: Competency) {
         return competencyDao.insert(competency)
     }
 }

@@ -16,7 +16,7 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
         return applicantDao.findAllByPositionAndDepartment(1L, 1L)
     }
 
-    fun new(applicant: Applicant): Long {
+    fun new(applicant: Applicant) {
         return applicantDao.insert(applicant)
     }
 }

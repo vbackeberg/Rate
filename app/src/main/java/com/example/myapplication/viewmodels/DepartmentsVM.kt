@@ -16,7 +16,7 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
         return departmentDao.findAll()
     }
 
-    fun new(department: Department): Long {
+    fun new(department: Department) {
         return departmentDao.insert(department)
     }
 }

@@ -10,7 +10,7 @@ interface CompetencyDao {
     fun findAllByApplicant(applicantId: Long): LiveData<List<Competency>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(competency: Competency): Long
+    fun insert(competency: Competency)
 
     @Update
     fun update(competency: Competency)

@@ -14,5 +14,5 @@ interface DepartmentDao {
     fun findAll(): LiveData<List<Department>>
 
     @Insert(onConflict = REPLACE)
-    fun insert(department: Department): Long
+    fun insert(department: Department)
 }
