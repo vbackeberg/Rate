@@ -9,8 +9,6 @@ import com.example.myapplication.data.daos.CompetencyDao
 import com.example.myapplication.data.databases.CompetenciesDatabase
 import com.example.myapplication.entities.Competency
 
-const val CURRENT_APPLICANT_ID = "current_applicant_id"
-
 class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val competencyDao: CompetencyDao = CompetenciesDatabase
         .getDatabase(application)
