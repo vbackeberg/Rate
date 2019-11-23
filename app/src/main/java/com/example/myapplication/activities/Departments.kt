@@ -33,7 +33,7 @@ class Departments : AppCompatActivity() {
             viewAdapter.updateData(departments)
         })
 
-        this.getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+        this.getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
             .edit().putLong(CURRENT_APPLICANT_ID, 20L)
             .apply()
 

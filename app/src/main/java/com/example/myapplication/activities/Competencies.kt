@@ -30,7 +30,7 @@ class Competencies : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         applicantId = this
-            .getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+            .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
             .getLong(CURRENT_APPLICANT_ID, 0L)
 
         viewAdapter = CompetenciesAdapter(this)
