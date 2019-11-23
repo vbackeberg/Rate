@@ -34,7 +34,7 @@ class Competencies : AppCompatActivity() {
         viewAdapter = CompetenciesAdapter(this)
 
         competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
-        competenciesVM.get().observe(this, Observer { competencies ->
+        competenciesVM.getAll().observe(this, Observer { competencies ->
             viewAdapter.updateData(competencies)
         })
 

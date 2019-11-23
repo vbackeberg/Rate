@@ -18,7 +18,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
         .getLong(CURRENT_APPLICANT_ID, 0L)
 
-    fun get(): LiveData<List<Competency>> {
+    fun getAll(): LiveData<List<Competency>> {
         return competencyDao.findAllByApplicant(applicantId)
     }
 
