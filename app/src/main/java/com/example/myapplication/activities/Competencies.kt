@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.viewadapters.CompetenciesAdapter

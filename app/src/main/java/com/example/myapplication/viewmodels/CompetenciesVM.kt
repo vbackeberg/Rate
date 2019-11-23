@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.data.daos.CompetencyDao
 import com.example.myapplication.data.databases.CompetenciesDatabase
 import com.example.myapplication.entities.Competency
