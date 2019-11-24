@@ -28,7 +28,6 @@ abstract class CompetenciesDatabase : RoomDatabase(){
                         CompetenciesDatabase::class.java,
                         "competencies_database"
                     )
-                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

@@ -14,5 +14,5 @@ interface ApplicantDao {
     fun findAllByPositionAndDepartment(positionId: Long, departmentId: Long): LiveData<List<Applicant>>
 
     @Insert(onConflict = REPLACE)
-    fun insert(applicant: Applicant)
+    suspend fun insert(applicant: Applicant)
 }

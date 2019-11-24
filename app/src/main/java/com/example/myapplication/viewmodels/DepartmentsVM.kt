@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import com.example.myapplication.data.daos.DepartmentDao
 import com.example.myapplication.data.databases.DepartmentsDatabase
 import com.example.myapplication.entities.Department
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DepartmentsVM(application: Application) : AndroidViewModel(application) {
     private val departmentDao: DepartmentDao = DepartmentsDatabase
@@ -16,7 +19,7 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
         return departmentDao.findAll()
     }
 
-    fun new(department: Department) {
-        return departmentDao.insert(department)
+    fun new(department: Department) = CoroutineScope(Dispatchers.Default).launch {
+        departmentDao.insert(department)
     }
 }

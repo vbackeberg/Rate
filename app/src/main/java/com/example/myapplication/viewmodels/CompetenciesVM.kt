@@ -8,6 +8,9 @@ import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.data.daos.CompetencyDao
 import com.example.myapplication.data.databases.CompetenciesDatabase
 import com.example.myapplication.entities.Competency
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val competencyDao: CompetencyDao = CompetenciesDatabase
@@ -22,11 +25,11 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         return competencyDao.findAllByApplicant(applicantId)
     }
 
-    fun update(competency: Competency) {
+    fun update(competency: Competency) = CoroutineScope(Dispatchers.Default).launch {
         competencyDao.update(competency)
     }
 
-    fun new(competency: Competency) {
-        return competencyDao.insert(competency)
+    fun new(competency: Competency) = CoroutineScope(Dispatchers.Default).launch {
+        competencyDao.insert(competency)
     }
 }

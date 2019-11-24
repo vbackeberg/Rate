@@ -28,7 +28,6 @@ abstract class ApplicantsDatabase : RoomDatabase() {
                         ApplicantsDatabase::class.java,
                         "applicants_database"
                     )
-                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
