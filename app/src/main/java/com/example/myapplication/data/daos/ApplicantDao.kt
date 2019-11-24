@@ -10,9 +10,6 @@ import com.example.myapplication.entities.Applicant
 @Dao
 interface ApplicantDao {
 
-    @Query("SELECT * FROM applicant WHERE id = :id")
-    fun findById(id: Long): Applicant
-
     @Query("SELECT * FROM applicant WHERE (positionId = :positionId AND departmentId = :departmentId)")
     fun findAllByPositionAndDepartment(positionId: Long, departmentId: Long): LiveData<List<Applicant>>
 
