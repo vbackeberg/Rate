@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.content_competencies.*
 
 class Competencies : AppCompatActivity() {
     private lateinit var viewAdapter: CompetenciesAdapter
-    private val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+    private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private var applicantId = 0L
     private lateinit var competenciesVM: CompetenciesVM
 
