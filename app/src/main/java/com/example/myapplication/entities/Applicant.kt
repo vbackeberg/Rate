@@ -8,7 +8,7 @@ data class Applicant(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val positionId: Long,
     val departmentId: Long,
-    val score: Int?
+    val score: Int? = null
 ) {
     fun contentEquals(other: Applicant): Boolean {
         return (this.positionId == other.positionId)
