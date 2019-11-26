@@ -7,10 +7,12 @@ import androidx.room.PrimaryKey
 data class Applicant(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val positionId: Long,
-    val departmentId: Long
+    val departmentId: Long,
+    val score: Int?
 ) {
     fun contentEquals(other: Applicant): Boolean {
         return (this.positionId == other.positionId)
             && (this.departmentId == other.departmentId)
+            && (this.score == other.score)
     }
 }

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.myapplication.data.daos.ApplicantDao
 import com.example.myapplication.entities.Applicant
 
-@Database(entities = [Applicant::class], version = 2)
+@Database(entities = [Applicant::class], version = 3)
 abstract class ApplicantsDatabase : RoomDatabase() {
     abstract fun applicantDao(): ApplicantDao
 
