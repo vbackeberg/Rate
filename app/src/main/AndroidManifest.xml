@@ -13,7 +13,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".activities.Positions"
-            android:label="@string/title_activity_positions"
+            android:label="@string/positions_activity_title"
             android:parentActivityName=".activities.Departments"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".activities.Competencies"
-            android:label="@string/title_activity_competencies"
+            android:label="@string/competencies_activity_title"
             android:parentActivityName=".activities.Applicants"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name=".activities.Applicants"
-            android:label="@string/title_activity_student"
+            android:label="@string/applicants_activity_title"
             android:parentActivityName=".activities.Competencies"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

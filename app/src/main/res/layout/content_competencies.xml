@@ -9,11 +9,17 @@
     tools:context=".activities.Competencies"
     tools:showIn="@layout/activity_competencies">
 
+    <Button
+        android:id="@+id/goToApplicants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/competencies_content_button" />
+
     <TextView
         android:id="@+id/textViewTitleCompetencies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_view_applicant" />
+        android:text="@string/applicants_content_text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCompetencies"

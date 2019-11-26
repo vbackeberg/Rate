@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_rezeption">Rezeption</string>
-    <string name="title_activity_student">Student</string>
-    <string name="title_activity_competencies">Kompetenz</string>
-    <string name="title_activity_positions">Positionen</string>
-    <string name="text_view_applicant">Missing applicant id!</string>
-    <string name="competency_name">Kompetenz</string>
+    <string name="applicants_activity_title">Student</string>
+    <string name="applicants_content_text">Missing applicant id!</string>
+    <string name="competencies_activity_title">Kompetenzen</string>
+    <string name="competencies_content_button">Go to applicants</string>
+    <string name="competencies_item_name">Kompetenz</string>
+    <string name="positions_activity_title">Positionen</string>
 </resources>
