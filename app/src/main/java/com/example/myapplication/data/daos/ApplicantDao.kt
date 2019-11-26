@@ -15,4 +15,7 @@ interface ApplicantDao {
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(applicant: Applicant)
+
+    @Query("UPDATE applicant SET score = :score WHERE id = :id")
+    suspend fun updateScore(id: Long, score: Int)
 }
