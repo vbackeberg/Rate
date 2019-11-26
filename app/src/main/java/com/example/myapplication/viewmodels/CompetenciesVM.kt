@@ -14,8 +14,7 @@ import kotlinx.coroutines.launch
 
 class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val competenciesRepository = CompetenciesRepository(application)
-    private val scoreService: ScoreService =
-        ScoreService(application)
+    private val scoreService: ScoreService = ScoreService(application)
 
     private val applicantId = getApplication<Application>()
         .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
