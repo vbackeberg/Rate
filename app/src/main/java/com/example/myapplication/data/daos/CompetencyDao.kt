@@ -9,6 +9,9 @@ interface CompetencyDao {
     @Query("SELECT * FROM competency WHERE applicantId = :applicantId")
     fun findAllByApplicant(applicantId: Long): LiveData<List<Competency>>
 
+    @Query("SELECT * FROM competency WHERE applicantId = :applicantId")
+    suspend fun findAllByApplicantSuspend(applicantId: Long): List<Competency>
+
     @Update
     suspend fun update(competency: Competency)
 
