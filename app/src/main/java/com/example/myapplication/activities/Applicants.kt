@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
+import com.example.myapplication.entities.Applicant
 import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_applicants.*
 
 class Applicants : AppCompatActivity() {
@@ -30,10 +30,10 @@ class Applicants : AppCompatActivity() {
 
         this.getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
 
-        fabNewApplicant.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fabNewApplicant.setOnClickListener {
+            applicantsVm.new(Applicant(0L, 1L, 1L))
         }
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
