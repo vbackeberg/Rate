@@ -19,7 +19,7 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
         return departmentDao.findAll()
     }
 
-    fun new(department: Department) = CoroutineScope(Dispatchers.Default).launch {
+    fun new(department: Department) = CoroutineScope(Dispatchers.IO).launch {
         departmentDao.insert(department)
     }
 }
