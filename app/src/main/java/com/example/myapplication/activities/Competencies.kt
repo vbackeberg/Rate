@@ -1,6 +1,7 @@
 package com.example.myapplication.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -50,5 +51,10 @@ class Competencies : AppCompatActivity() {
         }
 
         textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
+
+        goToApplicants.setOnClickListener{
+            val intent = Intent(this, Applicants::class.java)
+            startActivity(intent)
+        }
     }
 }
