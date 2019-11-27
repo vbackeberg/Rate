@@ -13,6 +13,7 @@ import com.example.myapplication.entities.Applicant
 import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
 import kotlinx.android.synthetic.main.activity_applicants.*
+import kotlinx.android.synthetic.main.content_applicants.*
 
 class Applicants : AppCompatActivity() {
     private var viewAdapter: ApplicantsAdapter = ApplicantsAdapter()
@@ -41,6 +42,12 @@ class Applicants : AppCompatActivity() {
 
         fabNewApplicant.setOnClickListener {
             applicantsVm.new(Applicant(0L, positionId, departmentId))
+        }
+
+        recyclerViewApplicants.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
