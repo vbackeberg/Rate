@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_competencies">
 
     <Button
-        android:id="@+id/goToApplicants"
+        android:id="@+id/buttonCompetenciesFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/competencies_content_button" />
