@@ -23,7 +23,7 @@
     <include layout="@layout/content_competencies" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNewCompetency"
+        android:id="@+id/fabCompetenciesNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

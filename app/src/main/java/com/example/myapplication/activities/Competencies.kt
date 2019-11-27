@@ -39,7 +39,7 @@ class Competencies : AppCompatActivity() {
             viewAdapter.updateData(competencies)
         })
 
-        fabNewCompetency.setOnClickListener {
+        fabCompetenciesNew.setOnClickListener {
             competenciesVM.new(Competency(0L, applicantId, 29L, "testapplicant", 0, 1))
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

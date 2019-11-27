@@ -40,7 +40,7 @@ class Applicants : AppCompatActivity() {
             viewAdapter.updateData(applicants)
         })
 
-        fabNewApplicant.setOnClickListener {
+        fabApplicantsNew.setOnClickListener {
             applicantsVm.new(Applicant(0L, positionId, departmentId))
         }
 

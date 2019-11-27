@@ -30,7 +30,7 @@ class Departments : AppCompatActivity() {
             viewAdapter.updateData(departments)
         })
 
-        fabNewDepartment.setOnClickListener {
+        fabDepartmentsNew.setOnClickListener {
             departmentsVM.new(Department(0L, "asdasd"))
         }
 
