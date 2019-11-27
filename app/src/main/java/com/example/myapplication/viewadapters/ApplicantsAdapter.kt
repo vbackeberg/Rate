@@ -1,12 +1,16 @@
 package com.example.myapplication.viewadapters
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.R
+import com.example.myapplication.activities.Competencies
 import com.example.myapplication.entities.Applicant
 import kotlinx.android.synthetic.main.item_applicants.view.*
 
@@ -36,9 +40,22 @@ class ApplicantsAdapter : RecyclerView.Adapter<ApplicantsAdapter.ApplicantViewHo
 
     class ApplicantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val name: TextView = view.applicantName
+        private var id = 0L
+
+        init {
+            view.setOnClickListener {
+                view.context.startActivity(Intent(view.context, Competencies::class.java))
+
+                view.context
+                    .getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+                    .edit().putLong(CURRENT_APPLICANT_ID, id)
+                    .apply()
+            }
+        }
 
         fun bind(applicant: Applicant) {
             name.text = applicant.id.toString()
+            id = applicant.id
         }
     }
 }
