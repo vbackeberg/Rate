@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.Department
 import com.example.myapplication.viewadapters.DepartmentsAdapter
@@ -30,10 +29,6 @@ class Departments : AppCompatActivity() {
         departmentsVM.getAll().observe(this, Observer { departments ->
             viewAdapter.updateData(departments)
         })
-
-        this.getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_APPLICANT_ID, 20L)
-            .apply()
 
         fabNewDepartment.setOnClickListener {
             departmentsVM.new(Department(0L, "asdasd"))
