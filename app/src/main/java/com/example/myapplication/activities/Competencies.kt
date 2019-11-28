@@ -53,7 +53,7 @@ class Competencies : AppCompatActivity() {
         textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
 
         buttonCompetenciesFinish.setOnClickListener{
-            val intent = Intent(this, Applicants::class.java)
+            val intent = Intent(this, Evaluation::class.java)
             startActivity(intent)
         }
     }
