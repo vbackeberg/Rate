@@ -41,6 +41,7 @@ class Competencies : AppCompatActivity() {
         })
 
         fabCompetenciesNew.setOnClickListener {
+            //TODO creating a new competency should add it for every applicant not only one.
             competenciesVM.new(Competency(0L, applicantId, 29L, "testapplicant", 0, 1))
         }
 
