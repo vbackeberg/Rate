@@ -15,9 +15,9 @@ import com.example.myapplication.entities.Applicant
 import kotlinx.android.synthetic.main.item_applicants.view.*
 
 class ApplicantsAdapter : RecyclerView.Adapter<ApplicantsAdapter.ApplicantViewHolder>() {
-    private var applicants: List<Applicant> = emptyList()
+    private var applicants = mutableListOf<Applicant>()
 
-    fun updateData(newData: List<Applicant>) {
+    fun updateData(newData: MutableList<Applicant>) {
         val diffResult = DiffUtil.calculateDiff(ApplicantsDiffUtilCallback(applicants, newData))
         this.applicants = newData
         diffResult.dispatchUpdatesTo(this)

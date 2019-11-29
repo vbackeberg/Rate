@@ -8,4 +8,8 @@
     tools:context=".activities.Evaluation"
     tools:showIn="@layout/activity_evaluation">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewEvaluation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.appcompat.widget.LinearLayoutCompat>

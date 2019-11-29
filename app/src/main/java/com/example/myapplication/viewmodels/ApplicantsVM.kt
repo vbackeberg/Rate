@@ -23,7 +23,7 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
     .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
     .getLong(CURRENT_POSITION_ID, 0L)
 
-    fun getAll(): LiveData<List<Applicant>> {
+    fun getAll(): LiveData<MutableList<Applicant>> {
         return applicantsRepository.findAllByPositionAndDepartment(positionId, departmentId)
     }
 

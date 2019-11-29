@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.myapplication.entities.Applicant
 
 class ApplicantsDiffUtilCallback(
-    private val old: List<Applicant>,
-    private val new: List<Applicant>
+    private val old: MutableList<Applicant>,
+    private val new: MutableList<Applicant>
 
 ) : DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

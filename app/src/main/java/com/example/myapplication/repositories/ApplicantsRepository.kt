@@ -11,7 +11,7 @@ class ApplicantsRepository(application: Application) {
         .getDatabase(application)
         .applicantDao()
 
-    fun findAllByPositionAndDepartment(positionId: Long, departmentId: Long): LiveData<List<Applicant>> {
+    fun findAllByPositionAndDepartment(positionId: Long, departmentId: Long): LiveData<MutableList<Applicant>> {
         return applicantDao.findAllByPositionAndDepartment(positionId, departmentId)
     }
 

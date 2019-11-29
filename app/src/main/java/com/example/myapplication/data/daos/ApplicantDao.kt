@@ -11,7 +11,7 @@ import com.example.myapplication.entities.Applicant
 interface ApplicantDao {
 
     @Query("SELECT * FROM applicant WHERE (positionId = :positionId AND departmentId = :departmentId)")
-    fun findAllByPositionAndDepartment(positionId: Long, departmentId: Long): LiveData<List<Applicant>>
+    fun findAllByPositionAndDepartment(positionId: Long, departmentId: Long): LiveData<MutableList<Applicant>>
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(applicant: Applicant)
