@@ -27,6 +27,7 @@ class Competencies : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         applicantId = this
             .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
@@ -42,7 +43,6 @@ class Competencies : AppCompatActivity() {
         fabCompetenciesNew.setOnClickListener {
             competenciesVM.new(Competency(0L, applicantId, 29L, "testapplicant", 0, 1))
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         recyclerViewCompetencies.apply {
             setHasFixedSize(true)
@@ -52,7 +52,7 @@ class Competencies : AppCompatActivity() {
 
         textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
 
-        buttonCompetenciesFinish.setOnClickListener{
+        buttonCompetenciesFinish.setOnClickListener {
             val intent = Intent(this, Evaluation::class.java)
             startActivity(intent)
         }
