@@ -29,6 +29,10 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         scoreService.update(competency)
     }
 
+    fun new(areaId: Long, name: String) = CoroutineScope(Dispatchers.IO).launch {
+        competenciesRepository.insertMany(areaId, name)
+    }
+
     fun new(competency: Competency) = CoroutineScope(Dispatchers.IO).launch {
         competenciesRepository.insert(competency)
     }

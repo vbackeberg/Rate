@@ -15,6 +15,9 @@ interface CompetencyDao {
     @Update
     suspend fun update(competency: Competency)
 
+    @Query("")
+    suspend fun insertMany()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(competency: Competency)
 }

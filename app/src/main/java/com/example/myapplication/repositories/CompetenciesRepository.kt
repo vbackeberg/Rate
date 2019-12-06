@@ -23,6 +23,11 @@ class CompetenciesRepository(application: Application) {
         return competencyDao.update(competency)
     }
 
+    suspend fun insertMany(areaId: Long, name: String) {
+
+        return competencyDao.insertMany()
+    }
+
     suspend fun insert(competency: Competency) {
         return competencyDao.insert(competency)
     }

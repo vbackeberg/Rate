@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.R
-import com.example.myapplication.entities.Competency
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.activity_competencies.*
@@ -42,7 +41,8 @@ class Competencies : AppCompatActivity() {
 
         fabCompetenciesNew.setOnClickListener {
             //TODO creating a new competency should add it for every applicant not only one.
-            competenciesVM.new(Competency(0L, applicantId, 29L, "testapplicant", 0, 1))
+            competenciesVM.new(29L, "test competency")
+//            competenciesVM.new(Competency(0L, applicantId, 29L, "testapplicant", 0, 1))
         }
 
         recyclerViewCompetencies.apply {
