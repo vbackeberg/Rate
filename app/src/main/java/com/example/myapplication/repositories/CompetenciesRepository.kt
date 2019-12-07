@@ -23,10 +23,13 @@ class CompetenciesRepository(application: Application) {
         return competencyDao.update(competency)
     }
 
-    suspend fun insertMany(areaId: Long, name: String) {
-
-        return competencyDao.insertMany()
-    }
+//    suspend fun insertMany(areaId: Long, name: String) {
+//        val applicantIds:List<Long> = applicantsRepository.findAllIds()
+//        var competencies:MutableList<Competency>
+//        applicantIds.forEach{applicantId -> competencies.add(Competency(0L, applicantId, areaId, name, null)) }
+//
+//        return competencyDao.insertMany()
+//    }
 
     suspend fun insert(competency: Competency) {
         return competencyDao.insert(competency)
