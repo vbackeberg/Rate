@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ApplicantsVM(application: Application) : AndroidViewModel(application) {
-    private val applicantsRepository = ApplicantsRepository(application)
+    private val applicantsRepository = ApplicantsRepository.getInstance(application)
 
     private val departmentId = getApplication<Application>()
     .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)

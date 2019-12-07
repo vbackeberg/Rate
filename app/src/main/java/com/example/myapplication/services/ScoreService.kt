@@ -8,7 +8,7 @@ import com.example.myapplication.repositories.ApplicantsRepository
 import com.example.myapplication.repositories.CompetenciesRepository
 
 class ScoreService(application: Application) {
-    private val applicantsRepository = ApplicantsRepository(application)
+    private val applicantsRepository = ApplicantsRepository.getInstance(application)
 
     private var applicantId = application
         .getSharedPreferences(CURRENT_APPLICANT_ID, AppCompatActivity.MODE_PRIVATE)
