@@ -18,4 +18,7 @@ interface ApplicantDao {
 
     @Query("UPDATE applicant SET score = :score WHERE id = :id")
     suspend fun updateScore(id: Long, score: Int)
+
+    @Query("SELECT id FROM applicant")
+    fun findAllIds()
 }
