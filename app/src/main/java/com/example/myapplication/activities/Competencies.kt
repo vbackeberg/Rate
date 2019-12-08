@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_APPLICANT_ID
-import com.example.myapplication.CURRENT_POSITION_ID
+import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.R
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
@@ -20,7 +20,7 @@ class Competencies : AppCompatActivity() {
     private lateinit var viewAdapter: CompetenciesAdapter
     private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private var applicantId = 0L
-    private var positionId = 0L
+    private var competencyAreaId = 0L
     private lateinit var competenciesVM: CompetenciesVM
 
     @SuppressLint("SetTextI18n")
@@ -34,9 +34,9 @@ class Competencies : AppCompatActivity() {
             .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
             .getLong(CURRENT_APPLICANT_ID, 0L)
 
-        positionId = this
-            .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
+        competencyAreaId = this
+            .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
+            .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
 
         viewAdapter = CompetenciesAdapter(this)
 
@@ -46,7 +46,7 @@ class Competencies : AppCompatActivity() {
         })
 
         fabCompetenciesNew.setOnClickListener {
-            competenciesVM.new(positionId, "test competency")
+            competenciesVM.new(competencyAreaId, "test competency")
         }
 
         recyclerViewCompetencies.apply {
