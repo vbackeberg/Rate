@@ -11,7 +11,13 @@ import com.example.myapplication.entities.Applicant
 interface ApplicantDao {
 
     @Query("SELECT * FROM applicant WHERE (positionId = :positionId AND departmentId = :departmentId)")
-    fun findAllByPositionAndDepartment(positionId: Long, departmentId: Long): LiveData<MutableList<Applicant>>
+    fun findAllByPositionAndDepartment(
+        positionId: Long,
+        departmentId: Long
+    ): LiveData<MutableList<Applicant>>
+
+    @Query("SELECT id FROM applicant")
+    fun findAllIds(): List<Long>
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(applicant: Applicant)
@@ -19,6 +25,4 @@ interface ApplicantDao {
     @Query("UPDATE applicant SET score = :score WHERE id = :id")
     suspend fun updateScore(id: Long, score: Int)
 
-    @Query("SELECT id FROM applicant")
-    fun findAllIds()
 }

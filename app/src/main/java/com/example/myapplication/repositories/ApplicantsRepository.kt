@@ -16,6 +16,10 @@ class ApplicantsRepository private constructor(application: Application) {
         return applicantDao.findAllByPositionAndDepartment(positionId, departmentId)
     }
 
+    fun findAllIds(): List<Long> {
+        return applicantDao.findAllIds()
+    }
+
     suspend fun insert(applicant: Applicant) {
         return applicantDao.insert(applicant)
     }
