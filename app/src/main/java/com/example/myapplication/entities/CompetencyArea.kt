@@ -4,11 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Competency(
+data class CompetencyArea(
     @PrimaryKey(autoGenerate = true) val id: Long,
-    val applicantId: Long,
-    val competencyAreaId: Long,
     val name: String,
-    var value: Int,
-    var importance: Int
+    val importance: Int,
+    val positionId: Long
 )
