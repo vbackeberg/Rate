@@ -9,6 +9,5 @@ data class Competency(
     val applicantId: Long,
     val competencyAreaId: Long,
     val name: String,
-    var value: Int,
-    var importance: Int
+    var value: Int
 )
