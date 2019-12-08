@@ -7,5 +7,6 @@
     <string name="competencies_content_button">Finish</string>
     <string name="competencies_item_name">Kompetenz</string>
     <string name="positions_activity_title">Positionen</string>
-    <string name="title_activity_evaluation">Evaluation</string>
+    <string name="evaluation_activity_title">Evaluation</string>
+    <string name="competency_areas_activity_title">Kompetenzbereiche</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.myapplication">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.example.myapplication">
 
     <application
         android:allowBackup="true"
@@ -12,9 +12,18 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
+            android:name=".activities.CompetencyAreas"
+            android:label="@string/competency_areas_activity_title"
+            android:parentActivityName=".activities.Positions"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myapplication.activities.Positions" />
+        </activity>
+        <activity
             android:name=".activities.Evaluation"
-            android:label="@string/title_activity_evaluation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/evaluation_activity_title"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.Positions"
             android:label="@string/positions_activity_title"
