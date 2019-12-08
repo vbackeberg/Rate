@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.R
-import com.example.myapplication.activities.Applicants
+import com.example.myapplication.activities.Positions
 import com.example.myapplication.entities.Department
 import kotlinx.android.synthetic.main.item_departments.view.*
 
@@ -45,7 +45,7 @@ class DepartmentsAdapter : RecyclerView.Adapter<DepartmentsAdapter.DepartmentVie
 
         init {
             view.setOnClickListener {
-                view.context.startActivity(Intent(view.context, Applicants::class.java))
+                view.context.startActivity(Intent(view.context, Positions::class.java))
 
                 view.context
                     .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
