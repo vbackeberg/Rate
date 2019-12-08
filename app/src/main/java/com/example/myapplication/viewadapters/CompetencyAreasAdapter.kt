@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.R
-import com.example.myapplication.activities.Positions
+import com.example.myapplication.activities.Competencies
 import com.example.myapplication.entities.CompetencyArea
 import kotlinx.android.synthetic.main.item_competency_areas.view.*
 
@@ -47,7 +47,7 @@ class CompetencyAreasAdapter :
 
         init {
             view.setOnClickListener {
-                view.context.startActivity(Intent(view.context, Positions::class.java))
+                view.context.startActivity(Intent(view.context, Competencies::class.java))
 
                 view.context
                     .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)

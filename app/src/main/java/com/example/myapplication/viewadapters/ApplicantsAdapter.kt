@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.R
-import com.example.myapplication.activities.Competencies
+import com.example.myapplication.activities.CompetencyAreas
 import com.example.myapplication.entities.Applicant
 import kotlinx.android.synthetic.main.item_applicants.view.*
 
@@ -44,7 +44,7 @@ class ApplicantsAdapter : RecyclerView.Adapter<ApplicantsAdapter.ApplicantViewHo
 
         init {
             view.setOnClickListener {
-                view.context.startActivity(Intent(view.context, Competencies::class.java))
+                view.context.startActivity(Intent(view.context, CompetencyAreas::class.java))
 
                 view.context
                     .getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
