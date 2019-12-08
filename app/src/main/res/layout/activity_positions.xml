@@ -23,7 +23,7 @@
     <include layout="@layout/content_positions" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNewPosition"
+        android:id="@+id/fabPositionsNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
