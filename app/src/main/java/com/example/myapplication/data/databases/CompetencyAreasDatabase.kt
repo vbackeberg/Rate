@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.myapplication.data.daos.CompetencyAreaDao
 import com.example.myapplication.entities.CompetencyArea
 
-@Database(entities = [CompetencyArea::class], version = 1)
+@Database(entities = [CompetencyArea::class], version = 2)
 abstract class CompetencyAreasDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
 
@@ -27,7 +27,7 @@ abstract class CompetencyAreasDatabase : RoomDatabase() {
                     .databaseBuilder(
                         context.applicationContext,
                         CompetencyAreasDatabase::class.java,
-                        "competencyAreas_database"
+                        "competency_areas_database"
                     )
                     .fallbackToDestructiveMigration()
                     .build()
