@@ -10,18 +10,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
+import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
+import com.example.myapplication.services.ScoreService
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.activity_competencies.*
 import kotlinx.android.synthetic.main.content_competencies.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class Competencies : AppCompatActivity() {
     private lateinit var viewAdapter: CompetenciesAdapter
     private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private var applicantId = 0L
     private var competencyAreaId = 0L
+    private var positionId = 0L
     private lateinit var competenciesVM: CompetenciesVM
+    private val scoreService = ScoreService(application)
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +40,10 @@ class Competencies : AppCompatActivity() {
         applicantId = this
             .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
             .getLong(CURRENT_APPLICANT_ID, 0L)
+
+        positionId = this.getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE).getLong(
+            CURRENT_POSITION_ID, 0L
+        )
 
         competencyAreaId = this
             .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
@@ -58,6 +69,7 @@ class Competencies : AppCompatActivity() {
         textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
 
         buttonCompetenciesFinish.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch { scoreService.update(applicantId, positionId) }
             val intent = Intent(this, Evaluation::class.java)
             startActivity(intent)
         }

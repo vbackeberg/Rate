@@ -17,15 +17,10 @@ import kotlinx.coroutines.launch
 class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val competenciesRepository = CompetenciesRepository(application)
     private val applicantsRepository = ApplicantsRepository.getInstance(application)
-    private val scoreService: ScoreService = ScoreService(application)
 
     private val applicantId = getApplication<Application>()
         .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
         .getLong(CURRENT_APPLICANT_ID, 0L)
-
-    private val positionId = getApplication<Application>()
-        .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-        .getLong(CURRENT_POSITION_ID, 0L)
 
     fun getAll(): LiveData<List<Competency>> {
         return competenciesRepository.findAllByApplicant(applicantId)
@@ -33,7 +28,6 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
     fun update(competency: Competency) = CoroutineScope(Dispatchers.IO).launch {
         competenciesRepository.update(competency)
-        scoreService.update(applicantId, positionId)
     }
 
     fun new(competencyAreaId: Long, name: String) = CoroutineScope(Dispatchers.IO).launch {
