@@ -46,8 +46,4 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
         competenciesRepository.insertMany(competencies)
     }
-
-    fun new(competency: Competency) = CoroutineScope(Dispatchers.IO).launch {
-        competenciesRepository.insert(competency)
-    }
 }
