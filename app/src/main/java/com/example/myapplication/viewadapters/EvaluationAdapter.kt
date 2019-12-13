@@ -14,12 +14,9 @@ class EvaluationAdapter : RecyclerView.Adapter<EvaluationAdapter.EvaluationViewH
     private var applicants = mutableListOf<Applicant>()
 
     fun updateData(newData: MutableList<Applicant>) {
-        println("old" + applicants)
-        println("newdata " + newData)
         newData.sortBy { applicant -> applicant.score }
-        val diffResult = DiffUtil.calculateDiff(ApplicantsDiffUtilCallback(applicants, newData))
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(applicants, newData))
         this.applicants = newData
-        println("now " + applicants)
         diffResult.dispatchUpdatesTo(this)
     }
 

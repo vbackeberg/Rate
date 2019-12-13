@@ -18,7 +18,7 @@ class ApplicantsAdapter : RecyclerView.Adapter<ApplicantsAdapter.ApplicantViewHo
     private var applicants = mutableListOf<Applicant>()
 
     fun updateData(newData: MutableList<Applicant>) {
-        val diffResult = DiffUtil.calculateDiff(ApplicantsDiffUtilCallback(applicants, newData))
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(applicants, newData))
         this.applicants = newData
         diffResult.dispatchUpdatesTo(this)
     }
