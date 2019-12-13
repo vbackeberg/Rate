@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.myapplication.data.daos.CompetencyAreaDao
 import com.example.myapplication.entities.CompetencyArea
 
-@Database(entities = [CompetencyArea::class], version = 3)
+@Database(entities = [CompetencyArea::class], version = 4)
 abstract class CompetencyAreasDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
 
