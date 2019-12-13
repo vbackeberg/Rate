@@ -15,9 +15,7 @@ data class Applicant(
             (this.positionId == other.positionId)
             && (this.departmentId == other.departmentId)
             && (this.score == other.score)
-        } else {
-            false
-        }
+        } else false
     }
 
     override fun hashCode(): Int {
