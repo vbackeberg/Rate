@@ -28,7 +28,7 @@ class Competencies : AppCompatActivity() {
     private var competencyAreaId = 0L
     private var positionId = 0L
     private lateinit var competenciesVM: CompetenciesVM
-    private val scoreService = ScoreService(application)
+    private lateinit var scoreService: ScoreService
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +49,7 @@ class Competencies : AppCompatActivity() {
             .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
             .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
 
+        scoreService = ScoreService(application)
         viewAdapter = CompetenciesAdapter(this)
 
         competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
