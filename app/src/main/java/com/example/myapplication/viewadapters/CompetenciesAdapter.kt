@@ -20,7 +20,7 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
     private val competenciesVM: CompetenciesVM = ViewModelProviders.of(activity).get(CompetenciesVM::class.java)
 
     fun updateData(newData: List<Competency>) {
-        val diffResult = DiffUtil.calculateDiff(CompetenciesDiffUtilCallback(competencies, newData))
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencies, newData))
         this.competencies = newData
         diffResult.dispatchUpdatesTo(this)
     }

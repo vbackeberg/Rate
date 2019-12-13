@@ -18,7 +18,7 @@ class DepartmentsAdapter : RecyclerView.Adapter<DepartmentsAdapter.DepartmentVie
     private var departments: List<Department> = emptyList()
 
     fun updateData(newData: List<Department>) {
-        val diffResult = DiffUtil.calculateDiff(DepartmentsDiffUtilCallback(departments, newData))
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(departments, newData))
         this.departments = newData
         diffResult.dispatchUpdatesTo(this)
     }

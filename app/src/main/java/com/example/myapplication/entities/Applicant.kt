@@ -11,11 +11,16 @@ data class Applicant(
     val score: Int? = null
 ) : Id {
     override fun equals(other: Any?): Boolean {
-        return if (other is Applicant) {
-            (this.positionId == other.positionId)
-            && (this.departmentId == other.departmentId)
-            && (this.score == other.score)
-        } else false
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Applicant
+
+        if (positionId != other.positionId) return false
+        if (departmentId != other.departmentId) return false
+        if (score != other.score) return false
+
+        return true
     }
 
     override fun hashCode(): Int {

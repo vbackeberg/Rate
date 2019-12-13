@@ -20,7 +20,7 @@ class CompetencyAreasAdapter :
 
     fun updateData(newData: List<CompetencyArea>) {
         val diffResult =
-            DiffUtil.calculateDiff(CompetencyAreasDiffUtilCallback(competencyAreas, newData))
+            DiffUtil.calculateDiff(DiffUtilCallback(competencyAreas, newData))
         this.competencyAreas = newData
         diffResult.dispatchUpdatesTo(this)
     }

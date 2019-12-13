@@ -21,7 +21,7 @@ class PositionsAdapter : RecyclerView.Adapter<PositionsAdapter.PositionViewHolde
     private var positions: List<Position> = emptyList()
 
     fun updateData(newData: List<Position>) {
-        val diffResult = DiffUtil.calculateDiff(PositionsDiffUtilCallback(positions, newData))
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(positions, newData))
         this.positions = newData
         diffResult.dispatchUpdatesTo(this)
     }
