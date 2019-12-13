@@ -23,6 +23,7 @@
         <activity
             android:name=".activities.Evaluation"
             android:label="@string/evaluation_activity_title"
+            android:parentActivityName=".activities.Departments"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.Positions"
@@ -36,7 +37,7 @@
         <activity
             android:name=".activities.Competencies"
             android:label="@string/competencies_activity_title"
-            android:parentActivityName=".activities.Applicants"
+            android:parentActivityName=".activities.CompetencyAreas"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
