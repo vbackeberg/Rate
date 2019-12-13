@@ -17,9 +17,20 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/competencyAreaName"
+                android:id="@+id/textViewCompetencyArea"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/competency_areas_item_name"/>
+
+            <SeekBar
+                android:id="@+id/seekBarCompetencyArea"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:max="10"
+                android:progress="3" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>

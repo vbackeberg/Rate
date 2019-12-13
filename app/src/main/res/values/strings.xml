@@ -9,4 +9,5 @@
     <string name="positions_activity_title">Positionen</string>
     <string name="evaluation_activity_title">Evaluation</string>
     <string name="competency_areas_activity_title">Kompetenzbereiche</string>
+    <string name="competency_areas_item_name">Kompetenzbereich</string>
 </resources>

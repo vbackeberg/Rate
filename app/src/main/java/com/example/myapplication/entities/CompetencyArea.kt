@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class CompetencyArea(
     @PrimaryKey(autoGenerate = true) override val id: Long,
     val name: String,
-    val importance: Int,
+    var importance: Int,
     val positionId: Long
 ) : Id
