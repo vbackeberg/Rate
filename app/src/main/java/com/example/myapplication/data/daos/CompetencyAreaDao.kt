@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import androidx.room.Update
 import com.example.myapplication.entities.CompetencyArea
 
 @Dao
@@ -18,4 +19,7 @@ interface CompetencyAreaDao {
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(competencyArea: CompetencyArea)
+
+    @Update
+    suspend fun update(competencyArea: CompetencyArea)
 }
