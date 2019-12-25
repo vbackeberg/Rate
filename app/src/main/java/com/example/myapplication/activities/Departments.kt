@@ -30,14 +30,14 @@ class Departments : AppCompatActivity() {
             viewAdapter.updateData(departments)
         })
 
-        fabDepartmentsNew.setOnClickListener {
-            departmentsVM.new(Department(0L, "asdasd"))
-        }
-
         recyclerViewDepartments.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
+        }
+
+        fabDepartmentsNew.setOnClickListener {
+            departmentsVM.new(Department(0L, "neue Abteilung"))
         }
     }
 
