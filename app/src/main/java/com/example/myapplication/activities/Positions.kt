@@ -11,19 +11,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.PositionsAdapter
+import com.example.myapplication.viewmodels.DepartmentsVM
 import com.example.myapplication.viewmodels.PositionsVM
 import kotlinx.android.synthetic.main.activity_positions.*
 import kotlinx.android.synthetic.main.content_positions.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class Positions : AppCompatActivity() {
     private var viewAdapter: PositionsAdapter = PositionsAdapter()
     private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private lateinit var positionsVM: PositionsVM
+    private lateinit var departmentsVm: DepartmentsVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        departmentsVm = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
+        CoroutineScope(Dispatchers.IO).launch {
+            val currentDepartment = departmentsVm.getCurrent()
+            title = currentDepartment.name
+        }
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
         positionsVM.getAll().observe(this, Observer { positions ->
@@ -31,7 +43,7 @@ class Positions : AppCompatActivity() {
         })
 
         fabPositionsNew.setOnClickListener {
-            positionsVM.new(Position(0L, "asdasd"))
+            positionsVM.new(Position(0L, "neue Position"))
         }
 
         recyclerViewPositions.apply {
@@ -39,6 +51,7 @@ class Positions : AppCompatActivity() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
