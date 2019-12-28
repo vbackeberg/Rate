@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.PositionsAdapter
@@ -31,11 +32,18 @@ class Positions : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val departmentId = this
+            .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
+            .getLong(CURRENT_DEPARTMENT_ID, 0L)
+
         departmentsVm = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
-        CoroutineScope(Dispatchers.IO).launch {
-            val currentDepartment = departmentsVm.getCurrent()
-            title = currentDepartment.name
+
+        CoroutineScope(Dispatchers.Main).launch {
+            title = departmentsVm.get(departmentId).name
         }
+
+        activity_positions.transitionName = "departmentContainer"
+        toolbar.getChildAt(0).transitionName = "departmentName"
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
         positionsVM.getAll().observe(this, Observer { positions ->

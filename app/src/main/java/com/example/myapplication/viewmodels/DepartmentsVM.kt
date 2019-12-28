@@ -17,12 +17,8 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
         .getDatabase(application)
         .departmentDao()
 
-    private val departmentId = getApplication<Application>()
-        .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
-        .getLong(CURRENT_DEPARTMENT_ID, 0L)
-
-    suspend fun getCurrent(): Department {
-        return departmentDao.findById(departmentId)
+    suspend fun get(id: Long): Department {
+        return departmentDao.findById(id)
     }
 
     fun getAll(): LiveData<List<Department>> {
