@@ -73,25 +73,24 @@ class Positions : AppCompatActivity() {
     }
 
     private fun rename(): Boolean {
-        val alert = AlertDialog.Builder(this)
-        alert.setTitle(R.string.dialog_rename_apply)
-        val inputField = EditText(this)
-        inputField.inputType = InputType.TYPE_CLASS_TEXT
-        alert.setView(inputField)
+        val builder = AlertDialog.Builder(this)
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        input.setText(department.name)
 
-        alert.setPositiveButton(
-            R.string.dialog_rename_apply
-        ) { _, _ ->
-            department.name = inputField.editableText.toString()
-            departmentsVm.update(department)
-        }
+        builder
+            .setTitle(R.string.dialog_rename_apply)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
+                department.name = input.editableText.toString()
+                departmentsVm.update(department)
+            }
+            .setNegativeButton(R.string.dialog_rename_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
 
-        alert.setNegativeButton(R.string.dialog_rename_cancel)
-        { dialog, _ ->
-            dialog.cancel()
-        }
-
-        alert.create().show()
         return true
     }
 }
