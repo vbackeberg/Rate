@@ -27,20 +27,7 @@ class Departments : AppCompatActivity() {
             .edit().putLong(CURRENT_DEPARTMENT_ID, viewHolder.id)
             .apply()
 
-        val options = ActivityOptions
-            .makeSceneTransitionAnimation(
-                this,
-                UtilPair.create(
-                    viewHolder.itemView,
-                    "departmentContainer"
-                ),
-                UtilPair.create(
-                    viewHolder.name as View,
-                    "departmentName"
-                )
-            )
-
-        startActivity(Intent(this, Positions::class.java), options.toBundle())
+        startActivity(Intent(this, Positions::class.java))
     }
 
     private var viewAdapter = DepartmentsAdapter(onItemClickListener)

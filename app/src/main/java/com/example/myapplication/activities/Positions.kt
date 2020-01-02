@@ -36,14 +36,11 @@ class Positions : AppCompatActivity() {
             .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
             .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
-        departmentsVm = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
-
         CoroutineScope(Dispatchers.Main).launch {
             title = departmentsVm.get(departmentId).name
         }
 
-        activity_positions.transitionName = "departmentContainer"
-        toolbar.getChildAt(0).transitionName = "departmentName"
+        departmentsVm = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
         positionsVM.getAll().observe(this, Observer { positions ->
