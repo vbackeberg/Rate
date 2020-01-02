@@ -14,7 +14,7 @@
         <activity
             android:name=".activities.CompetencyAreas"
             android:label="@string/competency_areas_activity_title"
-            android:parentActivityName=".activities.Positions"
+            android:parentActivityName=".activities.Applicants"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
