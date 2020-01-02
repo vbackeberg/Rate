@@ -1,6 +1,7 @@
 package com.example.myapplication.services
 
 import android.app.Application
+import com.example.myapplication.SingletonHolder
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.repositories.ApplicantsRepository
 import com.example.myapplication.repositories.CompetenciesRepository
@@ -9,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
-class ScoreService(application: Application) {
+class ScoreService private constructor(application: Application) {
     private val applicantsRepository = ApplicantsRepository.getInstance(application)
     private var competenciesRepository = CompetenciesRepository(application)
     private var competencyAreasRepository = CompetencyAreasRepository.getInstance(application)
@@ -40,4 +41,6 @@ class ScoreService(application: Application) {
             competency.value * importanceByCompetencyArea.getValue(competency.competencyAreaId)
         }
     }
+
+    companion object : SingletonHolder<ScoreService, Application>(::ScoreService)
 }
