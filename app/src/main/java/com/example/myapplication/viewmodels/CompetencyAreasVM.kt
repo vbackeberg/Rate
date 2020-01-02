@@ -23,4 +23,8 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
     fun update(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
         competencyAreasRepository.update(competencyArea)
     }
+
+    suspend fun get(id: Long): CompetencyArea {
+        return competencyAreasRepository.findById(id)
+    }
 }

@@ -22,4 +22,7 @@ interface CompetencyAreaDao {
 
     @Update
     suspend fun update(competencyArea: CompetencyArea)
+
+    @Query("SELECT * FROM competencyArea WHERE id = :id")
+    suspend fun findById(id: Long): CompetencyArea
 }

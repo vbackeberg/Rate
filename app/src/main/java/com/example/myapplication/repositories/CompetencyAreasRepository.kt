@@ -28,6 +28,10 @@ class CompetencyAreasRepository private constructor(application: Application) {
         return competencyAreaDao.update(competencyArea)
     }
 
+    suspend fun findById(id: Long): CompetencyArea {
+        return competencyAreaDao.findById(id)
+    }
+
     companion object :
         SingletonHolder<CompetencyAreasRepository, Application>(::CompetencyAreasRepository)
 }

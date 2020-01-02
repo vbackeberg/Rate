@@ -15,6 +15,7 @@ import com.example.myapplication.R
 import com.example.myapplication.services.ScoreService
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
+import com.example.myapplication.viewmodels.CompetencyAreasVM
 import kotlinx.android.synthetic.main.activity_competencies.*
 import kotlinx.android.synthetic.main.content_competencies.*
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +29,7 @@ class Competencies : AppCompatActivity() {
     private var competencyAreaId = 0L
     private var positionId = 0L
     private lateinit var competenciesVM: CompetenciesVM
+    private lateinit var competencyAreasVM: CompetencyAreasVM
     private lateinit var scoreService: ScoreService
 
     @SuppressLint("SetTextI18n")
@@ -48,6 +50,13 @@ class Competencies : AppCompatActivity() {
         competencyAreaId = this
             .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
             .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
+
+        competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val competencyAreaName = competencyAreasVM.get(competencyAreaId).name
+            title = "Kompetenzen für den Bereich $competencyAreaName"
+        }
 
         scoreService = ScoreService.getInstance(application)
         viewAdapter = CompetenciesAdapter(this)
