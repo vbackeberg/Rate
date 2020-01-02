@@ -41,9 +41,9 @@ class Competencies : AppCompatActivity() {
             .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
             .getLong(CURRENT_APPLICANT_ID, 0L)
 
-        positionId = this.getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE).getLong(
-            CURRENT_POSITION_ID, 0L
-        )
+        positionId = this
+            .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
+            .getLong(CURRENT_POSITION_ID, 0L)
 
         competencyAreaId = this
             .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
