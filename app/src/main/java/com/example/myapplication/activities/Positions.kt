@@ -61,14 +61,14 @@ class Positions : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_positions, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_rename -> rename()
-            else             -> super.onOptionsItemSelected(item)
+            R.id.menu_item_rename -> rename()
+            else                  -> super.onOptionsItemSelected(item)
         }
     }
 

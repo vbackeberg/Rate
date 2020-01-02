@@ -3,8 +3,8 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.example.myapplication.activities.Departments">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:id="@+id/menu_item_rename"
+        android:orderInCategory="1"
+        android:title="@string/menu_rename"
         app:showAsAction="never" />
 </menu>
