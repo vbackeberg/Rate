@@ -2,8 +2,6 @@ package com.example.myapplication.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -27,6 +25,7 @@ class CompetencyAreas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competency_areas)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         positionId = this
             .getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
