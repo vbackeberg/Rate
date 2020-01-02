@@ -2,8 +2,6 @@ package com.example.myapplication.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -51,18 +49,6 @@ class Departments : AppCompatActivity() {
 
         fabDepartmentsNew.setOnClickListener {
             departmentsVM.new(Department(0L, "neue Abteilung"))
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else                 -> super.onOptionsItemSelected(item)
         }
     }
 }
