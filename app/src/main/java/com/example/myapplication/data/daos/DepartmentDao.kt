@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import androidx.room.Update
 import com.example.myapplication.entities.Department
 
 @Dao
@@ -17,5 +18,8 @@ interface DepartmentDao {
     suspend fun insert(department: Department)
 
     @Query("SELECT * FROM department WHERE id = :id")
-    suspend fun findById(id: Long): Department
+    fun findById(id: Long): LiveData<Department>
+
+    @Update
+    suspend fun update(department: Department)
 }

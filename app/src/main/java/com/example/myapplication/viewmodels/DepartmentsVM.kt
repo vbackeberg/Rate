@@ -1,10 +1,8 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.data.daos.DepartmentDao
 import com.example.myapplication.data.databases.DepartmentsDatabase
 import com.example.myapplication.entities.Department
@@ -17,7 +15,7 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
         .getDatabase(application)
         .departmentDao()
 
-    suspend fun get(id: Long): Department {
+    fun get(id: Long): LiveData<Department> {
         return departmentDao.findById(id)
     }
 
@@ -27,5 +25,9 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
 
     fun new(department: Department) = CoroutineScope(Dispatchers.IO).launch {
         departmentDao.insert(department)
+    }
+
+    fun update(department: Department) = CoroutineScope(Dispatchers.IO).launch {
+        departmentDao.update(department)
     }
 }
