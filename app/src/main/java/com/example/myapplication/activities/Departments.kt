@@ -1,6 +1,5 @@
 package com.example.myapplication.activities
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -17,7 +16,6 @@ import com.example.myapplication.viewadapters.DepartmentsAdapter
 import com.example.myapplication.viewmodels.DepartmentsVM
 import kotlinx.android.synthetic.main.activity_departments.*
 import kotlinx.android.synthetic.main.content_departments.*
-import android.util.Pair as UtilPair
 
 class Departments : AppCompatActivity() {
     private val onItemClickListener = View.OnClickListener { view ->
