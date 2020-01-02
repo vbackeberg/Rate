@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import androidx.room.Update
 import com.example.myapplication.entities.Position
 
 @Dao
@@ -15,4 +16,10 @@ interface PositionDao {
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(position: Position)
+
+    @Query("SELECT * FROM position WHERE id = :id")
+    fun findById(id: Long): LiveData<Position>
+
+    @Update
+    suspend fun update(position: Position)
 }

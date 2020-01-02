@@ -15,11 +15,19 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
         .getDatabase(application)
         .positionDao()
 
+    fun get(id: Long): LiveData<Position> {
+        return positionDao.findById(id)
+    }
+
     fun getAll(): LiveData<List<Position>> {
         return positionDao.findAll()
     }
 
     fun new(position: Position) = CoroutineScope(Dispatchers.IO).launch {
         positionDao.insert(position)
+    }
+
+    fun update(position: Position) = CoroutineScope(Dispatchers.IO).launch {
+        positionDao.update(position)
     }
 }
