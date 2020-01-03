@@ -5,7 +5,7 @@
     <string name="applicants_activity_title">Student</string>
     <string name="applicants_content_text">Missing applicant id!</string>
     <string name="competencies_activity_title">Kompetenzen</string>
-    <string name="competencies_content_button">Auswerten</string>
+    <string name="competencies_finish_button">Auswerten</string>
     <string name="competencies_item_name">Kompetenz</string>
     <string name="positions_activity_title">Positionen</string>
     <string name="evaluation_activity_title">Evaluation</string>

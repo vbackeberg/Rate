@@ -9,12 +9,6 @@
     tools:context=".activities.Competencies"
     tools:showIn="@layout/activity_competencies">
 
-    <Button
-        android:id="@+id/buttonCompetenciesFinish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/competencies_content_button" />
-
     <TextView
         android:id="@+id/textViewTitleCompetencies"
         android:layout_width="match_parent"

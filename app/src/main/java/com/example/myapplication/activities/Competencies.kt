@@ -76,7 +76,7 @@ class Competencies : AppCompatActivity() {
 
         textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
 
-        buttonCompetenciesFinish.setOnClickListener {
+        exFabCompetenciesFinish.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch { scoreService.update(applicantId, positionId) }
             val intent = Intent(this, Evaluation::class.java)
             startActivity(intent)
