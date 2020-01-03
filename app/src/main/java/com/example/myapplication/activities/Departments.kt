@@ -34,7 +34,6 @@ class Departments : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departments)
-        setSupportActionBar(toolbar)
 
         departmentsVM = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
         departmentsVM.getAll().observe(this, Observer { departments ->

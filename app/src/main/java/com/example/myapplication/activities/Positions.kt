@@ -31,8 +31,6 @@ class Positions : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val departmentId = this
             .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)

@@ -36,8 +36,6 @@ class Competencies : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         applicantId = this
             .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)

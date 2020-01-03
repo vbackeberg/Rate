@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.viewadapters.EvaluationAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
-import kotlinx.android.synthetic.main.activity_evaluation.*
 import kotlinx.android.synthetic.main.content_evaluation.*
 
 class Evaluation : AppCompatActivity() {
@@ -20,7 +19,6 @@ class Evaluation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evaluation)
-        setSupportActionBar(toolbar)
 
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
         applicantsVm.getAll().observe(this, Observer { applicants ->
