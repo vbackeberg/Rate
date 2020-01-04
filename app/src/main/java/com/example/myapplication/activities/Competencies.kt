@@ -54,7 +54,7 @@ class Competencies : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val competencyAreaName = competencyAreasVM.get(competencyAreaId).name
             //Todo: replace with a respective call to competencies vm.
-            title = "Kompetenzen für den Bereich $competencyAreaName"
+            title = resources.getString(R.string.competencies_toolbar_title, competencyAreaName)
         }
 
         scoreService = ScoreService.getInstance(application)
