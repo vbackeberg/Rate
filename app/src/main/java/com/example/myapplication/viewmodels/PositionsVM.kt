@@ -15,10 +15,6 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
         .getDatabase(application)
         .positionDao()
 
-    fun get(id: Long): LiveData<Position> {
-        return positionDao.findById(id)
-    }
-
     fun getAll(): LiveData<List<Position>> {
         return positionDao.findAll()
     }
