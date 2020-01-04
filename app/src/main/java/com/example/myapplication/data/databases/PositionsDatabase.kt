@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.myapplication.data.daos.PositionDao
 import com.example.myapplication.entities.Position
 
-@Database(entities = [Position::class], version = 1)
+@Database(entities = [Position::class], version = 2)
 abstract class PositionsDatabase : RoomDatabase() {
     abstract fun positionDao(): PositionDao
 
