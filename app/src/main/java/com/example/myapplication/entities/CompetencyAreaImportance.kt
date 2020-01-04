@@ -6,5 +6,5 @@ import androidx.room.Entity
 data class CompetencyAreaImportance (
     val positionId: Long,
     val competencyAreaId: Long,
-    var importance: Int
+    var importance: Int //Todo: rename to value as it is redundant
 )

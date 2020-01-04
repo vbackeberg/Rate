@@ -151,6 +151,7 @@
       <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
       <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
       <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
+      <option name="WRAP_FIRST_METHOD_IN_CALL_CHAIN" value="true" />
       <indentOptions>
         <option name="CONTINUATION_INDENT_SIZE" value="4" />
       </indentOptions>
