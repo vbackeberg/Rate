@@ -60,7 +60,7 @@ class Competencies : AppCompatActivity() {
         viewAdapter = CompetenciesAdapter(this)
 
         competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
-        competenciesVM.getAll().observe(this, Observer { competencies ->
+        competenciesVM.getAll().observe(this, Observer { competencies -> //Todo: get all competencies per applicant and competency area here
             viewAdapter.updateData(competencies)
         })
 

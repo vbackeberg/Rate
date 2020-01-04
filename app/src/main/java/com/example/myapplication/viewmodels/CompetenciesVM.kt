@@ -5,11 +5,9 @@ import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.myapplication.CURRENT_APPLICANT_ID
-import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.repositories.ApplicantsRepository
 import com.example.myapplication.repositories.CompetenciesRepository
-import com.example.myapplication.services.ScoreService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,7 +34,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         applicantIds.forEach { applicantId ->
             competencies
                 .add(Competency(0L, applicantId, competencyAreaId, name, 0))
-        }
+        } //Todo: Add an applicant competency value entity such as for competency area to facilitate renaming and deletion.
 
         competenciesRepository.insertMany(competencies)
     }
