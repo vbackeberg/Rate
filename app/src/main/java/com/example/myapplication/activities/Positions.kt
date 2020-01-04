@@ -36,6 +36,7 @@ class Positions : AppCompatActivity() {
             .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
             .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
+        // Todo: replace with call to positons vm
         departmentsVm = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
         departmentsVm.get(departmentId).observe(this, Observer { department ->
             this.department = department
