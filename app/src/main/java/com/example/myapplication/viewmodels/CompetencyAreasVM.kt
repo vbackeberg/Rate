@@ -11,6 +11,7 @@ import com.example.myapplication.data.databases.PositionsDatabase
 import com.example.myapplication.entities.CompetencyArea
 import com.example.myapplication.entities.Importance
 import com.example.myapplication.entities.CompetencyAreaWithImportance
+import com.example.myapplication.entities.Position
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,5 +43,9 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
 
     suspend fun get(id: Long): CompetencyArea {
         return competencyAreaDao.findById(id)
+    }
+
+    fun getPosition(positionId: Long): LiveData<Position> {
+        return positionDao.findById(positionId)
     }
 }
