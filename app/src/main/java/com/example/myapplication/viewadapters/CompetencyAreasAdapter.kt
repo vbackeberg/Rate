@@ -69,7 +69,7 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
                         progress: Int,
                         fromUser: Boolean
                     ) {
-                        competencyAreaWithImportance.competencyAreaImportance.importance = progress
+                        competencyAreaWithImportance.competencyAreaImportance.value = progress
                         competencyAreasVM.update(competencyAreaWithImportance.competencyAreaImportance)
                     }
 
@@ -86,7 +86,7 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
         fun bind(competencyAreaWithImportance: CompetencyAreaWithImportance) {
             this.competencyAreaWithImportance = competencyAreaWithImportance
             view.textViewCompetencyArea.text = competencyAreaWithImportance.competencyArea.name
-            view.seekBarCompetencyArea.progress = competencyAreaWithImportance.competencyAreaImportance.importance
+            view.seekBarCompetencyArea.progress = competencyAreaWithImportance.competencyAreaImportance.value
         }
     }
 
