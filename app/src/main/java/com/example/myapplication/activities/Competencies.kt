@@ -52,7 +52,8 @@ class Competencies : AppCompatActivity() {
         competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val competencyAreaName = competencyAreasVM.get(competencyAreaId).name //Todo: replace with a respective call to competencies vm.
+            val competencyAreaName = competencyAreasVM.get(competencyAreaId).name
+            //Todo: replace with a respective call to competencies vm.
             title = "Kompetenzen für den Bereich $competencyAreaName"
         }
 
@@ -77,7 +78,8 @@ class Competencies : AppCompatActivity() {
         textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
 
         exFabCompetenciesFinish.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch { scoreService.update(applicantId, positionId) } // Todo: update on score change to avoid data loss.
+            CoroutineScope(Dispatchers.IO).launch { scoreService.update(applicantId, positionId) }
+            // Todo: update on score change to avoid data loss.
             val intent = Intent(this, Evaluation::class.java)
             startActivity(intent)
         }
