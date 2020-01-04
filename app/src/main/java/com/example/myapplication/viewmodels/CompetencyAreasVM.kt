@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import com.example.myapplication.data.daos.PositionDao
 import com.example.myapplication.data.databases.PositionsDatabase
 import com.example.myapplication.entities.CompetencyArea
-import com.example.myapplication.entities.CompetencyAreaImportance
 import com.example.myapplication.repositories.CompetencyAreaImportancesRepository
 import com.example.myapplication.repositories.CompetencyAreasRepository
 import kotlinx.coroutines.CoroutineScope
@@ -27,16 +26,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
     }
 
     fun new(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
-        competencyAreasRepository.insert(competencyArea)
-
-        val positionIds: List<Long> = positionDao.findAllIds()
-        val competencyAreaImportances = mutableListOf<CompetencyAreaImportance>()
-        positionIds.forEach { positionId ->
-            competencyAreaImportances
-                .add(CompetencyAreaImportance(positionId, competencyArea.id, 0))
-        }
-
-        competencyAreaImportancesRepository.insertMany(competencyAreaImportances)
+        competencyAreaImportancesRepository.insert(competencyArea, positionDao.findAllIds())
     }
 
     fun update(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {

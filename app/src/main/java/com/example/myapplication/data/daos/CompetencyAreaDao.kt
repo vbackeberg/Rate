@@ -2,8 +2,6 @@ package com.example.myapplication.data.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.example.myapplication.entities.CompetencyArea
@@ -16,9 +14,6 @@ interface CompetencyAreaDao {
 
     @Query("SELECT * FROM competencyArea WHERE positionId = :positionId")
     suspend fun findAllByPositionSuspend(positionId: Long): List<CompetencyArea>
-
-    @Insert(onConflict = REPLACE)
-    suspend fun insert(competencyArea: CompetencyArea)
 
     @Update
     suspend fun update(competencyArea: CompetencyArea)

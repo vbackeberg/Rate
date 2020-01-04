@@ -20,10 +20,6 @@ class CompetencyAreasRepository private constructor(application: Application) {
         return competencyAreaDao.findAllByPositionSuspend(positionId)
     }
 
-    suspend fun insert(competencyArea: CompetencyArea) {
-        return competencyAreaDao.insert(competencyArea)
-    }
-
     suspend fun update(competencyArea: CompetencyArea) {
         return competencyAreaDao.update(competencyArea)
     }
