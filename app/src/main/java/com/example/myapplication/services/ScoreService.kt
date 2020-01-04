@@ -2,10 +2,11 @@ package com.example.myapplication.services
 
 import android.app.Application
 import com.example.myapplication.SingletonHolder
+import com.example.myapplication.data.daos.CompetencyAreaDao
+import com.example.myapplication.data.databases.CompetencyAreasDatabase
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.repositories.ApplicantsRepository
 import com.example.myapplication.repositories.CompetenciesRepository
-import com.example.myapplication.repositories.CompetencyAreasRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -13,12 +14,14 @@ import kotlinx.coroutines.async
 class ScoreService private constructor(application: Application) {
     private val applicantsRepository = ApplicantsRepository.getInstance(application)
     private var competenciesRepository = CompetenciesRepository(application)
-    private var competencyAreasRepository = CompetencyAreasRepository.getInstance(application)
+    private val competencyAreaDao: CompetencyAreaDao = CompetencyAreasDatabase
+        .getDatabase(application)
+        .competencyAreaDao()
 
     suspend fun update(applicantId: Long, positionId: Long) {
         val importanceByCompetencyArea = CoroutineScope(Dispatchers.IO)
             .async {
-                competencyAreasRepository
+                competencyAreaDao
                     .findAllByPositionSuspend(positionId)
                     .associate { Pair(it.id, it.importance.value) }
             }
