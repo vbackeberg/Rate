@@ -43,13 +43,11 @@ class Applicants : AppCompatActivity() {
             .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
             .getLong(CURRENT_POSITION_ID, 0L)
 
-        positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
-        positionsVM.get(positionId).observe(this, Observer { position ->
-            this.position = position
-            title = position.name
-        })
-
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
+        applicantsVm.getPosition(positionId).observe(this, Observer { position ->
+            this.position = position
+            title = resources.getString(R.string.applicants_toolbar_title, position.name)
+        })
         applicantsVm.getAll().observe(this, Observer { applicants ->
             viewAdapter.updateData(applicants)
         })

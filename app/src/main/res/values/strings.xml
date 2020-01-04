@@ -22,6 +22,7 @@
     <string name="evaluation_activity_title">Evaluation</string>
 
     <string name="competency_areas_activity_title">Kompetenzbereiche</string>
+    <string name="competency_areas_toolbar_title">Wichtigkeit der Kompetenzbereiche für die Position %1$s</string>
     <string name="competency_areas_item_name">Kompetenzbereich</string>
 
 </resources>
