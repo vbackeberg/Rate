@@ -52,7 +52,7 @@ class Competencies : AppCompatActivity() {
         competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val competencyAreaName = competencyAreasVM.get(competencyAreaId).name
+            val competencyAreaName = competencyAreasVM.get(competencyAreaId).name //Todo: replace with a respective call to competencies vm.
             title = "Kompetenzen für den Bereich $competencyAreaName"
         }
 
