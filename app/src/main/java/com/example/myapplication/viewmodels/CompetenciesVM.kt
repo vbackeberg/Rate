@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.myapplication.CURRENT_APPLICANT_ID
+import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.repositories.ApplicantsRepository
 import com.example.myapplication.repositories.CompetenciesRepository
@@ -20,8 +21,12 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
         .getLong(CURRENT_APPLICANT_ID, 0L)
 
+    private val competencyAreaId = getApplication<Application>()
+        .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
+        .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
+
     fun getAll(): LiveData<List<Competency>> {
-        return competenciesRepository.findAllByApplicant(applicantId)
+        return competenciesRepository.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
     }
 
     fun update(competency: Competency) = CoroutineScope(Dispatchers.IO).launch {

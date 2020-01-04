@@ -11,8 +11,8 @@ class CompetenciesRepository(application: Application) {
         .getDatabase(application)
         .competencyDao()
 
-    fun findAllByApplicant(applicantId: Long): LiveData<List<Competency>> {
-        return competencyDao.findAllByApplicant(applicantId)
+    fun findAllByApplicantAndCompetencyArea(applicantId: Long, competencyAreaId: Long): LiveData<List<Competency>> {
+        return competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
     }
 
     suspend fun findAllByApplicantSuspend(applicantId: Long): List<Competency> {

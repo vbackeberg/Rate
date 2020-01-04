@@ -6,8 +6,8 @@ import com.example.myapplication.entities.Competency
 
 @Dao
 interface CompetencyDao {
-    @Query("SELECT * FROM competency WHERE applicantId = :applicantId")
-    fun findAllByApplicant(applicantId: Long): LiveData<List<Competency>>
+    @Query("SELECT * FROM competency WHERE applicantId = :applicantId AND competencyAreaId = :competencyAreaId")
+    fun findAllByApplicantAndCompetencyArea(applicantId: Long, competencyAreaId: Long): LiveData<List<Competency>>
 
     @Query("SELECT * FROM competency WHERE applicantId = :applicantId")
     suspend fun findAllByApplicantSuspend(applicantId: Long): List<Competency>
