@@ -23,12 +23,12 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
         .positionDao()
 
     private val departmentId = getApplication<Application>()
-    .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
-    .getLong(CURRENT_DEPARTMENT_ID, 0L)
+        .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
+        .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
     private val positionId = getApplication<Application>()
-    .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-    .getLong(CURRENT_POSITION_ID, 0L)
+        .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
+        .getLong(CURRENT_POSITION_ID, 0L)
 
     fun getAll(): LiveData<MutableList<Applicant>> {
         return applicantsRepository.findAllByPositionAndDepartment(positionId, departmentId)
