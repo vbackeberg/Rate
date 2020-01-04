@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.R
 import com.example.myapplication.activities.Competencies
-import com.example.myapplication.entities.CompetencyArea
+import com.example.myapplication.entities.CompetencyAreaWithImportance
 import com.example.myapplication.viewmodels.CompetencyAreasVM
 import kotlinx.android.synthetic.main.item_competency_areas.view.*
 
 class CompetencyAreasAdapter(activity: AppCompatActivity) :
     RecyclerView.Adapter<CompetencyAreasAdapter.CompetencyAreaViewHolder>() {
-    private var competencyAreas: List<CompetencyArea> = emptyList()
+    private var competencyAreas: List<CompetencyAreaWithImportance> = emptyList()
     private val competencyAreasVM: CompetencyAreasVM =
         ViewModelProviders.of(activity).get(CompetencyAreasVM::class.java)
 
-    fun updateData(newData: List<CompetencyArea>) {
+    fun updateData(newData: List<CompetencyAreaWithImportance>) {
         val diffResult =
             DiffUtil.calculateDiff(DiffUtilCallback(competencyAreas, newData))
         this.competencyAreas = newData
@@ -50,7 +50,7 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
         private val view: View,
         competencyAreasVM: CompetencyAreasVM
     ) : RecyclerView.ViewHolder(view) {
-        private lateinit var competencyArea: CompetencyArea
+        private lateinit var competencyAreaWithImportance: CompetencyAreaWithImportance
 
         init {
             view.setOnClickListener {
@@ -58,7 +58,7 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
 
                 view.context
                     .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
-                    .edit().putLong(CURRENT_COMPETENCY_AREA_ID, competencyArea.id)
+                    .edit().putLong(CURRENT_COMPETENCY_AREA_ID, competencyAreaWithImportance.competencyArea.id)
                     .apply()
             }
 
@@ -69,8 +69,8 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
                         progress: Int,
                         fromUser: Boolean
                     ) {
-                        competencyArea.importance = progress
-                        competencyAreasVM.update(competencyArea)
+                        competencyAreaWithImportance.competencyAreaImportance.importance = progress
+                        competencyAreasVM.update(competencyAreaWithImportance.competencyAreaImportance)
                     }
 
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -83,10 +83,10 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
                 })
         }
 
-        fun bind(competencyArea: CompetencyArea) {
-            this.competencyArea = competencyArea
-            view.textViewCompetencyArea.text = competencyArea.name
-            view.seekBarCompetencyArea.progress = competencyArea.importance
+        fun bind(competencyAreaWithImportance: CompetencyAreaWithImportance) {
+            this.competencyAreaWithImportance = competencyAreaWithImportance
+            view.textViewCompetencyArea.text = competencyAreaWithImportance.competencyArea.name
+            view.seekBarCompetencyArea.progress = competencyAreaWithImportance.competencyAreaImportance.importance
         }
     }
 

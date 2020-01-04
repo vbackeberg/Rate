@@ -20,7 +20,7 @@ class ScoreService private constructor(application: Application) {
             .async {
                 competencyAreasRepository
                     .findAllByPositionSuspend(positionId)
-                    .associate { Pair(it.id, it.importance) }
+                    .associate { Pair(it.id, it.competencyAreaImportance.importance) }
             }
 
         val competenciesNew = CoroutineScope(Dispatchers.IO)

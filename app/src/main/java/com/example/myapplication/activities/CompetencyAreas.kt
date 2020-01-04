@@ -37,7 +37,7 @@ class CompetencyAreas : AppCompatActivity() {
         })
 
         fabCompetencyAreasNew.setOnClickListener {
-            competencyAreasVM.new(CompetencyArea(0L, "neuer Kompetenzbereich", 0, positionId))
+            competencyAreasVM.new(CompetencyArea(0L, "neuer Kompetenzbereich"))
         }
 
         recyclerViewCompetencyAreas.apply {

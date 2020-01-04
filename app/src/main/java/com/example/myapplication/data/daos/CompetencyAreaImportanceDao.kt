@@ -30,4 +30,7 @@ interface CompetencyAreaImportanceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(competencyAreaImportances: List<CompetencyAreaImportance>)
+
+    @Update
+    suspend fun update(competencyAreaImportance: CompetencyAreaImportance)
 }
