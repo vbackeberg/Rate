@@ -9,7 +9,7 @@ data class CompetencyAreaWithImportance(
         parentColumn = "id",
         entityColumn = "competencyAreaId"
     )
-    val competencyAreaImportance: CompetencyAreaImportance
+    val importance: Importance
 ) : Id {
     override val id: Long
         get() = competencyArea.id

@@ -5,14 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.myapplication.data.daos.CompetencyAreaDao
-import com.example.myapplication.data.daos.CompetencyAreaImportanceDao
+import com.example.myapplication.data.daos.ImportanceDao
 import com.example.myapplication.entities.CompetencyArea
-import com.example.myapplication.entities.CompetencyAreaImportance
+import com.example.myapplication.entities.Importance
 
-@Database(entities = [CompetencyArea::class, CompetencyAreaImportance::class], version = 8)
+@Database(entities = [CompetencyArea::class, Importance::class], version = 9)
 abstract class CompetencyAreasDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
-    abstract fun competencyAreaImportanceDao(): CompetencyAreaImportanceDao
+    abstract fun importanceDao(): ImportanceDao
 
     companion object {
         @Volatile

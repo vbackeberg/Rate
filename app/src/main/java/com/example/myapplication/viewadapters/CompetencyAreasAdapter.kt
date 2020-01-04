@@ -69,8 +69,8 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
                         progress: Int,
                         fromUser: Boolean
                     ) {
-                        competencyAreaWithImportance.competencyAreaImportance.value = progress
-                        competencyAreasVM.update(competencyAreaWithImportance.competencyAreaImportance)
+                        competencyAreaWithImportance.importance.value = progress
+                        competencyAreasVM.update(competencyAreaWithImportance.importance)
                     }
 
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -86,7 +86,7 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
         fun bind(competencyAreaWithImportance: CompetencyAreaWithImportance) {
             this.competencyAreaWithImportance = competencyAreaWithImportance
             view.textViewCompetencyArea.text = competencyAreaWithImportance.competencyArea.name
-            view.seekBarCompetencyArea.progress = competencyAreaWithImportance.competencyAreaImportance.value
+            view.seekBarCompetencyArea.progress = competencyAreaWithImportance.importance.value
         }
     }
 
