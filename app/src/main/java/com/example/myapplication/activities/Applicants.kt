@@ -21,8 +21,6 @@ import kotlinx.android.synthetic.main.content_applicants.*
 class Applicants : AppCompatActivity() {
     private val viewAdapter: ApplicantsAdapter = ApplicantsAdapter()
     private val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-    private var departmentId = 0L
-    private var positionId = 0L
     private lateinit var position: Position
     private lateinit var applicantsVm: ApplicantsVM
 
