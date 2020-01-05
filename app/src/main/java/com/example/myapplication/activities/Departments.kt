@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.R
-import com.example.myapplication.entities.Department
 import com.example.myapplication.viewadapters.DepartmentsAdapter
 import com.example.myapplication.viewmodels.DepartmentsVM
 import kotlinx.android.synthetic.main.activity_departments.*
@@ -46,8 +45,6 @@ class Departments : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-        fabDepartmentsNew.setOnClickListener {
-            departmentsVM.new(Department(0L, "neue Abteilung"))
-        }
+        fabDepartmentsNew.setOnClickListener { departmentsVM.new("neue Abteilung") }
     }
 }
