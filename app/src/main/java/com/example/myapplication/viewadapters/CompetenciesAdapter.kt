@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.item_competencies.view.*
 class CompetenciesAdapter(activity: AppCompatActivity) :
     RecyclerView.Adapter<CompetenciesAdapter.CompetencyViewHolder>() {
     private var competencies: List<Competency> = emptyList()
-    private val competenciesVM: CompetenciesVM = ViewModelProviders.of(activity).get(CompetenciesVM::class.java)
+    private val competenciesVM: CompetenciesVM =
+        ViewModelProviders.of(activity).get(CompetenciesVM::class.java)
 
     fun updateData(newData: List<Competency>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencies, newData))

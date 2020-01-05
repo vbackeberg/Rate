@@ -58,7 +58,11 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
 
                 view.context
                     .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
-                    .edit().putLong(CURRENT_COMPETENCY_AREA_ID, competencyAreaWithImportance.competencyArea.id)
+                    .edit()
+                    .putLong(
+                        CURRENT_COMPETENCY_AREA_ID,
+                        competencyAreaWithImportance.competencyArea.id
+                    )
                     .apply()
             }
 
