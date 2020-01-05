@@ -29,7 +29,7 @@ class Positions : AppCompatActivity() {
         setContentView(R.layout.activity_positions)
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
-        positionsVM.getDepartment().observe(this, Observer { department ->
+        positionsVM.get().observe(this, Observer { department ->
             this.department = department
             title = department.name
         })

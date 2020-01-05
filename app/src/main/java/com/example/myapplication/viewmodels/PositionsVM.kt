@@ -47,7 +47,7 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
         departmentDao.update(department)
     }
 
-    fun getDepartment(): LiveData<Department> {
+    fun get(): LiveData<Department> {
         return departmentDao.findById(departmentId)
     }
 }
