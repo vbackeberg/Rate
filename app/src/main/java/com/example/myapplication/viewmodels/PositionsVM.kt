@@ -20,7 +20,7 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
     private val positionDao = database.positionDao()
     private val departmentDao = database.departmentDao()
 
-    private val departmentId = getApplication<Application>()
+    private val departmentId = application
         .getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
         .getLong(CURRENT_DEPARTMENT_ID, 0L)
 

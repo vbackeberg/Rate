@@ -23,15 +23,15 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
     private val scoreService = ScoreService.getInstance(application)
 
-    private val applicantId = getApplication<Application>()
+    private val applicantId = application
         .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
         .getLong(CURRENT_APPLICANT_ID, 0L)
 
-    private val competencyAreaId = getApplication<Application>()
+    private val competencyAreaId = application
         .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
         .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
 
-    private val positionId = getApplication<Application>()
+    private val positionId = application
         .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
         .getLong(CURRENT_POSITION_ID, 0L)
 

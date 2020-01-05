@@ -20,7 +20,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
     private val importanceDao = database.importanceDao()
     private val positionDao = database.positionDao()
 
-    private val positionId = getApplication<Application>()
+    private val positionId = application
         .getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
         .getLong(CURRENT_POSITION_ID, 0L)
 

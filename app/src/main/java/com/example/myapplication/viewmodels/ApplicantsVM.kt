@@ -18,11 +18,11 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
     private val applicantDao = database.applicantDao()
     private val positionDao = database.positionDao()
 
-    private val departmentId = getApplication<Application>()
+    private val departmentId = application
         .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
         .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
-    private val positionId = getApplication<Application>()
+    private val positionId = application
         .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
         .getLong(CURRENT_POSITION_ID, 0L)
 
