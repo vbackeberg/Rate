@@ -8,9 +8,11 @@ import com.example.myapplication.entities.CompetencyAreaWithImportance
 @Dao
 interface CompetencyAreaDao {
 
+    @Transaction
     @Query("SELECT * FROM competencyArea JOIN importance ON competencyArea.id = importance.competencyAreaId WHERE positionId = :positionId")
     fun findAllByPosition(positionId: Long): LiveData<List<CompetencyAreaWithImportance>>
 
+    @Transaction
     @Query("SELECT * FROM competencyArea JOIN importance ON competencyArea.id = importance.competencyAreaId WHERE positionId = :positionId")
     suspend fun findAllByPositionSuspend(positionId: Long): List<CompetencyAreaWithImportance>
 

@@ -9,8 +9,9 @@ import com.example.myapplication.data.daos.ImportanceDao
 import com.example.myapplication.data.daos.PositionDao
 import com.example.myapplication.entities.CompetencyArea
 import com.example.myapplication.entities.Importance
+import com.example.myapplication.entities.Position
 
-@Database(entities = [CompetencyArea::class, Importance::class], version = 10)
+@Database(entities = [CompetencyArea::class, Importance::class, Position::class], version = 10)
 abstract class CompetencyAreasDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
     abstract fun importanceDao(): ImportanceDao
