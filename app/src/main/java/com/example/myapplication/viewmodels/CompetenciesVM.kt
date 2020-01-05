@@ -39,7 +39,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         return competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
     }
 
-    suspend fun getCompetencyArea(): CompetencyArea {
+    suspend fun get(): CompetencyArea {
         return competencyAreaDao.findById(competencyAreaId)
     }
 

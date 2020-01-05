@@ -46,7 +46,7 @@ class Competencies : AppCompatActivity() {
         competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val competencyAreaName = competenciesVM.getCompetencyArea().name
+            val competencyAreaName = competenciesVM.get().name
             title = resources.getString(R.string.competencies_toolbar_title, competencyAreaName)
         }
 
