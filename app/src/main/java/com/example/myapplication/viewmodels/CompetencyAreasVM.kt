@@ -31,7 +31,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
         CompetencyAreasDatabase.getDatabase(getApplication()).runInTransaction {
             val competencyAreaId = competencyAreaDao.insert(competencyArea)
             val importances = mutableListOf<Importance>()
-            val positionIds = positionDao.findAllIds()
+            val positionIds = positionDao.findAllIds() // Todo: Move position Dao into competency area database.
             positionIds.forEach { positionId ->
                 importances.add(Importance(positionId, competencyAreaId, 0))
             }
