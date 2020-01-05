@@ -43,7 +43,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
         importanceDao.update(importance)
     }
 
-    fun getPosition(): LiveData<Position> {
+    fun get(): LiveData<Position> {
         return positionDao.findById(positionId)
     }
 }
