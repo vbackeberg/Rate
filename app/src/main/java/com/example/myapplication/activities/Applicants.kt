@@ -18,7 +18,6 @@ import com.example.myapplication.entities.Applicant
 import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
-import com.example.myapplication.viewmodels.PositionsVM
 import kotlinx.android.synthetic.main.activity_applicants.*
 import kotlinx.android.synthetic.main.content_applicants.*
 
@@ -28,7 +27,6 @@ class Applicants : AppCompatActivity() {
     private var departmentId = 0L
     private var positionId = 0L
     private lateinit var position: Position
-    private lateinit var positionsVM: PositionsVM
     private lateinit var applicantsVm: ApplicantsVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +85,7 @@ class Applicants : AppCompatActivity() {
             .setView(input)
             .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
                 position.name = input.editableText.toString()
-                positionsVM.update(position)
+                applicantsVm.updatePosition(position)
             }
             .setNegativeButton(R.string.dialog_rename_cancel) { dialog, _ ->
                 dialog.cancel()

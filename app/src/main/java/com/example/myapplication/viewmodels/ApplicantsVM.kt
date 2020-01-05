@@ -41,4 +41,8 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
     fun getPosition(positionId: Long): LiveData<Position> {
         return positionDao.findById(positionId)
     }
+
+    fun updatePosition(position: Position) = CoroutineScope(Dispatchers.IO).launch {
+        positionDao.update(position)
+    }
 }
