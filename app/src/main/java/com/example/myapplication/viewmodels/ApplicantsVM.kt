@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.data.daos.PositionDao
-import com.example.myapplication.data.databases.PositionsDatabase
+import com.example.myapplication.data.databases.CompetencyAreasDatabase
 import com.example.myapplication.entities.Applicant
 import com.example.myapplication.entities.Position
 import com.example.myapplication.repositories.ApplicantsRepository
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class ApplicantsVM(application: Application) : AndroidViewModel(application) {
     private val applicantsRepository = ApplicantsRepository.getInstance(application)
 
-    private val positionDao: PositionDao = PositionsDatabase
+    private val positionDao: PositionDao = CompetencyAreasDatabase
         .getDatabase(application)
         .positionDao()
 

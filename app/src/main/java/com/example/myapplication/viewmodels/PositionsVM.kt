@@ -4,14 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.myapplication.data.daos.PositionDao
-import com.example.myapplication.data.databases.PositionsDatabase
+import com.example.myapplication.data.databases.CompetencyAreasDatabase
 import com.example.myapplication.entities.Position
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PositionsVM(application: Application) : AndroidViewModel(application) {
-    private val positionDao: PositionDao = PositionsDatabase
+    private val positionDao: PositionDao = CompetencyAreasDatabase
         .getDatabase(application)
         .positionDao()
 

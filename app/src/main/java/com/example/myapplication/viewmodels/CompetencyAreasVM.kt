@@ -3,9 +3,7 @@ package com.example.myapplication.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.myapplication.data.daos.PositionDao
 import com.example.myapplication.data.databases.CompetencyAreasDatabase
-import com.example.myapplication.data.databases.PositionsDatabase
 import com.example.myapplication.entities.CompetencyArea
 import com.example.myapplication.entities.CompetencyAreaWithImportance
 import com.example.myapplication.entities.Importance
@@ -18,10 +16,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
     private val database = CompetencyAreasDatabase.getDatabase(application)
     private val competencyAreaDao = database.competencyAreaDao()
     private val importanceDao = database.importanceDao()
-
-    private val positionDao: PositionDao = PositionsDatabase
-        .getDatabase(application)
-        .positionDao()
+    private val positionDao = database.positionDao()
 
     fun getAll(positionId: Long): LiveData<List<CompetencyAreaWithImportance>> {
         return competencyAreaDao.findAllByPosition(positionId)
@@ -31,8 +26,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
         CompetencyAreasDatabase.getDatabase(getApplication()).runInTransaction {
             val competencyAreaId = competencyAreaDao.insert(competencyArea)
             val importances = mutableListOf<Importance>()
-            val positionIds = positionDao.findAllIds() // Todo: Move position Dao into competency area database.
-            positionIds.forEach { positionId ->
+            positionDao.findAllIds().forEach { positionId ->
                 importances.add(Importance(positionId, competencyAreaId, 0))
             }
             importanceDao.insertMany(importances)
