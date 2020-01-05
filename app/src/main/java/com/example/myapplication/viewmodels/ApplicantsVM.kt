@@ -38,7 +38,7 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
         return positionDao.findById(positionId)
     }
 
-    fun updatePosition(position: Position) = CoroutineScope(Dispatchers.IO).launch {
+    fun update(position: Position) = CoroutineScope(Dispatchers.IO).launch {
         positionDao.update(position)
     }
 }

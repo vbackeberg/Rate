@@ -70,7 +70,7 @@ class Applicants : AppCompatActivity() {
             .setView(input)
             .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
                 position.name = input.editableText.toString()
-                applicantsVm.updatePosition(position)
+                applicantsVm.update(position)
             }
             .setNegativeButton(R.string.dialog_rename_cancel) { dialog, _ ->
                 dialog.cancel()
