@@ -2,21 +2,17 @@ package com.example.myapplication.services
 
 import android.app.Application
 import com.example.myapplication.SingletonHolder
-import com.example.myapplication.data.daos.CompetencyAreaDao
 import com.example.myapplication.data.databases.CompetencyAreasDatabase
 import com.example.myapplication.entities.Competency
-import com.example.myapplication.repositories.ApplicantsRepository
-import com.example.myapplication.repositories.CompetenciesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
 class ScoreService private constructor(application: Application) {
-    private val applicantsRepository = ApplicantsRepository.getInstance(application)
-    private var competenciesRepository = CompetenciesRepository(application)
-    private val competencyAreaDao: CompetencyAreaDao = CompetencyAreasDatabase
-        .getDatabase(application)
-        .competencyAreaDao()
+    private val database = CompetencyAreasDatabase.getDatabase(application)
+    private val applicantDao = database.applicantDao()
+    private val competencyDao = database.competencyDao()
+    private val competencyAreaDao = database.competencyAreaDao()
 
     suspend fun update(applicantId: Long, positionId: Long) {
         val importanceByCompetencyArea = CoroutineScope(Dispatchers.IO)
@@ -27,9 +23,9 @@ class ScoreService private constructor(application: Application) {
             }
 
         val competenciesNew = CoroutineScope(Dispatchers.IO)
-            .async { competenciesRepository.findAllByApplicantSuspend(applicantId) }
+            .async { competencyDao.findAllByApplicantSuspend(applicantId) }
 
-        applicantsRepository.updateScore(
+        applicantDao.updateScore(
             applicantId,
             calculateScore(competenciesNew.await(), importanceByCompetencyArea.await())
         )

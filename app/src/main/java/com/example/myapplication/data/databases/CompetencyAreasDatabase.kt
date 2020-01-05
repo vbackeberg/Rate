@@ -4,18 +4,27 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.myapplication.data.daos.CompetencyAreaDao
-import com.example.myapplication.data.daos.ImportanceDao
-import com.example.myapplication.data.daos.PositionDao
-import com.example.myapplication.entities.CompetencyArea
-import com.example.myapplication.entities.Importance
-import com.example.myapplication.entities.Position
+import com.example.myapplication.data.daos.*
+import com.example.myapplication.entities.*
 
-@Database(entities = [CompetencyArea::class, Importance::class, Position::class], version = 10)
+@Database(
+    entities = [
+        CompetencyArea::class,
+        Importance::class,
+        Position::class,
+        Competency::class,
+        Department::class,
+        Applicant::class
+    ],
+    version = 11
+)
 abstract class CompetencyAreasDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
     abstract fun importanceDao(): ImportanceDao
     abstract fun positionDao(): PositionDao
+    abstract fun competencyDao(): CompetencyDao
+    abstract fun departmentDao(): DepartmentDao
+    abstract fun applicantDao(): ApplicantDao
 
     companion object {
         @Volatile
