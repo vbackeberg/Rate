@@ -1,9 +1,7 @@
 package com.example.myapplication.data.daos
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.myapplication.entities.CompetencyArea
 import com.example.myapplication.entities.CompetencyAreaWithImportance
 
@@ -21,4 +19,7 @@ interface CompetencyAreaDao {
 
     @Query("SELECT * FROM competencyArea WHERE id = :id")
     suspend fun findById(id: Long): CompetencyArea
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(competencyArea: CompetencyArea): Long
 }
