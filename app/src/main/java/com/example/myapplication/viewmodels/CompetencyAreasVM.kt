@@ -37,10 +37,6 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
         importanceDao.update(importance)
     }
 
-    suspend fun get(id: Long): CompetencyArea {
-        return competencyAreaDao.findById(id)
-    }
-
     fun getPosition(positionId: Long): LiveData<Position> {
         return positionDao.findById(positionId)
     }

@@ -9,13 +9,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_APPLICANT_ID
-import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
 import com.example.myapplication.services.ScoreService
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
-import com.example.myapplication.viewmodels.CompetencyAreasVM
 import kotlinx.android.synthetic.main.activity_competencies.*
 import kotlinx.android.synthetic.main.content_competencies.*
 import kotlinx.coroutines.CoroutineScope
@@ -26,10 +24,8 @@ class Competencies : AppCompatActivity() {
     private lateinit var viewAdapter: CompetenciesAdapter
     private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private var applicantId = 0L
-    private var competencyAreaId = 0L
     private var positionId = 0L
     private lateinit var competenciesVM: CompetenciesVM
-    private lateinit var competencyAreasVM: CompetencyAreasVM
     private lateinit var scoreService: ScoreService
 
     @SuppressLint("SetTextI18n")
@@ -45,43 +41,35 @@ class Competencies : AppCompatActivity() {
             .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
             .getLong(CURRENT_POSITION_ID, 0L)
 
-        competencyAreaId = this
-            .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
-            .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
+        textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
 
-        competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
+        competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val competencyAreaName = competencyAreasVM.get(competencyAreaId).name
+            val competencyAreaName = competenciesVM.getCompetencyArea().name
             //Todo: replace with a respective call to competencies vm.
             title = resources.getString(R.string.competencies_toolbar_title, competencyAreaName)
         }
 
-        scoreService = ScoreService.getInstance(application)
         viewAdapter = CompetenciesAdapter(this)
-
-        competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
         competenciesVM.getAll().observe(this, Observer { competencies ->
             viewAdapter.updateData(competencies)
         })
 
-        fabCompetenciesNew.setOnClickListener {
-            competenciesVM.new(competencyAreaId, "test competency")
+        fabCompetenciesNew.setOnClickListener { competenciesVM.new("test competency") }
+
+        scoreService = ScoreService.getInstance(application)
+        exFabCompetenciesFinish.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch { scoreService.update(applicantId, positionId) }
+            // Todo: update on score change to avoid data loss.
+            val intent = Intent(this, Evaluation::class.java)
+            startActivity(intent)
         }
 
         recyclerViewCompetencies.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
-        }
-
-        textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
-
-        exFabCompetenciesFinish.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch { scoreService.update(applicantId, positionId) }
-            // Todo: update on score change to avoid data loss.
-            val intent = Intent(this, Evaluation::class.java)
-            startActivity(intent)
         }
     }
 }
