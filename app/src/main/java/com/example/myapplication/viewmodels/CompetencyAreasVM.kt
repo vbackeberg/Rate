@@ -23,7 +23,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
     }
 
     fun new(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
-        CompetencyAreasDatabase.getDatabase(getApplication()).runInTransaction {
+        database.runInTransaction {
             val competencyAreaId = competencyAreaDao.insert(competencyArea)
             val importances = mutableListOf<Importance>()
             positionDao.findAllIds().forEach { positionId ->
