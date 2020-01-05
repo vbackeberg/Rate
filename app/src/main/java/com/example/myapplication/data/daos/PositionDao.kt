@@ -18,7 +18,7 @@ interface PositionDao {
     fun findAllIds(): List<Long>
 
     @Insert(onConflict = REPLACE)
-    suspend fun insert(position: Position): Long
+    fun insert(position: Position): Long
 
     @Query("SELECT * FROM position WHERE id = :id")
     fun findById(id: Long): LiveData<Position>

@@ -24,4 +24,7 @@ interface CompetencyAreaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(competencyArea: CompetencyArea): Long
+
+    @Query("SELECT id FROM competencyArea")
+    fun findAllIds(): List<Long>
 }
