@@ -6,9 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
+import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.data.databases.CompetencyAreasDatabase
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.entities.CompetencyArea
+import com.example.myapplication.services.ScoreService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +21,8 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val applicantDao = database.applicantDao()
     private val competencyAreaDao = database.competencyAreaDao()
 
+    private val scoreService = ScoreService.getInstance(application)
+
     private val applicantId = getApplication<Application>()
         .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
         .getLong(CURRENT_APPLICANT_ID, 0L)
@@ -26,6 +30,10 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val competencyAreaId = getApplication<Application>()
         .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
         .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
+
+    private val positionId = getApplication<Application>()
+        .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
+        .getLong(CURRENT_POSITION_ID, 0L)
 
     fun getAll(): LiveData<List<Competency>> {
         return competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
@@ -37,6 +45,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
     fun update(competency: Competency) = CoroutineScope(Dispatchers.IO).launch {
         competencyDao.update(competency)
+        scoreService.update(applicantId, positionId)
     }
 
     fun new(name: String) = CoroutineScope(Dispatchers.IO).launch {

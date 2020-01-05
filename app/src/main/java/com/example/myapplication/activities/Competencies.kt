@@ -59,10 +59,7 @@ class Competencies : AppCompatActivity() {
 
         scoreService = ScoreService.getInstance(application)
         exFabCompetenciesFinish.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch { scoreService.update(applicantId, positionId) }
-            // Todo: update on score change to avoid data loss.
-            val intent = Intent(this, Evaluation::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Evaluation::class.java))
         }
 
         recyclerViewCompetencies.apply {
