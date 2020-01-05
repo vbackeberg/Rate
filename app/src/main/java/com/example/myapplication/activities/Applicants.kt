@@ -31,7 +31,7 @@ class Applicants : AppCompatActivity() {
         setContentView(R.layout.activity_applicants)
 
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
-        applicantsVm.getPosition().observe(this, Observer { position ->
+        applicantsVm.get().observe(this, Observer { position ->
             this.position = position
             title = resources.getString(R.string.applicants_toolbar_title, position.name)
         })

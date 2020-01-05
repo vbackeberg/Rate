@@ -34,7 +34,7 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
         applicantDao.insert(Applicant(0L, positionId, departmentId))
     }
 
-    fun getPosition(): LiveData<Position> {
+    fun get(): LiveData<Position> {
         return positionDao.findById(positionId)
     }
 
