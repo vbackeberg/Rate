@@ -30,11 +30,11 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
         return applicantDao.findAllByPositionAndDepartment(positionId, departmentId)
     }
 
-    fun new(applicant: Applicant) = CoroutineScope(Dispatchers.IO).launch {
-        applicantDao.insert(applicant)
+    fun new() = CoroutineScope(Dispatchers.IO).launch {
+        applicantDao.insert(Applicant(0L, positionId, departmentId))
     }
 
-    fun getPosition(positionId: Long): LiveData<Position> {
+    fun getPosition(): LiveData<Position> {
         return positionDao.findById(positionId)
     }
 

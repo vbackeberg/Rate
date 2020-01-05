@@ -11,10 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.CURRENT_DEPARTMENT_ID
-import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
-import com.example.myapplication.entities.Applicant
 import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
@@ -33,16 +30,8 @@ class Applicants : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applicants)
 
-        departmentId = this
-            .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
-            .getLong(CURRENT_DEPARTMENT_ID, 0L)
-
-        positionId = this
-            .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
-
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
-        applicantsVm.getPosition(positionId).observe(this, Observer { position ->
+        applicantsVm.getPosition().observe(this, Observer { position ->
             this.position = position
             title = resources.getString(R.string.applicants_toolbar_title, position.name)
         })
@@ -50,9 +39,7 @@ class Applicants : AppCompatActivity() {
             viewAdapter.updateData(applicants)
         })
 
-        fabApplicantsNew.setOnClickListener {
-            applicantsVm.new(Applicant(0L, positionId, departmentId))
-        }
+        fabApplicantsNew.setOnClickListener { applicantsVm.new() }
 
         recyclerViewApplicants.apply {
             setHasFixedSize(true)
