@@ -71,7 +71,7 @@ class Positions : AppCompatActivity() {
                 department.name = input.editableText.toString()
                 positionsVM.update(department)
             }
-            .setNegativeButton(R.string.dialog_rename_cancel) { dialog, _ ->
+            .setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
             }
             .create()

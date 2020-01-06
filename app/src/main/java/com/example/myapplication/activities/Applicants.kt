@@ -72,7 +72,7 @@ class Applicants : AppCompatActivity() {
                 position.name = input.editableText.toString()
                 applicantsVm.update(position)
             }
-            .setNegativeButton(R.string.dialog_rename_cancel) { dialog, _ ->
+            .setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
             }
             .create()
