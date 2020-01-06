@@ -17,7 +17,7 @@ import com.example.myapplication.entities.*
         Applicant::class,
         Score::class
     ],
-    version = 13
+    version = 14
 )
 abstract class CompetencyAreasDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
