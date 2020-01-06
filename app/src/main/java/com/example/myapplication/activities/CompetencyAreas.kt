@@ -1,6 +1,8 @@
 package com.example.myapplication.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +13,7 @@ import com.example.myapplication.viewadapters.CompetencyAreasAdapter
 import com.example.myapplication.viewmodels.CompetencyAreasVM
 import kotlinx.android.synthetic.main.activity_competency_areas.*
 import kotlinx.android.synthetic.main.content_competency_areas.*
+import kotlinx.android.synthetic.main.dialog.view.*
 
 class CompetencyAreas : AppCompatActivity() {
     private lateinit var viewAdapter: CompetencyAreasAdapter
@@ -31,12 +34,31 @@ class CompetencyAreas : AppCompatActivity() {
             viewAdapter.updateData(competencyAreas)
         })
 
-        fabCompetencyAreasNew.setOnClickListener { competencyAreasVM.new("Kompetenzbereich") }
+        fabCompetencyAreasNew.setOnClickListener { new() }
 
         recyclerViewCompetencyAreas.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun new() {
+        val builder = AlertDialog.Builder(this)
+        val input = layoutInflater.inflate(R.layout.dialog, null)
+
+        builder
+            .setTitle(R.string.dialog_new_competency_area)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
+                competencyAreasVM
+                    .newCompetencyArea(input.editTextNameDialog.editableText.toString())
+            }
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 }
