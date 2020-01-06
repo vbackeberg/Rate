@@ -11,8 +11,8 @@ import com.example.myapplication.entities.Position
 @Dao
 interface PositionDao {
 
-    @Query("SELECT * FROM position")
-    fun findAll(): LiveData<List<Position>>
+    @Query("SELECT * FROM position WHERE departmentId = :departmentId")
+    fun findAllByDepartment(departmentId: Long): LiveData<List<Position>>
 
     @Query("SELECT id FROM position")
     fun findAllIds(): List<Long>

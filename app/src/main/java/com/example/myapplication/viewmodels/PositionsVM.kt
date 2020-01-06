@@ -25,12 +25,12 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
         .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
     fun getAll(): LiveData<List<Position>> {
-        return positionDao.findAll()
+        return positionDao.findAllByDepartment(departmentId)
     }
 
     fun newPosition(name: String) = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
-            val positionId = positionDao.insert(Position(0L, name))
+            val positionId = positionDao.insert(Position(0L, departmentId, name))
             val importances = mutableListOf<Importance>()
             competencyAreaDao.findAllIds().forEach { competencyAreaId ->
                 importances.add(Importance(positionId, competencyAreaId, 0))
