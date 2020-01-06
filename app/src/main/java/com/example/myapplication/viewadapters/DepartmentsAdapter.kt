@@ -1,5 +1,6 @@
 package com.example.myapplication.viewadapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,7 @@ class DepartmentsAdapter(
             itemView.setOnClickListener(onItemClickListener)
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(department: Department) {
             name.text = department.name
             applicantsCount.text = "Anzahl der Bewerber: 4"
