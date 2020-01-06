@@ -51,7 +51,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         scoreService.update(applicantId, positionId)
     }
 
-    fun new(name: String) = CoroutineScope(Dispatchers.IO).launch {
+    fun newCompetency(name: String) = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
             val competencyId = competencyDao.insert(Competency(0L, competencyAreaId, name))
             val scores = mutableListOf<Score>()

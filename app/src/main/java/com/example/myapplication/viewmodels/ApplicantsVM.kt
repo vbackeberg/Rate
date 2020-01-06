@@ -33,7 +33,7 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
         return applicantDao.findAllByPositionAndDepartment(positionId, departmentId)
     }
 
-    fun new() = CoroutineScope(Dispatchers.IO).launch {
+    fun newApplicant() = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
             val applicantId = applicantDao.insert(Applicant(0L, positionId, departmentId))
             val scores = mutableListOf<Score>()

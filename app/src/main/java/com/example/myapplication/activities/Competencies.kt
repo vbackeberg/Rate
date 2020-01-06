@@ -54,7 +54,7 @@ class Competencies : AppCompatActivity() {
             viewAdapter.updateData(competencies)
         })
 
-        fabCompetenciesNew.setOnClickListener { competenciesVM.new("test competency") }
+        fabCompetenciesNew.setOnClickListener { competenciesVM.newCompetency("test competency") }
 
         scoreService = ScoreService.getInstance(application)
         exFabCompetenciesFinish.setOnClickListener {

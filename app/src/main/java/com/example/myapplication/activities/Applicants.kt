@@ -37,7 +37,7 @@ class Applicants : AppCompatActivity() {
             viewAdapter.updateData(applicants)
         })
 
-        fabApplicantsNew.setOnClickListener { applicantsVm.new() }
+        fabApplicantsNew.setOnClickListener { applicantsVm.newApplicant() }
 
         recyclerViewApplicants.apply {
             setHasFixedSize(true)

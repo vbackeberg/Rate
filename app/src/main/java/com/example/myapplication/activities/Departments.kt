@@ -57,7 +57,7 @@ class Departments : AppCompatActivity() {
                 .setTitle(R.string.dialog_new_department)
                 .setView(input)
                 .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-                    departmentsVM.new(input.editTextNameDialog.editableText.toString())
+                    departmentsVM.newDepartment(input.editTextNameDialog.editableText.toString())
                 }
                 .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                     dialog.cancel()
