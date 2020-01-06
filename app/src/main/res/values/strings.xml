@@ -7,7 +7,6 @@
     <string name="dialog_cancel">ABBRECHEN</string>
 
     <string name="departments_item_image">Abteilung</string>
-    <string name="departments_item_name">Abteilungsname fehlt</string>
     <string name="departments_tutorial_text">Bisher wurden noch keine Abteilungen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Abteilung anzulegen.</string>
 
     <string name="applicants_activity_title">Student</string>
