@@ -19,6 +19,9 @@ interface CompetencyDao {
     @Query("SELECT * FROM competency JOIN score ON competency.id = score.competencyId WHERE applicantId = :applicantId")
     suspend fun findAllByApplicantSuspend(applicantId: Long): List<CompetencyWithScore>
 
+    @Query("SELECT id FROM applicant")
+    fun findAllIds(): List<Long>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(competencies: List<Competency>)
 
