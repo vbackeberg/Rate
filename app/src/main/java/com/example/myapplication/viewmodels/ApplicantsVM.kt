@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
-import com.example.myapplication.data.databases.CompetencyAreasDatabase
+import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Applicant
 import com.example.myapplication.entities.Position
 import com.example.myapplication.entities.Score
@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ApplicantsVM(application: Application) : AndroidViewModel(application) {
-    private val database = CompetencyAreasDatabase.getDatabase(application)
+    private val database = AppDatabase.getDatabase(application)
     private val applicantDao = database.applicantDao()
     private val positionDao = database.positionDao()
     private val competencyDao = database.competencyDao()

@@ -17,9 +17,9 @@ import com.example.myapplication.entities.*
         Applicant::class,
         Score::class
     ],
-    version = 14
+    version = 1
 )
-abstract class CompetencyAreasDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
     abstract fun importanceDao(): ImportanceDao
     abstract fun positionDao(): PositionDao
@@ -30,9 +30,9 @@ abstract class CompetencyAreasDatabase : RoomDatabase() {
 
     companion object {
         @Volatile
-        private var INSTANCE: CompetencyAreasDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): CompetencyAreasDatabase {
+        fun getDatabase(context: Context): AppDatabase {
             val tempInstance = INSTANCE
 
             if (tempInstance != null) {
@@ -43,8 +43,8 @@ abstract class CompetencyAreasDatabase : RoomDatabase() {
                 val instance = Room
                     .databaseBuilder(
                         context.applicationContext,
-                        CompetencyAreasDatabase::class.java,
-                        "competency_areas_database"
+                        AppDatabase::class.java,
+                        "app_database"
                     )
                     .fallbackToDestructiveMigration()
                     .build()

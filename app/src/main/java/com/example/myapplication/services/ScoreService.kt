@@ -2,14 +2,14 @@ package com.example.myapplication.services
 
 import android.app.Application
 import com.example.myapplication.SingletonHolder
-import com.example.myapplication.data.databases.CompetencyAreasDatabase
+import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.CompetencyWithScore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
 class ScoreService private constructor(application: Application) {
-    private val database = CompetencyAreasDatabase.getDatabase(application)
+    private val database = AppDatabase.getDatabase(application)
     private val applicantDao = database.applicantDao()
     private val competencyDao = database.competencyDao()
     private val competencyAreaDao = database.competencyAreaDao()

@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 11,
-    "identityHash": "3ed835de1c4c85ee44962708c36485fa",
+    "version": 14,
+    "identityHash": "09bf13c9e5cd15c862b4b10953e9d47b",
     "entities": [
       {
         "tableName": "CompetencyArea",
@@ -91,17 +91,11 @@
       },
       {
         "tableName": "Competency",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `applicantId` INTEGER NOT NULL, `competencyAreaId` INTEGER NOT NULL, `name` TEXT NOT NULL, `value` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `competencyAreaId` INTEGER NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "applicantId",
-            "columnName": "applicantId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -115,12 +109,6 @@
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "value",
-            "columnName": "value",
-            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -161,7 +149,7 @@
       },
       {
         "tableName": "Applicant",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `positionId` INTEGER NOT NULL, `departmentId` INTEGER NOT NULL, `score` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `positionId` INTEGER NOT NULL, `departmentId` INTEGER NOT NULL, `name` TEXT NOT NULL, `score` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -182,6 +170,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "score",
             "columnName": "score",
             "affinity": "INTEGER",
@@ -196,12 +190,45 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Score",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`competencyId` INTEGER NOT NULL, `applicantId` INTEGER NOT NULL, `value` INTEGER NOT NULL, PRIMARY KEY(`competencyId`, `applicantId`))",
+        "fields": [
+          {
+            "fieldPath": "competencyId",
+            "columnName": "competencyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "applicantId",
+            "columnName": "applicantId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "competencyId",
+            "applicantId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ed835de1c4c85ee44962708c36485fa')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '09bf13c9e5cd15c862b4b10953e9d47b')"
     ]
   }
 }

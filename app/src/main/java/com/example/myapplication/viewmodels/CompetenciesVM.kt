@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.CURRENT_POSITION_ID
-import com.example.myapplication.data.databases.CompetencyAreasDatabase
+import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.entities.CompetencyArea
 import com.example.myapplication.entities.CompetencyWithScore
@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CompetenciesVM(application: Application) : AndroidViewModel(application) {
-    private val database = CompetencyAreasDatabase.getDatabase(application)
+    private val database = AppDatabase.getDatabase(application)
     private val competencyDao = database.competencyDao()
     private val applicantDao = database.applicantDao()
     private val competencyAreaDao = database.competencyAreaDao()
