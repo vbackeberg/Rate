@@ -30,5 +30,6 @@
     <string name="dialog_new_department">Neue Abteilung anlegen</string>
     <string name="dialog_new_position">Neue Position anlegen</string>
     <string name="dialog_new_competency_area">Neuen Kompetenzbereich anlegen</string>
+    <string name="dialog_new_competency">Neue Kompetenz anlegen</string>
 
 </resources>

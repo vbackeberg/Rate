@@ -3,6 +3,7 @@ package com.example.myapplication.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,6 +17,7 @@ import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.activity_competencies.*
 import kotlinx.android.synthetic.main.content_competencies.*
+import kotlinx.android.synthetic.main.dialog.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -54,7 +56,7 @@ class Competencies : AppCompatActivity() {
             viewAdapter.updateData(competencies)
         })
 
-        fabCompetenciesNew.setOnClickListener { competenciesVM.newCompetency("test competency") }
+        fabCompetenciesNew.setOnClickListener { new() }
 
         scoreService = ScoreService.getInstance(application)
         exFabCompetenciesFinish.setOnClickListener {
@@ -66,5 +68,23 @@ class Competencies : AppCompatActivity() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun new() {
+        val builder = AlertDialog.Builder(this)
+        val input = layoutInflater.inflate(R.layout.dialog, null)
+
+        builder
+            .setTitle(R.string.dialog_new_competency)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
+                competenciesVM.newCompetency(input.editTextNameDialog.editableText.toString())
+            }
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 }
