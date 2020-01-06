@@ -3,6 +3,7 @@ package com.example.myapplication.viewadapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -39,8 +40,8 @@ class DepartmentsAdapter(
     class DepartmentViewHolder(view: View, onItemClickListener: View.OnClickListener) :
         RecyclerView.ViewHolder(view) {
         var id = 0L
-        val name = itemView.departmentName
-        private val applicantsCount = itemView.departmentApplicantsCount
+        val name: TextView = itemView.departmentName
+        val applicantsCount: TextView = itemView.departmentApplicantsCount
 
         init {
             itemView.tag = this
@@ -49,7 +50,7 @@ class DepartmentsAdapter(
 
         fun bind(department: Department) {
             name.text = department.name
-            applicantsCount.text = "Anzahl an Bewerbern: 4"
+            applicantsCount.text = "Anzahl der Bewerber: 4"
             id = department.id
         }
     }
