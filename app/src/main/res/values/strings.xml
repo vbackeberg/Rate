@@ -7,11 +7,13 @@
     <string name="dialog_cancel">ABBRECHEN</string>
 
     <string name="departments_item_image">Abteilung</string>
+    <string name="departments_item_name">Abteilungsname fehlt</string>
     <string name="departments_tutorial_text">Bisher wurden noch keine Abteilungen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Abteilung anzulegen.</string>
 
     <string name="applicants_activity_title">Student</string>
     <string name="applicants_content_text">Missing applicant id!</string>
     <string name="applicants_tutorial_text">Bisher wurden noch keine Bewerber angelegt.\n\nTippen Sie auf das Plus-Icon, um einen neuen Bewerber anzulegen.</string>
+    <string name="applicants_toolbar_title">Bewerber für %1$s</string>
 
     <string name="competencies_activity_title">Kompetenzen</string>
     <string name="competencies_toolbar_title">"Kompetenzen für %1$s"</string>
@@ -36,6 +38,5 @@
     <string name="dialog_new_position">Neue Position anlegen</string>
     <string name="dialog_new_competency_area">Neuen Kompetenzbereich anlegen</string>
     <string name="dialog_new_competency">Neue Kompetenz anlegen</string>
-    <string name="applicants_toolbar_title">Bewerber für %1$s</string>
 
 </resources>
