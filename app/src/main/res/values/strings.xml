@@ -24,8 +24,10 @@
     <string name="competency_areas_activity_title">Kompetenzbereiche</string>
     <string name="competency_areas_toolbar_title">Wichtigkeit der Kompetenzbereiche für die Position %1$s</string>
     <string name="competency_areas_item_name">Kompetenzbereich</string>
-    <string name="dialog_new_department">Neue Abteilung erstellen</string>
+
     <string name="dialog_new_apply">Erstellen</string>
     <string name="dialog_new_hint">Name</string>
+    <string name="dialog_new_department">Neue Abteilung anlegen</string>
+    <string name="dialog_new_position">Neue Position anlegen</string>
 
 </resources>

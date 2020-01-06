@@ -1,11 +1,10 @@
 package com.example.myapplication.activities
 
-import android.app.AlertDialog
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,6 +16,7 @@ import com.example.myapplication.viewadapters.PositionsAdapter
 import com.example.myapplication.viewmodels.PositionsVM
 import kotlinx.android.synthetic.main.activity_positions.*
 import kotlinx.android.synthetic.main.content_positions.*
+import kotlinx.android.synthetic.main.dialog.view.*
 
 class Positions : AppCompatActivity() {
     private var viewAdapter: PositionsAdapter = PositionsAdapter()
@@ -37,7 +37,7 @@ class Positions : AppCompatActivity() {
             viewAdapter.updateData(positions)
         })
 
-        fabPositionsNew.setOnClickListener { positionsVM.new("neue Position") }
+        fabPositionsNew.setOnClickListener { new() }
 
         recyclerViewPositions.apply {
             setHasFixedSize(true)
@@ -58,17 +58,34 @@ class Positions : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("InflateParams")
+    private fun new() {
+        val builder = AlertDialog.Builder(this)
+        val input = layoutInflater.inflate(R.layout.dialog, null)
+
+        builder
+            .setTitle(R.string.dialog_new_position)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
+                positionsVM.newPosition(input.editTextNameDialog.editableText.toString())
+            }
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
+    }
+
+    @SuppressLint("InflateParams")
     private fun rename(): Boolean {
         val builder = AlertDialog.Builder(this)
-        val input = EditText(this)
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        input.setText(department.name)
+        val input = layoutInflater.inflate(R.layout.dialog, null)
 
         builder
             .setTitle(R.string.dialog_rename_apply)
             .setView(input)
             .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
-                department.name = input.editableText.toString()
+                department.name = input.editTextNameDialog.editableText.toString()
                 positionsVM.update(department)
             }
             .setNegativeButton(R.string.dialog_cancel) { dialog, _ ->

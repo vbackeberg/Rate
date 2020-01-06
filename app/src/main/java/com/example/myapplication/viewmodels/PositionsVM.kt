@@ -28,7 +28,7 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
         return positionDao.findAll()
     }
 
-    fun new(name: String) = CoroutineScope(Dispatchers.IO).launch {
+    fun newPosition(name: String) = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
             val positionId = positionDao.insert(Position(0L, name))
             val importances = mutableListOf<Importance>()
