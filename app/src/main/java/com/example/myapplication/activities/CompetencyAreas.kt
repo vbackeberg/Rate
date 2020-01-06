@@ -34,7 +34,7 @@ class CompetencyAreas : AppCompatActivity() {
 
         competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
         competencyAreasVM.get().observe(this, Observer { position ->
-            title = position.name
+            title = resources.getString(R.string.competency_areas_toolbar_title, position.name)
         })
         competencyAreasVM.getAll().observe(this, Observer { competencyAreas ->
             viewAdapter.updateData(competencyAreas)

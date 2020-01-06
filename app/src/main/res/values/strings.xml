@@ -10,12 +10,11 @@
     <string name="departments_tutorial_text">Bisher wurden noch keine Abteilungen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Abteilung anzulegen.</string>
 
     <string name="applicants_activity_title">Student</string>
-    <string name="applicants_toolbar_title">Bewerber für die Position %1$s</string>
     <string name="applicants_content_text">Missing applicant id!</string>
     <string name="applicants_tutorial_text">Bisher wurden noch keine Bewerber angelegt.\n\nTippen Sie auf das Plus-Icon, um einen neuen Bewerber anzulegen.</string>
 
     <string name="competencies_activity_title">Kompetenzen</string>
-    <string name="competencies_toolbar_title">"Kompetenzen für den Bereich %1$s"</string>
+    <string name="competencies_toolbar_title">"Kompetenzen für %1$s"</string>
     <string name="competencies_finish_button">Auswerten</string>
     <string name="competencies_item_name">Kompetenz</string>
     <string name="competencies_tutorial_text">Bisher wurden noch keine Kompetenzen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Kompetenz anzulegen.</string>
@@ -26,7 +25,7 @@
     <string name="evaluation_activity_title">Evaluation</string>
 
     <string name="competency_areas_activity_title">Kompetenzbereiche</string>
-    <string name="competency_areas_toolbar_title">Wichtigkeit der Kompetenzbereiche für die Position %1$s</string>
+    <string name="competency_areas_toolbar_title">Kompetenzbereiche für %1$s</string>
     <string name="competency_areas_item_name">Kompetenzbereich</string>
     <string name="competency_areas_tutorial_text">Bisher wurden noch keine Kompetenzbereiche angelegt.\n\nTippen Sie auf das Plus-Icon, um einen neuen Kompetenzbereich anzulegen.</string>
 
@@ -37,5 +36,6 @@
     <string name="dialog_new_position">Neue Position anlegen</string>
     <string name="dialog_new_competency_area">Neuen Kompetenzbereich anlegen</string>
     <string name="dialog_new_competency">Neue Kompetenz anlegen</string>
+    <string name="applicants_toolbar_title">Bewerber für %1$s</string>
 
 </resources>
