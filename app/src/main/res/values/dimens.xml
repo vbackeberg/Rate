@@ -1,3 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="tutorial_text_size">24sp</dimen>
+    <dimen name="tutorial_margin">32dp</dimen>
 </resources>

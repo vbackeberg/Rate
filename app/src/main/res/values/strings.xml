@@ -18,6 +18,7 @@
     <string name="competencies_item_name">Kompetenz</string>
 
     <string name="positions_activity_title">Positionen</string>
+    <string name="positions_tutorial_text">Bisher wurden noch keine Positionen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Position anzulegen.</string>
 
     <string name="evaluation_activity_title">Evaluation</string>
 

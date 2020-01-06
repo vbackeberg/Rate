@@ -1,9 +1,12 @@
 package com.example.myapplication.activities
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -23,10 +26,13 @@ class Positions : AppCompatActivity() {
     private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private lateinit var positionsVM: PositionsVM
     private lateinit var department: Department
+    private lateinit var fabAnimator: Animator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+            .apply { setTarget(fabPositionsNew) }
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
         positionsVM.get().observe(this, Observer { department ->
@@ -35,6 +41,7 @@ class Positions : AppCompatActivity() {
         })
         positionsVM.getAll().observe(this, Observer { positions ->
             viewAdapter.updateData(positions)
+            if (positions.isEmpty()) enableTutorial() else disableTutorial()
         })
 
         fabPositionsNew.setOnClickListener { new() }
@@ -95,5 +102,15 @@ class Positions : AppCompatActivity() {
             .show()
 
         return true
+    }
+
+    private fun enableTutorial() {
+        textViewTutorialPositions.visibility = View.VISIBLE
+        fabAnimator.start()
+    }
+
+    private fun disableTutorial() {
+        textViewTutorialPositions.visibility = View.GONE
+        fabAnimator.end()
     }
 }
