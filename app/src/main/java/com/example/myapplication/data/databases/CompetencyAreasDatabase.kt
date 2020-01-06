@@ -14,9 +14,10 @@ import com.example.myapplication.entities.*
         Position::class,
         Competency::class,
         Department::class,
-        Applicant::class
+        Applicant::class,
+        Score::class
     ],
-    version = 11
+    version = 12
 )
 abstract class CompetencyAreasDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
@@ -25,6 +26,7 @@ abstract class CompetencyAreasDatabase : RoomDatabase() {
     abstract fun competencyDao(): CompetencyDao
     abstract fun departmentDao(): DepartmentDao
     abstract fun applicantDao(): ApplicantDao
+    abstract fun scoreDao(): ScoreDao
 
     companion object {
         @Volatile

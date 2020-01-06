@@ -10,6 +10,8 @@ import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.data.databases.CompetencyAreasDatabase
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.entities.CompetencyArea
+import com.example.myapplication.entities.CompetencyWithScore
+import com.example.myapplication.entities.Score
 import com.example.myapplication.services.ScoreService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +22,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val competencyDao = database.competencyDao()
     private val applicantDao = database.applicantDao()
     private val competencyAreaDao = database.competencyAreaDao()
+    private val scoreDao = database.scoreDao()
 
     private val scoreService = ScoreService.getInstance(application)
 
@@ -35,7 +38,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
         .getLong(CURRENT_POSITION_ID, 0L)
 
-    fun getAll(): LiveData<List<Competency>> {
+    fun getAll(): LiveData<List<CompetencyWithScore>> {
         return competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
     }
 
@@ -43,19 +46,19 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         return competencyAreaDao.findById(competencyAreaId)
     }
 
-    fun update(competency: Competency) = CoroutineScope(Dispatchers.IO).launch {
-        competencyDao.update(competency)
+    fun update(score: Score) = CoroutineScope(Dispatchers.IO).launch {
+        scoreDao.update(score)
         scoreService.update(applicantId, positionId)
     }
 
     fun new(name: String) = CoroutineScope(Dispatchers.IO).launch {
-        val applicantIds: List<Long> = applicantDao.findAllIds()
-        val competencies = mutableListOf<Competency>()
-        applicantIds.forEach { applicantId ->
-            competencies
-                .add(Competency(0L, applicantId, competencyAreaId, name, 0))
-        } //Todo: Add an applicant competency value entity such as for competency area to facilitate renaming and deletion.
-
-        competencyDao.insertMany(competencies)
+        database.runInTransaction {
+            val competencyId = competencyDao.insert(Competency(0L, competencyAreaId, name))
+            val scores = mutableListOf<Score>()
+            applicantDao.findAllIds().forEach { applicantId ->
+                scores.add(Score(competencyId, applicantId, 0))
+            }
+            scoreDao.insertMany(scores)
+        }
     }
 }

@@ -10,17 +10,17 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.entities.Competency
+import com.example.myapplication.entities.CompetencyWithScore
 import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.item_competencies.view.*
 
 class CompetenciesAdapter(activity: AppCompatActivity) :
     RecyclerView.Adapter<CompetenciesAdapter.CompetencyViewHolder>() {
-    private var competencies: List<Competency> = emptyList()
+    private var competencies: List<CompetencyWithScore> = emptyList()
     private val competenciesVM: CompetenciesVM =
         ViewModelProviders.of(activity).get(CompetenciesVM::class.java)
 
-    fun updateData(newData: List<Competency>) {
+    fun updateData(newData: List<CompetencyWithScore>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencies, newData))
         this.competencies = newData
         diffResult.dispatchUpdatesTo(this)
@@ -49,7 +49,7 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
         RecyclerView.ViewHolder(view) {
         private val seekBarCompetency: SeekBar = view.seekBarCompetency
         private val textViewCompetency: TextView = view.textViewCompetency
-        private lateinit var competency: Competency
+        private lateinit var competency: CompetencyWithScore
 
         init {
             view.seekBarCompetency
@@ -59,8 +59,8 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
                         progress: Int,
                         fromUser: Boolean
                     ) {
-                        competency.value = progress
-                        competenciesVM.update(competency)
+                        competency.score.value = progress
+                        competenciesVM.update(competency.score)
                     }
 
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -73,10 +73,10 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
                 })
         }
 
-        fun bind(competency: Competency) {
+        fun bind(competency: CompetencyWithScore) {
             this.competency = competency
-            textViewCompetency.text = competency.name
-            seekBarCompetency.progress = competency.value
+            textViewCompetency.text = competency.competency.name
+            seekBarCompetency.progress = competency.score.value
         }
     }
 }

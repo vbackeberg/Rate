@@ -3,7 +3,7 @@ package com.example.myapplication.services
 import android.app.Application
 import com.example.myapplication.SingletonHolder
 import com.example.myapplication.data.databases.CompetencyAreasDatabase
-import com.example.myapplication.entities.Competency
+import com.example.myapplication.entities.CompetencyWithScore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -22,22 +22,22 @@ class ScoreService private constructor(application: Application) {
                     .associate { Pair(it.id, it.importance.value) }
             }
 
-        val competenciesNew = CoroutineScope(Dispatchers.IO)
+        val competenciesWithScore = CoroutineScope(Dispatchers.IO)
             .async { competencyDao.findAllByApplicantSuspend(applicantId) }
 
         applicantDao.updateScore(
             applicantId,
-            calculateScore(competenciesNew.await(), importanceByCompetencyArea.await())
+            calculateScore(competenciesWithScore.await(), importanceByCompetencyArea.await())
         )
     }
 
     private fun calculateScore(
-        competencies: List<Competency>,
+        competencies: List<CompetencyWithScore>,
         importanceByCompetencyArea: Map<Long, Int>
     ): Int {
 
         return competencies.sumBy { competency ->
-            competency.value * importanceByCompetencyArea.getValue(competency.competencyAreaId)
+            competency.score.value * importanceByCompetencyArea.getValue(competency.competency.competencyAreaId)
         }
     }
 
