@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,8 +9,28 @@
     tools:context=".activities.CompetencyAreas"
     tools:showIn="@layout/activity_competency_areas">
 
+    <TextView
+        android:id="@+id/textViewTutorialCompetencyAreas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/tutorial_margin"
+        android:layout_marginEnd="@dimen/tutorial_margin"
+        android:text="@string/competency_areas_tutorial_text"
+        android:textAlignment="center"
+        android:textSize="@dimen/tutorial_text_size"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCompetencyAreas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

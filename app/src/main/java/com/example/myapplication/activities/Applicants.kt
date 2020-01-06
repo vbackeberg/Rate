@@ -1,11 +1,14 @@
 package com.example.myapplication.activities
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -25,10 +28,13 @@ class Applicants : AppCompatActivity() {
     private val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private lateinit var position: Position
     private lateinit var applicantsVm: ApplicantsVM
+    private lateinit var fabAnimator: Animator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applicants)
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+            .apply { setTarget(fabApplicantsNew) }
 
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
         applicantsVm.get().observe(this, Observer { position ->
@@ -37,6 +43,7 @@ class Applicants : AppCompatActivity() {
         })
         applicantsVm.getAll().observe(this, Observer { applicants ->
             viewAdapter.updateData(applicants)
+            if (applicants.isEmpty()) enableTutorial() else disableTutorial()
         })
 
         fabApplicantsNew.setOnClickListener { new() }
@@ -99,5 +106,15 @@ class Applicants : AppCompatActivity() {
             }
             .create()
             .show()
+    }
+
+    private fun enableTutorial() {
+        textViewTutorialApplicants.visibility = View.VISIBLE
+        fabAnimator.start()
+    }
+
+    private fun disableTutorial() {
+        textViewTutorialApplicants.visibility = View.GONE
+        fabAnimator.end()
     }
 }

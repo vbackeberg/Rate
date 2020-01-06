@@ -1,8 +1,11 @@
 package com.example.myapplication.activities
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -29,11 +32,14 @@ class Competencies : AppCompatActivity() {
     private var positionId = 0L
     private lateinit var competenciesVM: CompetenciesVM
     private lateinit var scoreService: ScoreService
+    private lateinit var fabAnimator: Animator
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+            .apply { setTarget(fabCompetenciesNew) }
 
         applicantId = this
             .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
@@ -54,6 +60,7 @@ class Competencies : AppCompatActivity() {
         viewAdapter = CompetenciesAdapter(this)
         competenciesVM.getAll().observe(this, Observer { competencies ->
             viewAdapter.updateData(competencies)
+            if (competencies.isEmpty()) enableTutorial() else disableTutorial()
         })
 
         fabCompetenciesNew.setOnClickListener { new() }
@@ -86,5 +93,15 @@ class Competencies : AppCompatActivity() {
             }
             .create()
             .show()
+    }
+
+    private fun enableTutorial() {
+        textViewTutorialCompetencies.visibility = View.VISIBLE
+        fabAnimator.start()
+    }
+
+    private fun disableTutorial() {
+        textViewTutorialCompetencies.visibility = View.GONE
+        fabAnimator.end()
     }
 }

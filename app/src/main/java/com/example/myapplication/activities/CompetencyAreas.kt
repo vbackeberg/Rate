@@ -1,7 +1,10 @@
 package com.example.myapplication.activities
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -19,10 +22,13 @@ class CompetencyAreas : AppCompatActivity() {
     private lateinit var viewAdapter: CompetencyAreasAdapter
     private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private lateinit var competencyAreasVM: CompetencyAreasVM
+    private lateinit var fabAnimator: Animator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competency_areas)
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+            .apply { setTarget(fabCompetencyAreasNew) }
 
         viewAdapter = CompetencyAreasAdapter(this)
 
@@ -32,6 +38,7 @@ class CompetencyAreas : AppCompatActivity() {
         })
         competencyAreasVM.getAll().observe(this, Observer { competencyAreas ->
             viewAdapter.updateData(competencyAreas)
+            if (competencyAreas.isEmpty()) enableTutorial() else disableTutorial()
         })
 
         fabCompetencyAreasNew.setOnClickListener { new() }
@@ -60,5 +67,15 @@ class CompetencyAreas : AppCompatActivity() {
             }
             .create()
             .show()
+    }
+
+    private fun enableTutorial() {
+        textViewTutorialCompetencyAreas.visibility = View.VISIBLE
+        fabAnimator.start()
+    }
+
+    private fun disableTutorial() {
+        textViewTutorialCompetencyAreas.visibility = View.GONE
+        fabAnimator.end()
     }
 }

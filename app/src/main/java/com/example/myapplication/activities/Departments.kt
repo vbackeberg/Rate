@@ -1,5 +1,7 @@
 package com.example.myapplication.activities
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -30,17 +32,20 @@ class Departments : AppCompatActivity() {
 
     private var viewAdapter = DepartmentsAdapter(onItemClickListener)
     private var viewManager = GridLayoutManager(this, 3)
-
     private lateinit var departmentsVM: DepartmentsVM
+    private lateinit var fabAnimator: Animator
 
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departments)
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+            .apply { setTarget(fabDepartmentsNew) }
 
         departmentsVM = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
         departmentsVM.getAll().observe(this, Observer { departments ->
             viewAdapter.updateData(departments)
+            if (departments.isEmpty()) enableTutorial() else disableTutorial()
         })
 
         recyclerViewDepartments.apply {
@@ -65,5 +70,15 @@ class Departments : AppCompatActivity() {
                 .create()
                 .show()
         }
+    }
+
+    private fun enableTutorial() {
+        textViewTutorialDepartments.visibility = View.VISIBLE
+        fabAnimator.start()
+    }
+
+    private fun disableTutorial() {
+        textViewTutorialDepartments.visibility = View.GONE
+        fabAnimator.end()
     }
 }
