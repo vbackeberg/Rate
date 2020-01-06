@@ -1,5 +1,6 @@
 package com.example.myapplication.activities
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
@@ -17,6 +18,7 @@ import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
 import kotlinx.android.synthetic.main.activity_applicants.*
 import kotlinx.android.synthetic.main.content_applicants.*
+import kotlinx.android.synthetic.main.dialog.view.*
 
 class Applicants : AppCompatActivity() {
     private val viewAdapter: ApplicantsAdapter = ApplicantsAdapter()
@@ -37,7 +39,7 @@ class Applicants : AppCompatActivity() {
             viewAdapter.updateData(applicants)
         })
 
-        fabApplicantsNew.setOnClickListener { applicantsVm.newApplicant("name") }
+        fabApplicantsNew.setOnClickListener { new() }
 
         recyclerViewApplicants.apply {
             setHasFixedSize(true)
@@ -79,5 +81,23 @@ class Applicants : AppCompatActivity() {
             .show()
 
         return true
+    }
+
+    @SuppressLint("InflateParams")
+    private fun new() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        val input = layoutInflater.inflate(R.layout.dialog, null)
+
+        builder
+            .setTitle(R.string.dialog_new_position)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
+                applicantsVm.newApplicant(input.editTextNameDialog.editableText.toString())
+            }
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 }
