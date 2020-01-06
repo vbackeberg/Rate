@@ -1,8 +1,10 @@
 package com.example.myapplication.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +15,7 @@ import com.example.myapplication.viewadapters.DepartmentsAdapter
 import com.example.myapplication.viewmodels.DepartmentsVM
 import kotlinx.android.synthetic.main.activity_departments.*
 import kotlinx.android.synthetic.main.content_departments.*
+import kotlinx.android.synthetic.main.dialog.view.*
 
 class Departments : AppCompatActivity() {
     private val onItemClickListener = View.OnClickListener { view ->
@@ -30,6 +33,7 @@ class Departments : AppCompatActivity() {
 
     private lateinit var departmentsVM: DepartmentsVM
 
+    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departments)
@@ -45,6 +49,21 @@ class Departments : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-        fabDepartmentsNew.setOnClickListener { departmentsVM.new("neue Abteilung") }
+        fabDepartmentsNew.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            val input = layoutInflater.inflate(R.layout.dialog, null)
+
+            builder
+                .setTitle(R.string.dialog_new_department)
+                .setView(input)
+                .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
+                    departmentsVM.new(input.editTextNameDialog.editableText.toString())
+                }
+                .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .create()
+                .show()
+        }
     }
 }
