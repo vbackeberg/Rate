@@ -5,8 +5,10 @@ import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,9 +19,8 @@ import com.example.myapplication.viewadapters.DepartmentsAdapter
 import com.example.myapplication.viewmodels.DepartmentsVM
 import kotlinx.android.synthetic.main.activity_departments.*
 import kotlinx.android.synthetic.main.content_departments.*
-import kotlinx.android.synthetic.main.dialog.view.*
 
-class Departments : AppCompatActivity() {
+class Departments : AppCompatActivity(), ActionMode.Callback {
     private val onItemClickListener = View.OnClickListener { view ->
         val viewHolder = view.tag as DepartmentsAdapter.DepartmentViewHolder
 
@@ -55,20 +56,22 @@ class Departments : AppCompatActivity() {
         }
 
         fabDepartmentsNew.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            val input = layoutInflater.inflate(R.layout.dialog, null)
+            //            val builder = AlertDialog.Builder(this)
+//            val input = layoutInflater.inflate(R.layout.dialog, null)
+//
+//            builder
+//                .setTitle(R.string.dialog_new_department)
+//                .setView(input)
+//                .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
+//                    departmentsVM.newDepartment(input.editTextNameDialog.editableText.toString())
+//                }
+//                .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+//                    dialog.cancel()
+//                }
+//                .create()
+//                .show()
 
-            builder
-                .setTitle(R.string.dialog_new_department)
-                .setView(input)
-                .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-                    departmentsVM.newDepartment(input.editTextNameDialog.editableText.toString())
-                }
-                .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
-                    dialog.cancel()
-                }
-                .create()
-                .show()
+            showc()
         }
     }
 
@@ -80,5 +83,27 @@ class Departments : AppCompatActivity() {
     private fun disableTutorial() {
         textViewTutorialDepartments.visibility = View.GONE
         fabAnimator.end()
+    }
+
+    fun showc() {
+        startActionMode(this)
+    }
+
+    override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
+        return true
+    }
+
+    override fun onCreateActionMode(p0: ActionMode, p1: Menu?): Boolean {
+        val inflater = p0.menuInflater
+        inflater.inflate(R.menu.menu_toolbar, p1)
+        return true
+    }
+
+    override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+        return true
+    }
+
+    override fun onDestroyActionMode(p0: ActionMode?) {
+
     }
 }
