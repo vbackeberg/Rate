@@ -2,6 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+        <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
@@ -9,9 +10,20 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="dur"></item>
+
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button</item>
+
+        <item name="actionModeStyle">@style/AppTheme.ActionMode</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="AppTheme" />
+    <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/colorSecondary</item>
+    </style>
 
+    <style name="AppTheme.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="background">@color/colorSecondary</item>
+
+    </style>
 </resources>

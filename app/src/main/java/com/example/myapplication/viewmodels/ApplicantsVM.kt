@@ -6,39 +6,49 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
-import com.example.myapplication.data.daos.PositionDao
-import com.example.myapplication.data.databases.PositionsDatabase
+import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Applicant
 import com.example.myapplication.entities.Position
-import com.example.myapplication.repositories.ApplicantsRepository
+import com.example.myapplication.entities.Score
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ApplicantsVM(application: Application) : AndroidViewModel(application) {
-    private val applicantsRepository = ApplicantsRepository.getInstance(application)
+    private val database = AppDatabase.getDatabase(application)
+    private val applicantDao = database.applicantDao()
+    private val positionDao = database.positionDao()
+    private val competencyDao = database.competencyDao()
+    private val scoreDao = database.scoreDao()
 
-    private val positionDao: PositionDao = PositionsDatabase
-        .getDatabase(application)
-        .positionDao()
-
-    private val departmentId = getApplication<Application>()
+    private val departmentId = application
         .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
         .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
-    private val positionId = getApplication<Application>()
+    private val positionId = application
         .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
         .getLong(CURRENT_POSITION_ID, 0L)
 
     fun getAll(): LiveData<MutableList<Applicant>> {
-        return applicantsRepository.findAllByPositionAndDepartment(positionId, departmentId)
+        return applicantDao.findAllByPositionAndDepartment(positionId, departmentId)
     }
 
-    fun new(applicant: Applicant) = CoroutineScope(Dispatchers.IO).launch {
-        applicantsRepository.insert(applicant)
+    fun newApplicant(name: String) = CoroutineScope(Dispatchers.IO).launch {
+        database.runInTransaction {
+            val applicantId = applicantDao.insert(Applicant(0L, positionId, departmentId, name))
+            val scores = mutableListOf<Score>()
+            competencyDao.findAllIds().forEach { competencyId ->
+                scores.add(Score(competencyId, applicantId, 0))
+            }
+            scoreDao.insertMany(scores)
+        }
     }
 
-    fun getPosition(positionId: Long): LiveData<Position> {
+    fun get(): LiveData<Position> {
         return positionDao.findById(positionId)
+    }
+
+    fun update(position: Position) = CoroutineScope(Dispatchers.IO).launch {
+        positionDao.update(position)
     }
 }

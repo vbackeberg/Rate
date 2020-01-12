@@ -20,7 +20,7 @@ interface ApplicantDao {
     fun findAllIds(): List<Long>
 
     @Insert(onConflict = REPLACE)
-    suspend fun insert(applicant: Applicant)
+    fun insert(applicant: Applicant): Long
 
     @Query("UPDATE applicant SET score = :score WHERE id = :id")
     suspend fun updateScore(id: Long, score: Int)

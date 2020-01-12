@@ -8,13 +8,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
 import com.example.myapplication.activities.Applicants
-import com.example.myapplication.entities.Department
 import com.example.myapplication.entities.Position
-import kotlinx.android.synthetic.main.item_departments.view.*
 import kotlinx.android.synthetic.main.item_positions.view.*
 
 class PositionsAdapter : RecyclerView.Adapter<PositionsAdapter.PositionViewHolder>() {

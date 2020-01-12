@@ -1,60 +1,52 @@
 package com.example.myapplication.activities
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.CURRENT_DEPARTMENT_ID
-import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
-import com.example.myapplication.entities.Applicant
 import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
-import com.example.myapplication.viewmodels.PositionsVM
 import kotlinx.android.synthetic.main.activity_applicants.*
 import kotlinx.android.synthetic.main.content_applicants.*
+import kotlinx.android.synthetic.main.dialog.view.*
 
 class Applicants : AppCompatActivity() {
     private val viewAdapter: ApplicantsAdapter = ApplicantsAdapter()
     private val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-    private var departmentId = 0L
-    private var positionId = 0L
     private lateinit var position: Position
-    private lateinit var positionsVM: PositionsVM
     private lateinit var applicantsVm: ApplicantsVM
+    private lateinit var fabAnimator: Animator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applicants)
-
-        departmentId = this
-            .getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
-            .getLong(CURRENT_DEPARTMENT_ID, 0L)
-
-        positionId = this
-            .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+            .apply { setTarget(fabApplicantsNew) }
 
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
-        applicantsVm.getPosition(positionId).observe(this, Observer { position ->
+        applicantsVm.get().observe(this, Observer { position ->
             this.position = position
             title = resources.getString(R.string.applicants_toolbar_title, position.name)
         })
         applicantsVm.getAll().observe(this, Observer { applicants ->
             viewAdapter.updateData(applicants)
+            if (applicants.isEmpty()) enableTutorial() else disableTutorial()
         })
 
-        fabApplicantsNew.setOnClickListener {
-            applicantsVm.new(Applicant(0L, positionId, departmentId))
-        }
+        fabApplicantsNew.setOnClickListener { new() }
 
         recyclerViewApplicants.apply {
             setHasFixedSize(true)
@@ -87,14 +79,42 @@ class Applicants : AppCompatActivity() {
             .setView(input)
             .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
                 position.name = input.editableText.toString()
-                positionsVM.update(position)
+                applicantsVm.update(position)
             }
-            .setNegativeButton(R.string.dialog_rename_cancel) { dialog, _ ->
+            .setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
             }
             .create()
             .show()
 
         return true
+    }
+
+    @SuppressLint("InflateParams")
+    private fun new() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        val input = layoutInflater.inflate(R.layout.dialog, null)
+
+        builder
+            .setTitle(R.string.dialog_new_position)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
+                applicantsVm.newApplicant(input.editTextNameDialog.editableText.toString())
+            }
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
+    }
+
+    private fun enableTutorial() {
+        textViewTutorialApplicants.visibility = View.VISIBLE
+        fabAnimator.start()
+    }
+
+    private fun disableTutorial() {
+        textViewTutorialApplicants.visibility = View.GONE
+        fabAnimator.end()
     }
 }
