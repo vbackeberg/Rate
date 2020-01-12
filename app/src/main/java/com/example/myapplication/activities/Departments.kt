@@ -2,6 +2,7 @@ package com.example.myapplication.activities
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -36,6 +37,8 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
     private lateinit var departmentsVM: DepartmentsVM
     private lateinit var fabAnimator: Animator
 
+    val valueAnimator = ValueAnimator()
+
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,11 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+
+
+
+
 
         fabDepartmentsNew.setOnClickListener {
             //            val builder = AlertDialog.Builder(this)
@@ -89,13 +97,15 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
         startActionMode(this)
     }
 
-    override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
+    override fun onActionItemClicked(p0: ActionMode, p1: MenuItem?): Boolean {
+
         return true
     }
 
     override fun onCreateActionMode(p0: ActionMode, p1: Menu?): Boolean {
         val inflater = p0.menuInflater
         inflater.inflate(R.menu.menu_toolbar, p1)
+        window.statusBarColor = getColor(R.color.colorSecondary)
         return true
     }
 
