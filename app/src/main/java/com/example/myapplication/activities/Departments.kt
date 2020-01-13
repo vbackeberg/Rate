@@ -23,7 +23,10 @@ import kotlinx.android.synthetic.main.activity_departments.*
 import kotlinx.android.synthetic.main.content_departments.*
 import kotlinx.android.synthetic.main.dialog.view.*
 
+@SuppressLint("InflateParams")
 class Departments : AppCompatActivity(), ActionMode.Callback {
+    private lateinit var departmentsVM: DepartmentsVM
+    private lateinit var fabAnimator: Animator
     private lateinit var selectedDepartment: Department
 
     private val onItemClickListener = View.OnClickListener { view ->
@@ -44,12 +47,7 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
 
     private var viewAdapter = DepartmentsAdapter(onItemClickListener, onItemLongClickListener)
     private var viewManager = GridLayoutManager(this, 3)
-    private lateinit var departmentsVM: DepartmentsVM
-    private lateinit var fabAnimator: Animator
 
-    val valueAnimator = ValueAnimator()
-
-    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departments)
@@ -68,24 +66,62 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
             adapter = viewAdapter
         }
 
-        fabDepartmentsNew.setOnClickListener {
-            //            val builder = AlertDialog.Builder(this)
-//            val input = layoutInflater.inflate(R.layout.dialog, null)
-//
-//            builder
-//                .setTitle(R.string.dialog_new_department)
-//                .setView(input)
-//                .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-//                    departmentsVM.newDepartment(input.editTextNameDialog.editableText.toString())
-//                }
-//                .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
-//                    dialog.cancel()
-//                }
-//                .create()
-//                .show()
+        fabDepartmentsNew.setOnClickListener { create() }
+    }
 
-            showc()
+    override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_actionbar_rename -> rename(actionMode)
+            R.id.menu_actionbar_delete -> {
+                departmentsVM.delete(selectedDepartment)
+                actionMode.finish()
+            }
         }
+        return true
+    }
+
+    override fun onCreateActionMode(actionMode: ActionMode, menu: Menu): Boolean {
+        val inflater = actionMode.menuInflater
+        inflater.inflate(R.menu.menu_actionbar, menu)
+        return true
+    }
+
+    override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+        return true
+    }
+
+    override fun onDestroyActionMode(p0: ActionMode?) {}
+
+    private fun create() {
+        val input = layoutInflater.inflate(R.layout.dialog, null)
+        AlertDialog.Builder(this)
+            .setTitle(R.string.dialog_new_department)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
+                departmentsVM.newDepartment(input.editTextNameDialog.editableText.toString())
+            }
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
+    }
+
+    private fun rename(actionMode: ActionMode) {
+        val input = layoutInflater.inflate(R.layout.dialog, null)
+        AlertDialog.Builder(this)
+            .setTitle(R.string.dialog_rename_department)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
+                selectedDepartment.name = input.editTextNameDialog.editableText.toString()
+                departmentsVM.update(selectedDepartment)
+                actionMode.finish()
+            }
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 
     private fun enableTutorial() {

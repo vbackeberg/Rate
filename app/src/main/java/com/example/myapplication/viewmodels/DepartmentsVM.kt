@@ -30,4 +30,8 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
     fun update(department: Department) = CoroutineScope(Dispatchers.IO).launch {
         departmentDao.update(department)
     }
+
+    fun delete(department: Department) = CoroutineScope(Dispatchers.IO).launch {
+        departmentDao.delete(department)
+    }
 }

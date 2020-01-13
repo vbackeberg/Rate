@@ -38,5 +38,6 @@
     <string name="dialog_new_position">Neue Position anlegen</string>
     <string name="dialog_new_competency_area">Neuen Kompetenzbereich anlegen</string>
     <string name="dialog_new_competency">Neue Kompetenz anlegen</string>
+    <string name="dialog_rename_department">Abteilung umbenennen</string>
 
 </resources>
