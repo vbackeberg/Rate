@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.data.databases.AppDatabase
-import com.example.myapplication.entities.Department
 import com.example.myapplication.entities.Importance
 import com.example.myapplication.entities.Position
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +17,6 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
     private val competencyAreaDao = database.competencyAreaDao()
     private val importanceDao = database.importanceDao()
     private val positionDao = database.positionDao()
-    private val departmentDao = database.departmentDao()
 
     private val departmentId = application
         .getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
@@ -41,14 +39,6 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
 
     fun update(position: Position) = CoroutineScope(Dispatchers.IO).launch {
         positionDao.update(position)
-    }
-
-    fun update(department: Department) = CoroutineScope(Dispatchers.IO).launch {
-        departmentDao.update(department)
-    }
-
-    fun get(): LiveData<Department> {
-        return departmentDao.findById(departmentId)
     }
 
     fun delete(position: Position) = CoroutineScope(Dispatchers.IO).launch {

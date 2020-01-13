@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
-import com.example.myapplication.entities.Department
 import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.PositionsAdapter
 import com.example.myapplication.viewmodels.PositionsVM
@@ -28,7 +27,6 @@ import kotlinx.android.synthetic.main.dialog.view.*
 class Positions : AppCompatActivity(), ActionMode.Callback {
     private lateinit var positionsVM: PositionsVM
     private lateinit var fabAnimator: Animator
-    private lateinit var department: Department
     private lateinit var selectedPosition: Position
 
     private val onItemClickListener = View.OnClickListener { view ->
@@ -57,10 +55,6 @@ class Positions : AppCompatActivity(), ActionMode.Callback {
             .apply { setTarget(fabPositionsNew) }
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
-        positionsVM.get().observe(this, Observer { department ->
-            this.department = department
-            title = department.name
-        })
         positionsVM.getAll().observe(this, Observer { positions ->
             viewAdapter.updateData(positions)
             if (positions.isEmpty()) enableTutorial() else disableTutorial()
