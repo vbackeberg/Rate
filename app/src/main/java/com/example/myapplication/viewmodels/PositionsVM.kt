@@ -50,4 +50,8 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
     fun get(): LiveData<Department> {
         return departmentDao.findById(departmentId)
     }
+
+    fun delete(position: Position) = CoroutineScope(Dispatchers.IO).launch {
+        positionDao.delete(position)
+    }
 }
