@@ -119,6 +119,7 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
+                actionMode.finish()
             }
             .create()
             .show()
