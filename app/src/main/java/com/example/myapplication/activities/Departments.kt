@@ -66,7 +66,7 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
             adapter = viewAdapter
         }
 
-        fabDepartmentsNew.setOnClickListener { create() }
+        fabDepartmentsNew.setOnClickListener { new() }
     }
 
     override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -92,7 +92,7 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
 
     override fun onDestroyActionMode(p0: ActionMode?) {}
 
-    private fun create() {
+    private fun new() {
         val input = layoutInflater.inflate(R.layout.dialog, null)
         AlertDialog.Builder(this)
             .setTitle(R.string.dialog_new_department)
