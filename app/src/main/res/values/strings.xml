@@ -17,6 +17,8 @@
     <string name="applicants_content_text">Missing applicant id!</string>
     <string name="applicants_tutorial_text">Bisher wurden noch keine Bewerber angelegt.\n\nTippen Sie auf das Plus-Icon, um einen neuen Bewerber anzulegen.</string>
     <string name="applicants_toolbar_title">Bewerber für %1$s</string>
+    <string name="applicants_dialog_new">Neuen Bewerber anlegen…</string>
+    <string name="applicants_dialog_rename">Bewerber umbenennen…</string>
 
     <string name="competencies_activity_title">Kompetenzen</string>
     <string name="competencies_toolbar_title">"Kompetenzen für %1$s"</string>
