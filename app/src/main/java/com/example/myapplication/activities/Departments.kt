@@ -22,11 +22,12 @@ import kotlinx.android.synthetic.main.activity_departments.*
 import kotlinx.android.synthetic.main.content_departments.*
 
 class Departments : AppCompatActivity(), ActionMode.Callback {
-    private val onItemClickListener = View.OnClickListener { view ->
-        val viewHolder = view.tag as DepartmentsAdapter.DepartmentViewHolder
+    private lateinit var selectedDepartment: Department
 
+    private val onItemClickListener = View.OnClickListener { view ->
+        selectedDepartment = view.tag as Department
         getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_DEPARTMENT_ID, viewHolder.id)
+            .edit().putLong(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
             .apply()
 
         startActivity(Intent(this, Positions::class.java))
@@ -57,11 +58,6 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-
-
-
-
-
 
         fabDepartmentsNew.setOnClickListener {
             //            val builder = AlertDialog.Builder(this)
