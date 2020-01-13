@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -24,10 +23,23 @@ import kotlinx.android.synthetic.main.content_positions.*
 import kotlinx.android.synthetic.main.dialog.view.*
 
 @SuppressLint("InflateParams")
-class Positions : AppCompatActivity(), ActionMode.Callback {
+class Positions : AppCompatActivity(){
     private lateinit var positionsVM: PositionsVM
     private lateinit var fabAnimator: Animator
     private lateinit var selectedPosition: Position
+
+    private val actionModeCallback = object : ActionModeCallback() {
+        override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.menu_actionbar_rename -> rename(actionMode)
+                R.id.menu_actionbar_delete -> {
+                    positionsVM.delete(selectedPosition)
+                    actionMode.finish()
+                }
+            }
+            return true
+        }
+    }
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedPosition = view.tag as Position
@@ -41,7 +53,7 @@ class Positions : AppCompatActivity(), ActionMode.Callback {
     private val onItemLongClickListener = View.OnLongClickListener { view ->
         selectedPosition = view.tag as Position
 
-        startActionMode(this)
+        startActionMode(actionModeCallback)
         true
     }
 
@@ -68,29 +80,6 @@ class Positions : AppCompatActivity(), ActionMode.Callback {
             adapter = viewAdapter
         }
     }
-
-    override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_actionbar_rename -> rename(actionMode)
-            R.id.menu_actionbar_delete -> {
-                positionsVM.delete(selectedPosition)
-                actionMode.finish()
-            }
-        }
-        return true
-    }
-
-    override fun onCreateActionMode(actionMode: ActionMode, menu: Menu): Boolean {
-        val inflater = actionMode.menuInflater
-        inflater.inflate(R.menu.menu_actionbar, menu)
-        return true
-    }
-
-    override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
-        return true
-    }
-
-    override fun onDestroyActionMode(p0: ActionMode?) {}
 
     private fun new() {
         val input = layoutInflater.inflate(R.layout.dialog, null)
