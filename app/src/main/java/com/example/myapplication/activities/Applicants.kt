@@ -68,10 +68,6 @@ class Applicants : AppCompatActivity() {
             .apply { setTarget(fabApplicantsNew) }
 
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
-        applicantsVm.get().observe(this, Observer { position ->
-            this.position = position
-            title = resources.getString(R.string.applicants_toolbar_title, position.name)
-        })
         applicantsVm.getAll().observe(this, Observer { applicants ->
             viewAdapter.updateData(applicants)
             if (applicants.isEmpty()) enableTutorial() else disableTutorial()
