@@ -84,7 +84,7 @@ class Competencies : AppCompatActivity() {
         val input = layoutInflater.inflate(R.layout.dialog, null)
 
         builder
-            .setTitle(R.string.dialog_new_competency)
+            .setTitle(R.string.competencies_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
                 competenciesVM.newCompetency(input.editTextNameDialog.editableText.toString())

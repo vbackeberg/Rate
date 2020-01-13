@@ -95,7 +95,7 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
     private fun new() {
         val input = layoutInflater.inflate(R.layout.dialog, null)
         AlertDialog.Builder(this)
-            .setTitle(R.string.dialog_new_department)
+            .setTitle(R.string.departments_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
                 departmentsVM.newDepartment(input.editTextNameDialog.editableText.toString())
@@ -110,7 +110,7 @@ class Departments : AppCompatActivity(), ActionMode.Callback {
     private fun rename(actionMode: ActionMode) {
         val input = layoutInflater.inflate(R.layout.dialog, null)
         AlertDialog.Builder(this)
-            .setTitle(R.string.dialog_rename_department)
+            .setTitle(R.string.departments_dialog_rename)
             .setView(input)
             .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
                 selectedDepartment.name = input.editTextNameDialog.editableText.toString()

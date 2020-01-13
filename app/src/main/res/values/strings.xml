@@ -10,6 +10,8 @@
 
     <string name="departments_item_image">Abteilung</string>
     <string name="departments_tutorial_text">Bisher wurden noch keine Abteilungen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Abteilung anzulegen.</string>
+    <string name="departments_dialog_new">Neue Abteilung anlegen</string>
+    <string name="departments_dialog_rename">Abteilung umbenennen</string>
 
     <string name="applicants_activity_title">Student</string>
     <string name="applicants_content_text">Missing applicant id!</string>
@@ -21,9 +23,12 @@
     <string name="competencies_finish_button">Auswerten</string>
     <string name="competencies_item_name">Kompetenz</string>
     <string name="competencies_tutorial_text">Bisher wurden noch keine Kompetenzen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Kompetenz anzulegen.</string>
+    <string name="competencies_dialog_new">Neue Kompetenz anlegen</string>
 
     <string name="positions_activity_title">Positionen</string>
     <string name="positions_tutorial_text">Bisher wurden noch keine Positionen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Position anzulegen.</string>
+    <string name="positions_dialog_new">Neue Position anlegen</string>
+    <string name="positions_dialog_rename">Position umbenennen</string>
 
     <string name="evaluation_activity_title">Evaluation</string>
 
@@ -31,14 +36,9 @@
     <string name="competency_areas_toolbar_title">Kompetenzbereiche für %1$s</string>
     <string name="competency_areas_item_name">Kompetenzbereich</string>
     <string name="competency_areas_tutorial_text">Bisher wurden noch keine Kompetenzbereiche angelegt.\n\nTippen Sie auf das Plus-Icon, um einen neuen Kompetenzbereich anzulegen.</string>
+    <string name="competency_areas_dialog_new">Neuen Kompetenzbereich anlegen</string>
 
     <string name="dialog_new_apply">Erstellen</string>
     <string name="dialog_new_hint">Name</string>
-    <string name="dialog_new_department">Neue Abteilung anlegen</string>
-    <string name="dialog_new_position">Neue Position anlegen</string>
-    <string name="dialog_new_competency_area">Neuen Kompetenzbereich anlegen</string>
-    <string name="dialog_new_competency">Neue Kompetenz anlegen</string>
-    <string name="dialog_rename_department">Abteilung umbenennen</string>
-    <string name="dialog_rename_position">Position umbenennen</string>
 
 </resources>

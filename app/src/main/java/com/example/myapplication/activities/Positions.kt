@@ -95,7 +95,7 @@ class Positions : AppCompatActivity(), ActionMode.Callback {
     private fun new() {
         val input = layoutInflater.inflate(R.layout.dialog, null)
         AlertDialog.Builder(this)
-            .setTitle(R.string.dialog_new_position)
+            .setTitle(R.string.positions_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
                 positionsVM.newPosition(input.editTextNameDialog.editableText.toString())
@@ -110,7 +110,7 @@ class Positions : AppCompatActivity(), ActionMode.Callback {
     private fun rename(actionMode: ActionMode): Boolean {
         val input = layoutInflater.inflate(R.layout.dialog, null)
         AlertDialog.Builder(this)
-            .setTitle(R.string.dialog_rename_position)
+            .setTitle(R.string.positions_dialog_rename)
             .setView(input)
             .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
                 selectedPosition.name = input.editTextNameDialog.editableText.toString()

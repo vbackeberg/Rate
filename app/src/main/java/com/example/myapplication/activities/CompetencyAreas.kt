@@ -56,7 +56,7 @@ class CompetencyAreas : AppCompatActivity() {
         val input = layoutInflater.inflate(R.layout.dialog, null)
 
         builder
-            .setTitle(R.string.dialog_new_competency_area)
+            .setTitle(R.string.competency_areas_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
                 competencyAreasVM
