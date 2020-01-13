@@ -11,7 +11,8 @@ import com.example.myapplication.entities.Department
 import kotlinx.android.synthetic.main.item_departments.view.*
 
 class DepartmentsAdapter(
-    private val onItemClickListener: View.OnClickListener
+    private val onItemClickListener: View.OnClickListener,
+    private val onItemLongClickListener: View.OnLongClickListener
 ) : RecyclerView.Adapter<DepartmentsAdapter.DepartmentViewHolder>() {
     private var departments: List<Department> = emptyList()
 
@@ -37,10 +38,15 @@ class DepartmentsAdapter(
 
     override fun getItemCount() = departments.size
 
-    class DepartmentViewHolder(view: View, onItemClickListener: View.OnClickListener) :
+    class DepartmentViewHolder(
+        view: View,
+        onItemClickListener: View.OnClickListener,
+        onItemLongClickListener: View.OnLongClickListener
+    ) :
         RecyclerView.ViewHolder(view) {
         init {
             itemView.setOnClickListener(onItemClickListener)
+            itemView.setOnLongClickListener(onItemLongClickListener)
         }
 
         @SuppressLint("SetTextI18n")
