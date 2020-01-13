@@ -14,9 +14,6 @@ interface DepartmentDao {
     @Insert(onConflict = REPLACE)
     suspend fun insert(department: Department)
 
-    @Query("SELECT * FROM department WHERE id = :id")
-    fun findById(id: Long): LiveData<Department>
-
     @Update
     suspend fun update(department: Department)
 

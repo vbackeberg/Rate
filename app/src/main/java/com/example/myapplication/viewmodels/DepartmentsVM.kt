@@ -15,10 +15,6 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
         .getDatabase(application)
         .departmentDao()
 
-    fun get(id: Long): LiveData<Department> {
-        return departmentDao.findById(id)
-    }
-
     fun getAll(): LiveData<List<Department>> {
         return departmentDao.findAll()
     }
