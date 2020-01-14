@@ -43,7 +43,15 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
         importanceDao.update(importance)
     }
 
+    fun update(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
+        competencyAreaDao.update(competencyArea)
+    }
+
     fun get(): LiveData<Position> {
         return positionDao.findById(positionId)
+    }
+
+    fun delete(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
+        competencyAreaDao.delete(competencyArea)
     }
 }

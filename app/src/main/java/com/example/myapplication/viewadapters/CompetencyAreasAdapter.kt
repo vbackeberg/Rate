@@ -1,7 +1,5 @@
 package com.example.myapplication.viewadapters
 
-import android.content.Context.MODE_PRIVATE
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.R
-import com.example.myapplication.activities.Competencies
 import com.example.myapplication.entities.CompetencyAreaWithImportance
 import com.example.myapplication.viewmodels.CompetencyAreasVM
 import kotlinx.android.synthetic.main.item_competency_areas.view.*
 
-class CompetencyAreasAdapter(activity: AppCompatActivity) :
+class CompetencyAreasAdapter(
+    activity: AppCompatActivity,
+    private val onItemClickListener: View.OnClickListener,
+    private val onItemLongClickListener: View.OnLongClickListener
+) :
     RecyclerView.Adapter<CompetencyAreasAdapter.CompetencyAreaViewHolder>() {
     private var competencyAreas: List<CompetencyAreaWithImportance> = emptyList()
     private val competencyAreasVM: CompetencyAreasVM =
@@ -37,7 +37,12 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
             false
         )
 
-        return CompetencyAreaViewHolder(view, competencyAreasVM)
+        return CompetencyAreaViewHolder(
+            view,
+            competencyAreasVM,
+            onItemClickListener,
+            onItemLongClickListener
+        )
     }
 
     override fun onBindViewHolder(holder: CompetencyAreaViewHolder, position: Int) {
@@ -47,23 +52,17 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
     override fun getItemCount() = competencyAreas.size
 
     class CompetencyAreaViewHolder(
-        private val view: View,
-        competencyAreasVM: CompetencyAreasVM
+        view: View,
+        competencyAreasVM: CompetencyAreasVM,
+        onItemClickListener: View.OnClickListener,
+        onItemLongClickListener: View.OnLongClickListener
     ) : RecyclerView.ViewHolder(view) {
         private lateinit var competencyAreaWithImportance: CompetencyAreaWithImportance
 
         init {
             view.setOnClickListener {
-                view.context.startActivity(Intent(view.context, Competencies::class.java))
-
-                view.context
-                    .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
-                    .edit()
-                    .putLong(
-                        CURRENT_COMPETENCY_AREA_ID,
-                        competencyAreaWithImportance.competencyArea.id
-                    )
-                    .apply()
+                itemView.setOnClickListener(onItemClickListener)
+                itemView.setOnLongClickListener(onItemLongClickListener)
             }
 
             view.seekBarCompetencyArea
@@ -89,8 +88,9 @@ class CompetencyAreasAdapter(activity: AppCompatActivity) :
 
         fun bind(competencyAreaWithImportance: CompetencyAreaWithImportance) {
             this.competencyAreaWithImportance = competencyAreaWithImportance
-            view.textViewCompetencyArea.text = competencyAreaWithImportance.competencyArea.name
-            view.seekBarCompetencyArea.progress = competencyAreaWithImportance.importance.value
+            itemView.tag = competencyAreaWithImportance
+            itemView.textViewCompetencyArea.text = competencyAreaWithImportance.competencyArea.name
+            itemView.seekBarCompetencyArea.progress = competencyAreaWithImportance.importance.value
         }
     }
 

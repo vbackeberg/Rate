@@ -1,10 +1,7 @@
 package com.example.myapplication.data.daos
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.entities.CompetencyWithScore
 
@@ -27,4 +24,10 @@ interface CompetencyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(competency: Competency): Long
+
+    @Delete
+    suspend fun delete(competency: Competency)
+
+    @Update
+    suspend fun update(competency: Competency)
 }

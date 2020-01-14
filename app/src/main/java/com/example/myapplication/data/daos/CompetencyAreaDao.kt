@@ -27,4 +27,7 @@ interface CompetencyAreaDao {
 
     @Query("SELECT id FROM competencyArea")
     fun findAllIds(): List<Long>
+
+    @Delete
+    suspend fun delete(competencyArea: CompetencyArea)
 }
