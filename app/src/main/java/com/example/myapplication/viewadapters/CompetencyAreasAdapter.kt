@@ -4,28 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.entities.CompetencyAreaWithImportance
-import com.example.myapplication.viewmodels.CompetencyAreasVM
 import kotlinx.android.synthetic.main.item_competency_areas.view.*
 
 class CompetencyAreasAdapter(
-    activity: AppCompatActivity,
     private val onItemClickListener: View.OnClickListener,
-    private val onItemLongClickListener: View.OnLongClickListener
+    private val onItemLongClickListener: View.OnLongClickListener,
+    private val onSeekBarChangeListener: SeekBar.OnSeekBarChangeListener
 ) :
     RecyclerView.Adapter<CompetencyAreasAdapter.CompetencyAreaViewHolder>() {
     private var competencyAreas: List<CompetencyAreaWithImportance> = emptyList()
-    private val competencyAreasVM: CompetencyAreasVM =
-        ViewModelProviders.of(activity).get(CompetencyAreasVM::class.java)
 
     fun updateData(newData: List<CompetencyAreaWithImportance>) {
-        val diffResult =
-            DiffUtil.calculateDiff(DiffUtilCallback(competencyAreas, newData))
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencyAreas, newData))
         this.competencyAreas = newData
         diffResult.dispatchUpdatesTo(this)
     }
@@ -39,9 +33,9 @@ class CompetencyAreasAdapter(
 
         return CompetencyAreaViewHolder(
             view,
-            competencyAreasVM,
             onItemClickListener,
-            onItemLongClickListener
+            onItemLongClickListener,
+            onSeekBarChangeListener
         )
     }
 
@@ -53,44 +47,21 @@ class CompetencyAreasAdapter(
 
     class CompetencyAreaViewHolder(
         view: View,
-        competencyAreasVM: CompetencyAreasVM,
         onItemClickListener: View.OnClickListener,
-        onItemLongClickListener: View.OnLongClickListener
+        onItemLongClickListener: View.OnLongClickListener,
+        onSeekBarChangeListener: SeekBar.OnSeekBarChangeListener
     ) : RecyclerView.ViewHolder(view) {
-        private lateinit var competencyAreaWithImportance: CompetencyAreaWithImportance
 
         init {
-            view.setOnClickListener {
-                itemView.setOnClickListener(onItemClickListener)
-                itemView.setOnLongClickListener(onItemLongClickListener)
-            }
-
-            view.seekBarCompetencyArea
-                .setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                    override fun onProgressChanged(
-                        seekBar: SeekBar?,
-                        progress: Int,
-                        fromUser: Boolean
-                    ) {
-                        competencyAreaWithImportance.importance.value = progress
-                        competencyAreasVM.update(competencyAreaWithImportance.importance)
-                    }
-
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-                    }
-
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
-                    }
-                })
+            itemView.setOnClickListener(onItemClickListener)
+            itemView.setOnLongClickListener(onItemLongClickListener)
+            itemView.seekBarCompetencyArea.setOnSeekBarChangeListener(onSeekBarChangeListener)
         }
 
-        fun bind(competencyAreaWithImportance: CompetencyAreaWithImportance) {
-            this.competencyAreaWithImportance = competencyAreaWithImportance
-            itemView.tag = competencyAreaWithImportance
-            itemView.textViewCompetencyArea.text = competencyAreaWithImportance.competencyArea.name
-            itemView.seekBarCompetencyArea.progress = competencyAreaWithImportance.importance.value
+        fun bind(competencyArea: CompetencyAreaWithImportance) {
+            itemView.tag = competencyArea
+            itemView.textViewCompetencyArea.text = competencyArea.competencyArea.name
+            itemView.seekBarCompetencyArea.progress = competencyArea.importance.value
         }
     }
 

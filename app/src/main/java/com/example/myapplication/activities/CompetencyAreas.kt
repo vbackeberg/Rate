@@ -8,12 +8,12 @@ import android.os.Bundle
 import android.view.ActionMode
 import android.view.MenuItem
 import android.view.View
+import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.CompetencyAreaWithImportance
@@ -58,16 +58,29 @@ class CompetencyAreas : AppCompatActivity() {
         true
     }
 
-    private lateinit var viewAdapter: CompetencyAreasAdapter
-    private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+    private val onSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+            selectedCompetencyArea.importance.value = progress
+            competencyAreasVM.update(selectedCompetencyArea.importance)
+        }
+
+        override fun onStartTrackingTouch(p0: SeekBar?) {}
+        override fun onStopTrackingTouch(p0: SeekBar?) {}
+
+    }
+
+    private val viewAdapter = CompetencyAreasAdapter(
+        onItemClickListener,
+        onItemLongClickListener,
+        onSeekBarChangeListener
+    )
+    private val viewManager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competency_areas)
         fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
             .apply { setTarget(fabCompetencyAreasNew) }
-
-        viewAdapter = CompetencyAreasAdapter(this, onItemClickListener, onItemLongClickListener)
 
         competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
         competencyAreasVM.get().observe(this, Observer { position ->

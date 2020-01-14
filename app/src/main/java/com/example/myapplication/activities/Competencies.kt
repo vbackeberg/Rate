@@ -8,16 +8,15 @@ import android.os.Bundle
 import android.view.ActionMode
 import android.view.MenuItem
 import android.view.View
+import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.CompetencyWithScore
-import com.example.myapplication.services.ScoreService
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.activity_competencies.*
@@ -31,7 +30,6 @@ import kotlinx.coroutines.launch
 class Competencies : AppCompatActivity() {
     private var applicantId = 0L
     private lateinit var competenciesVM: CompetenciesVM
-    private lateinit var scoreService: ScoreService
     private lateinit var fabAnimator: Animator
     private lateinit var selectedCompetency: CompetencyWithScore
 
@@ -55,8 +53,19 @@ class Competencies : AppCompatActivity() {
         true
     }
 
-    private lateinit var viewAdapter: CompetenciesAdapter
-    private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
+    private val onSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+            selectedCompetency.score.value = progress
+            competenciesVM.update(selectedCompetency.score)
+        }
+
+        override fun onStartTrackingTouch(p0: SeekBar?) {}
+        override fun onStopTrackingTouch(p0: SeekBar?) {}
+
+    }
+
+    private val viewAdapter = CompetenciesAdapter(onItemLongClickListener, onSeekBarChangeListener)
+    private val viewManager = LinearLayoutManager(this)
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +87,6 @@ class Competencies : AppCompatActivity() {
                 resources.getString(R.string.competencies_toolbar_title, competenciesVM.get().name)
         }
 
-        viewAdapter = CompetenciesAdapter(this, onItemLongClickListener)
         competenciesVM.getAll().observe(this, Observer { competencies ->
             viewAdapter.updateData(competencies)
             if (competencies.isEmpty()) enableTutorial() else disableTutorial()
@@ -86,7 +94,6 @@ class Competencies : AppCompatActivity() {
 
         fabCompetenciesNew.setOnClickListener { new() }
 
-        scoreService = ScoreService.getInstance(application)
         exFabCompetenciesFinish.setOnClickListener {
             startActivity(Intent(this, Evaluation::class.java))
         }
