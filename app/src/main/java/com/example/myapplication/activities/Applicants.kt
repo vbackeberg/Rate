@@ -48,7 +48,7 @@ class Applicants : AppCompatActivity() {
             .edit().putLong(CURRENT_APPLICANT_ID, selectedApplicant.id)
             .apply()
 
-        startActivity(Intent(this, Positions::class.java))
+        startActivity(Intent(this, CompetencyAreas::class.java))
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->
