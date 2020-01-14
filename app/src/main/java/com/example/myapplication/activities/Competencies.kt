@@ -5,6 +5,8 @@ import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.ActionMode
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +15,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_APPLICANT_ID
-import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
+import com.example.myapplication.entities.CompetencyWithScore
 import com.example.myapplication.services.ScoreService
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
@@ -25,14 +27,36 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@SuppressLint("InflateParams")
 class Competencies : AppCompatActivity() {
-    private lateinit var viewAdapter: CompetenciesAdapter
-    private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private var applicantId = 0L
-    private var positionId = 0L
     private lateinit var competenciesVM: CompetenciesVM
     private lateinit var scoreService: ScoreService
     private lateinit var fabAnimator: Animator
+    private lateinit var selectedCompetency: CompetencyWithScore
+
+    private val actionModeCallback = object : ActionModeCallback() {
+        override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.menu_actionbar_rename -> rename(actionMode)
+                R.id.menu_actionbar_delete -> {
+                    competenciesVM.delete(selectedCompetency.competency)
+                    actionMode.finish()
+                }
+            }
+            return true
+        }
+    }
+
+    private val onItemLongClickListener = View.OnLongClickListener { view ->
+        selectedCompetency = view.tag as CompetencyWithScore
+
+        startActionMode(actionModeCallback)
+        true
+    }
+
+    private lateinit var viewAdapter: CompetenciesAdapter
+    private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +69,6 @@ class Competencies : AppCompatActivity() {
             .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
             .getLong(CURRENT_APPLICANT_ID, 0L)
 
-        positionId = this
-            .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
-
         textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
 
         competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
@@ -58,7 +78,7 @@ class Competencies : AppCompatActivity() {
                 resources.getString(R.string.competencies_toolbar_title, competenciesVM.get().name)
         }
 
-        viewAdapter = CompetenciesAdapter(this)
+        viewAdapter = CompetenciesAdapter(this, onItemLongClickListener)
         competenciesVM.getAll().observe(this, Observer { competencies ->
             viewAdapter.updateData(competencies)
             if (competencies.isEmpty()) enableTutorial() else disableTutorial()
@@ -78,12 +98,9 @@ class Competencies : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("InflateParams")
     private fun new() {
-        val builder = AlertDialog.Builder(this)
         val input = layoutInflater.inflate(R.layout.dialog, null)
-
-        builder
+        AlertDialog.Builder(this)
             .setTitle(R.string.competencies_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
@@ -91,6 +108,25 @@ class Competencies : AppCompatActivity() {
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
+            }
+            .create()
+            .show()
+    }
+
+    private fun rename(actionMode: ActionMode) {
+        val input = layoutInflater.inflate(R.layout.dialog, null)
+        AlertDialog.Builder(this)
+            .setTitle(R.string.competencies_dialog_rename)
+            .setView(input)
+            .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
+                selectedCompetency.competency.name =
+                    input.editTextNameDialog.editableText.toString()
+                competenciesVM.update(selectedCompetency.competency)
+                actionMode.finish()
+            }
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
+                dialog.cancel()
+                actionMode.finish()
             }
             .create()
             .show()

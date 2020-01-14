@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
@@ -14,7 +13,10 @@ import com.example.myapplication.entities.CompetencyWithScore
 import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.item_competencies.view.*
 
-class CompetenciesAdapter(activity: AppCompatActivity) :
+class CompetenciesAdapter(
+    activity: AppCompatActivity,
+    private val onItemLongClickListener: View.OnLongClickListener
+) :
     RecyclerView.Adapter<CompetenciesAdapter.CompetencyViewHolder>() {
     private var competencies: List<CompetencyWithScore> = emptyList()
     private val competenciesVM: CompetenciesVM =
@@ -33,7 +35,11 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
             false
         )
 
-        return CompetencyViewHolder(view, competenciesVM)
+        return CompetencyViewHolder(
+            view,
+            competenciesVM,
+            onItemLongClickListener
+        )
     }
 
     override fun onBindViewHolder(holder: CompetencyViewHolder, position: Int) {
@@ -44,14 +50,15 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
 
     class CompetencyViewHolder(
         view: View,
-        competenciesVM: CompetenciesVM
+        competenciesVM: CompetenciesVM,
+        onItemLongClickListener: View.OnLongClickListener
     ) :
         RecyclerView.ViewHolder(view) {
-        private val seekBarCompetency: SeekBar = view.seekBarCompetency
-        private val textViewCompetency: TextView = view.textViewCompetency
         private lateinit var competency: CompetencyWithScore
 
         init {
+            itemView.setOnLongClickListener(onItemLongClickListener)
+
             view.seekBarCompetency
                 .setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onProgressChanged(
@@ -75,8 +82,9 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
 
         fun bind(competency: CompetencyWithScore) {
             this.competency = competency
-            textViewCompetency.text = competency.competency.name
-            seekBarCompetency.progress = competency.score.value
+            itemView.tag = competency
+            itemView.textViewCompetency.text = competency.competency.name
+            itemView.seekBarCompetency.progress = competency.score.value
         }
     }
 }

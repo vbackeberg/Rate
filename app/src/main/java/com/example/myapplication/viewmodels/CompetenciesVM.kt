@@ -51,6 +51,10 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         scoreService.update(applicantId, positionId)
     }
 
+    fun update(competency: Competency) = CoroutineScope(Dispatchers.IO).launch {
+        competencyDao.update(competency)
+    }
+
     fun newCompetency(name: String) = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
             val competencyId = competencyDao.insert(Competency(0L, competencyAreaId, name))
@@ -60,5 +64,9 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
             }
             scoreDao.insertMany(scores)
         }
+    }
+
+    fun delete(selectedCompetency: Competency) = CoroutineScope(Dispatchers.IO).launch {
+        competencyDao.delete(selectedCompetency)
     }
 }

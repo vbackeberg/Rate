@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class Competency(
     @PrimaryKey(autoGenerate = true) override val id: Long,
     val competencyAreaId: Long,
-    val name: String
+    var name: String
 ) : Id
