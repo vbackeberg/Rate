@@ -26,6 +26,7 @@
     <string name="competencies_item_name">Kompetenz</string>
     <string name="competencies_tutorial_text">Bisher wurden noch keine Kompetenzen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Kompetenz anzulegen.</string>
     <string name="competencies_dialog_new">Neue Kompetenz anlegen</string>
+    <string name="competencies_dialog_rename">Kompetenz umbenennen…</string>
 
     <string name="positions_activity_title">Positionen</string>
     <string name="positions_tutorial_text">Bisher wurden noch keine Positionen angelegt.\n\nTippen Sie auf das Plus-Icon, um eine neue Position anzulegen.</string>
@@ -39,6 +40,7 @@
     <string name="competency_areas_item_name">Kompetenzbereich</string>
     <string name="competency_areas_tutorial_text">Bisher wurden noch keine Kompetenzbereiche angelegt.\n\nTippen Sie auf das Plus-Icon, um einen neuen Kompetenzbereich anzulegen.</string>
     <string name="competency_areas_dialog_new">Neuen Kompetenzbereich anlegen</string>
+    <string name="competency_areas_dialog_rename">Kompetenzbereich umbenennen…</string>
 
     <string name="dialog_new_apply">Erstellen</string>
     <string name="dialog_new_hint">Name</string>
