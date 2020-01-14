@@ -42,10 +42,8 @@ class ApplicantsAdapter(
         onItemLongClickListener: View.OnLongClickListener
     ) : RecyclerView.ViewHolder(view) {
         init {
-            view.setOnClickListener {
-                itemView.setOnClickListener(onItemClickListener)
-                itemView.setOnLongClickListener(onItemLongClickListener)
-            }
+            itemView.setOnClickListener(onItemClickListener)
+            itemView.setOnLongClickListener(onItemLongClickListener)
         }
 
         fun bind(applicant: Applicant) {
