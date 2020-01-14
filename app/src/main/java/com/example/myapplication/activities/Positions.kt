@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.content_positions.*
 import kotlinx.android.synthetic.main.dialog.view.*
 
 @SuppressLint("InflateParams")
-class Positions : AppCompatActivity(){
+class Positions : AppCompatActivity() {
     private lateinit var positionsVM: PositionsVM
     private lateinit var fabAnimator: Animator
     private lateinit var selectedPosition: Position
