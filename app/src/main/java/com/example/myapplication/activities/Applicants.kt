@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.dialog.view.*
 class Applicants : AppCompatActivity() {
     private lateinit var applicantsVm: ApplicantsVM
     private lateinit var fabAnimator: Animator
-    private lateinit var position: Position
     private lateinit var selectedApplicant: Applicant
 
     private val actionModeCallback = object : ActionModeCallback() {
