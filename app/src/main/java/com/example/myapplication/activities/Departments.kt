@@ -43,11 +43,10 @@ class Departments : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedDepartment = view.tag as Department
-        getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
-            .apply()
 
-        startActivity(Intent(this, Positions::class.java))
+        startActivity(Intent(this, Positions::class.java).apply {
+            putExtra(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
+        })
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->

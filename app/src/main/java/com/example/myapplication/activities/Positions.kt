@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.Position
@@ -27,6 +28,7 @@ class Positions : AppCompatActivity() {
     private lateinit var positionsVM: PositionsVM
     private lateinit var fabAnimator: Animator
     private lateinit var selectedPosition: Position
+    private var currentDepartmentId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -63,14 +65,17 @@ class Positions : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
-        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
-            .apply { setTarget(fabPositionsNew) }
+
+        currentDepartmentId = intent.getLongExtra(CURRENT_DEPARTMENT_ID, 0L)
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
-        positionsVM.getAll().observe(this, Observer { positions ->
+        positionsVM.getAll(currentDepartmentId).observe(this, Observer { positions ->
             viewAdapter.updateData(positions)
             if (positions.isEmpty()) enableTutorial() else disableTutorial()
         })
+
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+        fabAnimator.setTarget(fabPositionsNew)
 
         fabPositionsNew.setOnClickListener { new() }
 
@@ -87,7 +92,10 @@ class Positions : AppCompatActivity() {
             .setTitle(R.string.positions_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-                positionsVM.newPosition(input.editTextNameDialog.editableText.toString())
+                positionsVM.newPosition(
+                    currentDepartmentId,
+                    input.editTextNameDialog.editableText.toString()
+                )
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
