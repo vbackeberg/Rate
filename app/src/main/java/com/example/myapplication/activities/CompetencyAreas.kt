@@ -14,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
+import com.example.myapplication.CURRENT_DEPARTMENT_ID
+import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.CompetencyAreaWithImportance
 import com.example.myapplication.viewadapters.CompetencyAreasAdapter
@@ -25,9 +26,11 @@ import kotlinx.android.synthetic.main.dialog.view.*
 
 @SuppressLint("InflateParams")
 class CompetencyAreas : AppCompatActivity() {
-    private lateinit var competencyAreasVM: CompetencyAreasVM
     private lateinit var fabAnimator: Animator
+    private lateinit var competencyAreasVM: CompetencyAreasVM
     private lateinit var selectedCompetencyArea: CompetencyAreaWithImportance
+    private var currentDepartmentId = 0L
+    private var currentPositionId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -44,11 +47,11 @@ class CompetencyAreas : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedCompetencyArea = view.tag as CompetencyAreaWithImportance
-        getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_COMPETENCY_AREA_ID, selectedCompetencyArea.id)
-            .apply()
 
-        startActivity(Intent(this, Competencies::class.java))
+        startActivity(
+            Intent(this, Competencies::class.java)
+                .putExtra(CURRENT_POSITION_ID, currentPositionId)
+        )
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->
@@ -79,17 +82,21 @@ class CompetencyAreas : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competency_areas)
-        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
-            .apply { setTarget(fabCompetencyAreasNew) }
+
+        currentDepartmentId = intent.getLongExtra(CURRENT_DEPARTMENT_ID, 0L)
+        currentPositionId = intent.getLongExtra(CURRENT_POSITION_ID, 0L)
 
         competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
-        competencyAreasVM.get().observe(this, Observer { position ->
+        competencyAreasVM.get(currentPositionId).observe(this, Observer { position ->
             title = resources.getString(R.string.competency_areas_toolbar_title, position.name)
         })
-        competencyAreasVM.getAll().observe(this, Observer { competencyAreas ->
+        competencyAreasVM.getAll(currentPositionId).observe(this, Observer { competencyAreas ->
             viewAdapter.updateData(competencyAreas)
             if (competencyAreas.isEmpty()) enableTutorial() else disableTutorial()
         })
+
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+            .apply { setTarget(fabCompetencyAreasNew) }
 
         fabCompetencyAreasNew.setOnClickListener { new() }
 

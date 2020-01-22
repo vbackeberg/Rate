@@ -1,12 +1,8 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.myapplication.CURRENT_APPLICANT_ID
-import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
-import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.entities.CompetencyArea
@@ -26,36 +22,24 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
     private val scoreService = ScoreService.getInstance(application)
 
-    private val applicantId = application
-        .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
-        .getLong(CURRENT_APPLICANT_ID, 0L)
-
-    private val competencyAreaId = application
-        .getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
-        .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
-
-    private val positionId = application
-        .getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-        .getLong(CURRENT_POSITION_ID, 0L)
-
-    fun getAll(): LiveData<List<CompetencyWithScore>> {
+    fun getAll(applicantId: Long, competencyAreaId: Long): LiveData<List<CompetencyWithScore>> {
         return competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
     }
 
-    suspend fun get(): CompetencyArea {
+    suspend fun get(competencyAreaId: Long): CompetencyArea {
         return competencyAreaDao.findById(competencyAreaId)
     }
 
-    fun update(score: Score) = CoroutineScope(Dispatchers.IO).launch {
+    fun update(score: Score, positionId: Long) = CoroutineScope(Dispatchers.IO).launch {
         scoreDao.update(score)
-        scoreService.update(applicantId, positionId)
+        scoreService.update(score.applicantId, positionId)
     }
 
     fun update(competency: Competency) = CoroutineScope(Dispatchers.IO).launch {
         competencyDao.update(competency)
     }
 
-    fun newCompetency(name: String) = CoroutineScope(Dispatchers.IO).launch {
+    fun newCompetency(name: String, competencyAreaId: Long) = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
             val competencyId = competencyDao.insert(Competency(0L, competencyAreaId, name))
             val scores = mutableListOf<Score>()

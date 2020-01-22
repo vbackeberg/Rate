@@ -45,11 +45,12 @@ class Positions : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedPosition = view.tag as Position
-        getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_POSITION_ID, selectedPosition.id)
-            .apply()
 
-        startActivity(Intent(this, Applicants::class.java))
+        startActivity(
+            Intent(this, Applicants::class.java)
+                .putExtra(CURRENT_DEPARTMENT_ID, currentDepartmentId)
+                .putExtra(CURRENT_POSITION_ID, selectedPosition.id)
+        )
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->

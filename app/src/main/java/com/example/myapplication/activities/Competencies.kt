@@ -14,8 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.CURRENT_APPLICANT_ID
-import com.example.myapplication.R
+import com.example.myapplication.*
 import com.example.myapplication.entities.CompetencyWithScore
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
@@ -28,10 +27,13 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("InflateParams")
 class Competencies : AppCompatActivity() {
-    private var applicantId = 0L
-    private lateinit var competenciesVM: CompetenciesVM
     private lateinit var fabAnimator: Animator
+    private lateinit var competenciesVM: CompetenciesVM
     private lateinit var selectedCompetency: CompetencyWithScore
+    private var currentDepartmentId = 0L
+    private var currentPositionId = 0L
+    private var currentApplicantId = 0L
+    private var currentCompetencyAreaId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -57,7 +59,7 @@ class Competencies : AppCompatActivity() {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             selectedCompetency = seekBar.tag as CompetencyWithScore
             selectedCompetency.score.value = progress
-            competenciesVM.update(selectedCompetency.score)
+            competenciesVM.update(selectedCompetency.score, currentPositionId)
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -71,26 +73,31 @@ class Competencies : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
-        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
-            .apply { setTarget(fabCompetenciesNew) }
 
-        applicantId = this
-            .getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
-            .getLong(CURRENT_APPLICANT_ID, 0L)
+        currentDepartmentId = intent.getLongExtra(CURRENT_DEPARTMENT_ID, 0L)
+        currentPositionId = intent.getLongExtra(CURRENT_POSITION_ID, 0L)
+        currentApplicantId = intent.getLongExtra(CURRENT_APPLICANT_ID, 0L)
+        currentCompetencyAreaId = intent.getLongExtra(CURRENT_COMPETENCY_AREA_ID, 0L)
 
-        textViewTitleCompetencies.text = "Bewerber-Id: $applicantId"
+        textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
 
         competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            title =
-                resources.getString(R.string.competencies_toolbar_title, competenciesVM.get().name)
+            title = resources.getString(
+                R.string.competencies_toolbar_title,
+                competenciesVM.get(currentCompetencyAreaId).name
+            )
         }
 
-        competenciesVM.getAll().observe(this, Observer { competencies ->
-            viewAdapter.updateData(competencies)
-            if (competencies.isEmpty()) enableTutorial() else disableTutorial()
-        })
+        competenciesVM.getAll(currentApplicantId, currentCompetencyAreaId)
+            .observe(this, Observer { competencies ->
+                viewAdapter.updateData(competencies)
+                if (competencies.isEmpty()) enableTutorial() else disableTutorial()
+            })
+
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+        fabAnimator.setTarget(fabCompetenciesNew)
 
         fabCompetenciesNew.setOnClickListener { new() }
 
@@ -111,7 +118,10 @@ class Competencies : AppCompatActivity() {
             .setTitle(R.string.competencies_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-                competenciesVM.newCompetency(input.editTextNameDialog.editableText.toString())
+                competenciesVM.newCompetency(
+                    input.editTextNameDialog.editableText.toString(),
+                    currentCompetencyAreaId
+                )
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()

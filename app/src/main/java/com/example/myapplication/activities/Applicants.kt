@@ -13,9 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_APPLICANT_ID
+import com.example.myapplication.CURRENT_DEPARTMENT_ID
+import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.Applicant
-import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
 import kotlinx.android.synthetic.main.activity_applicants.*
@@ -27,6 +28,8 @@ class Applicants : AppCompatActivity() {
     private lateinit var applicantsVm: ApplicantsVM
     private lateinit var fabAnimator: Animator
     private lateinit var selectedApplicant: Applicant
+    private var currentDepartmentId = 0L
+    private var currentPositionId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -43,11 +46,13 @@ class Applicants : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedApplicant = view.tag as Applicant
-        getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_APPLICANT_ID, selectedApplicant.id)
-            .apply()
 
-        startActivity(Intent(this, CompetencyAreas::class.java))
+        startActivity(
+            Intent(this, CompetencyAreas::class.java)
+                .putExtra(CURRENT_DEPARTMENT_ID, 0L)
+                .putExtra(CURRENT_POSITION_ID, 0L)
+                .putExtra(CURRENT_APPLICANT_ID, 0L)
+        )
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->
@@ -63,14 +68,19 @@ class Applicants : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applicants)
-        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
-            .apply { setTarget(fabApplicantsNew) }
+
+        currentDepartmentId = intent.getLongExtra(CURRENT_DEPARTMENT_ID, 0L)
+        currentPositionId = intent.getLongExtra(CURRENT_POSITION_ID, 0L)
 
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
-        applicantsVm.getAll().observe(this, Observer { applicants ->
-            viewAdapter.updateData(applicants)
-            if (applicants.isEmpty()) enableTutorial() else disableTutorial()
-        })
+        applicantsVm.getAll(currentPositionId, currentDepartmentId)
+            .observe(this, Observer { applicants ->
+                viewAdapter.updateData(applicants)
+                if (applicants.isEmpty()) enableTutorial() else disableTutorial()
+            })
+
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+            .apply { setTarget(fabApplicantsNew) }
 
         fabApplicantsNew.setOnClickListener { new() }
 
@@ -88,7 +98,12 @@ class Applicants : AppCompatActivity() {
             .setTitle(R.string.applicants_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-                applicantsVm.newApplicant(input.editTextNameDialog.editableText.toString())
+                applicantsVm
+                    .newApplicant(
+                        input.editTextNameDialog.editableText.toString(),
+                        currentPositionId,
+                        currentDepartmentId
+                    )
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
