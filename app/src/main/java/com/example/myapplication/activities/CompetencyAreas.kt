@@ -60,13 +60,13 @@ class CompetencyAreas : AppCompatActivity() {
 
     private val onSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+            selectedCompetencyArea = seekBar.tag as CompetencyAreaWithImportance
             selectedCompetencyArea.importance.value = progress
             competencyAreasVM.update(selectedCompetencyArea.importance)
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {}
         override fun onStopTrackingTouch(p0: SeekBar?) {}
-
     }
 
     private val viewAdapter = CompetencyAreasAdapter(

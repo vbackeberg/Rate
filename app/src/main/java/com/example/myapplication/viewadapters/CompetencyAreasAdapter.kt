@@ -60,8 +60,9 @@ class CompetencyAreasAdapter(
 
         fun bind(competencyArea: CompetencyAreaWithImportance) {
             itemView.tag = competencyArea
-            itemView.textViewCompetencyArea.text = competencyArea.competencyArea.name
+            itemView.seekBarCompetencyArea.tag = competencyArea
             itemView.seekBarCompetencyArea.progress = competencyArea.importance.value
+            itemView.textViewCompetencyArea.text = competencyArea.competencyArea.name
         }
     }
 

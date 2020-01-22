@@ -56,8 +56,9 @@ class CompetenciesAdapter(
 
         fun bind(competency: CompetencyWithScore) {
             itemView.tag = competency
-            itemView.textViewCompetency.text = competency.competency.name
+            itemView.seekBarCompetency.tag = competency
             itemView.seekBarCompetency.progress = competency.score.value
+            itemView.textViewCompetency.text = competency.competency.name
         }
     }
 }
