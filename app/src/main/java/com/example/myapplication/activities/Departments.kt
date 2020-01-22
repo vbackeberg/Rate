@@ -44,9 +44,10 @@ class Departments : AppCompatActivity() {
     private val onItemClickListener = View.OnClickListener { view ->
         selectedDepartment = view.tag as Department
 
-        startActivity(Intent(this, Positions::class.java).apply {
-            putExtra(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
-        })
+        startActivity(
+            Intent(this, Positions::class.java)
+                .putExtra(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
+        )
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->
