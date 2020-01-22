@@ -93,8 +93,8 @@ class Positions : AppCompatActivity() {
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
                 positionsVM.newPosition(
-                    currentDepartmentId,
-                    input.editTextNameDialog.editableText.toString()
+                    input.editTextNameDialog.editableText.toString(),
+                    currentDepartmentId
                 )
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
