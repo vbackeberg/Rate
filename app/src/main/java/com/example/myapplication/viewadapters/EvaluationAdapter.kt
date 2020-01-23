@@ -1,9 +1,9 @@
 package com.example.myapplication.viewadapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -36,14 +36,11 @@ class EvaluationAdapter : RecyclerView.Adapter<EvaluationAdapter.EvaluationViewH
     override fun getItemCount(): Int = applicants.size
 
     class EvaluationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val name: TextView = view.evaluationApplicantName
-        private val score: TextView = view.evaluationApplicantScore
-        private var id = 0L
 
+        @SuppressLint("SetTextI18n")
         fun bind(applicant: Applicant) {
-            id = applicant.id
-            name.text = "Id: " + applicant.id.toString()
-            score.text = "Score " + applicant.score.toString()
+            itemView.evaluationApplicantName.text = "Id: " + applicant.id.toString()
+            itemView.evaluationApplicantScore.text = "Score " + applicant.score.toString()
         }
     }
 }
