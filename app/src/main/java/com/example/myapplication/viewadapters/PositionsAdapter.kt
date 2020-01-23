@@ -13,7 +13,7 @@ class PositionsAdapter(
     private val onItemClickListener: View.OnClickListener,
     private val onItemLongClickListener: View.OnLongClickListener
 ) : RecyclerView.Adapter<PositionsAdapter.PositionViewHolder>() {
-    private var positions: List<Position> = emptyList()
+    private var positions = emptyList<Position>()
 
     fun updateData(newData: List<Position>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(positions, newData))

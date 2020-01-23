@@ -16,7 +16,7 @@ class CompetencyAreasAdapter(
     private val onSeekBarChangeListener: SeekBar.OnSeekBarChangeListener
 ) :
     RecyclerView.Adapter<CompetencyAreasAdapter.CompetencyAreaViewHolder>() {
-    private var competencyAreas: List<CompetencyAreaWithImportance> = emptyList()
+    private var competencyAreas = emptyList<CompetencyAreaWithImportance>()
 
     fun updateData(newData: List<CompetencyAreaWithImportance>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencyAreas, newData))

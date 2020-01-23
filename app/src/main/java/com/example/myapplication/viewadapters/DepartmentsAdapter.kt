@@ -14,7 +14,7 @@ class DepartmentsAdapter(
     private val onItemClickListener: View.OnClickListener,
     private val onItemLongClickListener: View.OnLongClickListener
 ) : RecyclerView.Adapter<DepartmentsAdapter.DepartmentViewHolder>() {
-    private var departments: List<Department> = emptyList()
+    private var departments = emptyList<Department>()
 
     fun updateData(newData: List<Department>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(departments, newData))

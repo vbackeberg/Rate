@@ -15,7 +15,7 @@ class CompetenciesAdapter(
     private val onSeekBarChangeListener: SeekBar.OnSeekBarChangeListener
 ) :
     RecyclerView.Adapter<CompetenciesAdapter.CompetencyViewHolder>() {
-    private var competencies: List<CompetencyWithScore> = emptyList()
+    private var competencies = emptyList<CompetencyWithScore>()
 
     fun updateData(newData: List<CompetencyWithScore>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencies, newData))
