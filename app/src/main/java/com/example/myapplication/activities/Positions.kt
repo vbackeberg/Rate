@@ -3,6 +3,7 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -46,11 +47,11 @@ class Positions : AppCompatActivity() {
     private val onItemClickListener = View.OnClickListener { view ->
         selectedPosition = view.tag as Position
 
-        startActivity(
-            Intent(this, Applicants::class.java)
-                .putExtra(CURRENT_DEPARTMENT_ID, currentDepartmentId)
-                .putExtra(CURRENT_POSITION_ID, selectedPosition.id)
-        )
+        getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
+            .edit().putLong(CURRENT_POSITION_ID, selectedPosition.id)
+            .apply()
+
+        startActivity(Intent(this, Applicants::class.java))
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->
@@ -67,7 +68,8 @@ class Positions : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
 
-        currentDepartmentId = intent.getLongExtra(CURRENT_DEPARTMENT_ID, 0L)
+        currentDepartmentId = getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
+            .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
         positionsVM.getAll(currentDepartmentId).observe(this, Observer { positions ->

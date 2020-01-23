@@ -3,6 +3,7 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -14,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.CURRENT_DEPARTMENT_ID
+import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
 import com.example.myapplication.entities.CompetencyAreaWithImportance
@@ -29,7 +30,6 @@ class CompetencyAreas : AppCompatActivity() {
     private lateinit var fabAnimator: Animator
     private lateinit var competencyAreasVM: CompetencyAreasVM
     private lateinit var selectedCompetencyArea: CompetencyAreaWithImportance
-    private var currentDepartmentId = 0L
     private var currentPositionId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
@@ -48,10 +48,11 @@ class CompetencyAreas : AppCompatActivity() {
     private val onItemClickListener = View.OnClickListener { view ->
         selectedCompetencyArea = view.tag as CompetencyAreaWithImportance
 
-        startActivity(
-            Intent(this, Competencies::class.java)
-                .putExtra(CURRENT_POSITION_ID, currentPositionId)
-        )
+        getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
+            .edit().putLong(CURRENT_COMPETENCY_AREA_ID, selectedCompetencyArea.id)
+            .apply()
+
+        startActivity(Intent(this, Competencies::class.java))
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->
@@ -83,8 +84,8 @@ class CompetencyAreas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competency_areas)
 
-        currentDepartmentId = intent.getLongExtra(CURRENT_DEPARTMENT_ID, 0L)
-        currentPositionId = intent.getLongExtra(CURRENT_POSITION_ID, 0L)
+        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
+            .getLong(CURRENT_POSITION_ID, 0L)
 
         competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
         competencyAreasVM.get(currentPositionId).observe(this, Observer { position ->

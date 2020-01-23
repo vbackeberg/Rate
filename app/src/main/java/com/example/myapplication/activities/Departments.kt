@@ -44,10 +44,11 @@ class Departments : AppCompatActivity() {
     private val onItemClickListener = View.OnClickListener { view ->
         selectedDepartment = view.tag as Department
 
-        startActivity(
-            Intent(this, Positions::class.java)
-                .putExtra(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
-        )
+        getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
+            .edit().putLong(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
+            .apply()
+
+        startActivity(Intent(this, Positions::class.java))
     }
 
     private val onItemLongClickListener = View.OnLongClickListener { view ->
@@ -63,6 +64,7 @@ class Departments : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departments)
+
         fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
             .apply { setTarget(fabDepartmentsNew) }
 

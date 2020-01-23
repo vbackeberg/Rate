@@ -3,6 +3,7 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -14,7 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.*
+import com.example.myapplication.CURRENT_APPLICANT_ID
+import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
+import com.example.myapplication.CURRENT_POSITION_ID
+import com.example.myapplication.R
 import com.example.myapplication.entities.CompetencyWithScore
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
@@ -30,7 +34,6 @@ class Competencies : AppCompatActivity() {
     private lateinit var fabAnimator: Animator
     private lateinit var competenciesVM: CompetenciesVM
     private lateinit var selectedCompetency: CompetencyWithScore
-    private var currentDepartmentId = 0L
     private var currentPositionId = 0L
     private var currentApplicantId = 0L
     private var currentCompetencyAreaId = 0L
@@ -74,15 +77,17 @@ class Competencies : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
 
-        currentDepartmentId = intent.getLongExtra(CURRENT_DEPARTMENT_ID, 0L)
-        currentPositionId = intent.getLongExtra(CURRENT_POSITION_ID, 0L)
-        currentApplicantId = intent.getLongExtra(CURRENT_APPLICANT_ID, 0L)
-        currentCompetencyAreaId = intent.getLongExtra(CURRENT_COMPETENCY_AREA_ID, 0L)
+        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
+            .getLong(CURRENT_POSITION_ID, 0L)
+        currentApplicantId = getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+            .getLong(CURRENT_APPLICANT_ID, 0L)
+        currentCompetencyAreaId =
+            getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, Context.MODE_PRIVATE)
+                .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
 
         textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
 
         competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
-
         CoroutineScope(Dispatchers.IO).launch {
             title = resources.getString(
                 R.string.competencies_toolbar_title,
