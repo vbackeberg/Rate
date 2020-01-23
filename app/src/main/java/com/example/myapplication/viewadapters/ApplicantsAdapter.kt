@@ -48,7 +48,7 @@ class ApplicantsAdapter(
 
         fun bind(applicant: Applicant) {
             itemView.tag = applicant
-            itemView.applicantName.text = applicant.id.toString()
+            itemView.applicantName.text = applicant.name
         }
     }
 }
