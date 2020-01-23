@@ -15,6 +15,7 @@ interface CompetencyDao {
         competencyAreaId: Long
     ): LiveData<List<CompetencyWithScore>>
 
+    @Transaction
     @Query("SELECT * FROM competency JOIN score ON competency.id = score.competencyId WHERE applicantId = :applicantId")
     suspend fun findAllByApplicantSuspend(applicantId: Long): List<CompetencyWithScore>
 
