@@ -8,6 +8,7 @@ import com.example.myapplication.entities.Applicant
 @Dao
 interface ApplicantDao {
 
+    @Transaction
     @Query("SELECT * FROM applicant WHERE (positionId = :positionId AND departmentId = :departmentId)")
     fun findAllByPositionAndDepartment(
         positionId: Long,
