@@ -3,13 +3,13 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,10 +47,7 @@ class Applicants : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedApplicant = view.tag as Applicant
-
-        getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_APPLICANT_ID, selectedApplicant.id)
-            .apply()
+        getPreferences(MODE_PRIVATE).edit { putLong(CURRENT_APPLICANT_ID, selectedApplicant.id) }
 
         startActivity(Intent(this, CompetencyAreas::class.java))
     }
@@ -69,10 +66,8 @@ class Applicants : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applicants)
 
-        currentDepartmentId = getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
-            .getLong(CURRENT_DEPARTMENT_ID, 0L)
-        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
+        currentDepartmentId = getPreferences(MODE_PRIVATE).getLong(CURRENT_DEPARTMENT_ID, 0L)
+        currentPositionId = getPreferences(MODE_PRIVATE).getLong(CURRENT_POSITION_ID, 0L)
 
         applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
         applicantsVm.getAll(currentPositionId, currentDepartmentId)

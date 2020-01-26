@@ -1,6 +1,5 @@
 package com.example.myapplication.activities
 
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -26,10 +25,8 @@ class Evaluation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evaluation)
 
-        currentDepartmentId = getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
-            .getLong(CURRENT_DEPARTMENT_ID, 0L)
-        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
+        currentDepartmentId = getPreferences(MODE_PRIVATE).getLong(CURRENT_DEPARTMENT_ID, 0L)
+        currentPositionId = getPreferences(MODE_PRIVATE).getLong(CURRENT_POSITION_ID, 0L)
 
         evaluationVM = ViewModelProviders.of(this).get(EvaluationVM::class.java)
         evaluationVM.getAll(currentPositionId, currentDepartmentId)

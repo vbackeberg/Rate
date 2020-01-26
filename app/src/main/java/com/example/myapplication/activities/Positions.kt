@@ -3,7 +3,6 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -11,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,10 +46,7 @@ class Positions : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedPosition = view.tag as Position
-
-        getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_POSITION_ID, selectedPosition.id)
-            .apply()
+        getPreferences(MODE_PRIVATE).edit { putLong(CURRENT_POSITION_ID, selectedPosition.id) }
 
         startActivity(Intent(this, Applicants::class.java))
     }
@@ -68,8 +65,7 @@ class Positions : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
 
-        currentDepartmentId = getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
-            .getLong(CURRENT_DEPARTMENT_ID, 0L)
+        currentDepartmentId = getPreferences(MODE_PRIVATE).getLong(CURRENT_DEPARTMENT_ID, 0L)
 
         positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
         positionsVM.getAll(currentDepartmentId).observe(this, Observer { positions ->
