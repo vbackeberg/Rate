@@ -12,7 +12,8 @@ import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
@@ -83,7 +84,7 @@ class Competencies : AppCompatActivity() {
 
         textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
 
-        competenciesVM = ViewModelProviders.of(this).get(CompetenciesVM::class.java)
+        competenciesVM = ViewModelProvider(this).get(CompetenciesVM::class.java)
         CoroutineScope(Dispatchers.IO).launch {
             title = resources.getString(
                 R.string.competencies_toolbar_title,

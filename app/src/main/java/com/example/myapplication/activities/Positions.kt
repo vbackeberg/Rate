@@ -12,7 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
@@ -67,7 +68,7 @@ class Positions : AppCompatActivity() {
 
         currentDepartmentId = getPreferences(MODE_PRIVATE).getLong(CURRENT_DEPARTMENT_ID, 0L)
 
-        positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
+        positionsVM = ViewModelProvider(this).get(PositionsVM::class.java)
         positionsVM.getAll(currentDepartmentId).observe(this, Observer { positions ->
             viewAdapter.updateData(positions)
             if (positions.isEmpty()) enableTutorial() else disableTutorial()

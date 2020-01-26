@@ -13,7 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.CURRENT_POSITION_ID
@@ -84,7 +85,7 @@ class CompetencyAreas : AppCompatActivity() {
 
         currentPositionId = getPreferences(MODE_PRIVATE).getLong(CURRENT_POSITION_ID, 0L)
 
-        competencyAreasVM = ViewModelProviders.of(this).get(CompetencyAreasVM::class.java)
+        competencyAreasVM = ViewModelProvider(this).get(CompetencyAreasVM::class.java)
         competencyAreasVM.get(currentPositionId).observe(this, Observer { position ->
             title = resources.getString(R.string.competency_areas_toolbar_title, position.name)
         })

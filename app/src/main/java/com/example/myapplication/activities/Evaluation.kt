@@ -3,7 +3,8 @@ package com.example.myapplication.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
@@ -28,7 +29,7 @@ class Evaluation : AppCompatActivity() {
         currentDepartmentId = getPreferences(MODE_PRIVATE).getLong(CURRENT_DEPARTMENT_ID, 0L)
         currentPositionId = getPreferences(MODE_PRIVATE).getLong(CURRENT_POSITION_ID, 0L)
 
-        evaluationVM = ViewModelProviders.of(this).get(EvaluationVM::class.java)
+        evaluationVM = ViewModelProvider(this).get(EvaluationVM::class.java)
         evaluationVM.getAll(currentPositionId, currentDepartmentId)
             .observe(this, Observer { applicants ->
                 viewAdapter.updateData(applicants)

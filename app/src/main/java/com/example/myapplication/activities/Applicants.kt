@@ -11,7 +11,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
@@ -69,7 +69,7 @@ class Applicants : AppCompatActivity() {
         currentDepartmentId = getPreferences(MODE_PRIVATE).getLong(CURRENT_DEPARTMENT_ID, 0L)
         currentPositionId = getPreferences(MODE_PRIVATE).getLong(CURRENT_POSITION_ID, 0L)
 
-        applicantsVm = ViewModelProviders.of(this).get(ApplicantsVM::class.java)
+        applicantsVm = ViewModelProvider(this).get(ApplicantsVM::class.java)
         applicantsVm.getAll(currentPositionId, currentDepartmentId)
             .observe(this, Observer { applicants ->
                 viewAdapter.updateData(applicants)

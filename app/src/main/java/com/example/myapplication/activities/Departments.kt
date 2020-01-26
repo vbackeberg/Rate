@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.R
@@ -66,7 +66,7 @@ class Departments : AppCompatActivity() {
         fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
             .apply { setTarget(fabDepartmentsNew) }
 
-        departmentsVM = ViewModelProviders.of(this).get(DepartmentsVM::class.java)
+        departmentsVM = ViewModelProvider(this).get(DepartmentsVM::class.java)
         departmentsVM.getAll().observe(this, Observer { departments ->
             viewAdapter.updateData(departments)
             if (departments.isEmpty()) enableTutorial() else disableTutorial()
