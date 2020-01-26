@@ -3,6 +3,7 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -11,7 +12,6 @@ import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,8 +47,10 @@ class CompetencyAreas : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedCompetencyArea = view.tag as CompetencyAreaWithImportance
-        getPreferences(MODE_PRIVATE)
-            .edit { putLong(CURRENT_COMPETENCY_AREA_ID, selectedCompetencyArea.id) }
+
+        getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, MODE_PRIVATE)
+            .edit().putLong(CURRENT_COMPETENCY_AREA_ID, selectedCompetencyArea.id)
+            .apply()
 
         startActivity(Intent(this, Competencies::class.java))
     }
@@ -82,7 +84,8 @@ class CompetencyAreas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competency_areas)
 
-        currentPositionId = getPreferences(MODE_PRIVATE).getLong(CURRENT_POSITION_ID, 0L)
+        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
+            .getLong(CURRENT_POSITION_ID, 0L)
 
         competencyAreasVM = ViewModelProvider(this).get(CompetencyAreasVM::class.java)
         competencyAreasVM.getAll(currentPositionId).observe(this, Observer { competencyAreas ->

@@ -3,6 +3,7 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -77,10 +78,13 @@ class Competencies : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
 
-        currentPositionId = getPreferences(MODE_PRIVATE).getLong(CURRENT_POSITION_ID, 0L)
-        currentApplicantId = getPreferences(MODE_PRIVATE).getLong(CURRENT_APPLICANT_ID, 0L)
+        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
+            .getLong(CURRENT_POSITION_ID, 0L)
+        currentApplicantId = getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+            .getLong(CURRENT_APPLICANT_ID, 0L)
         currentCompetencyAreaId =
-            getPreferences(MODE_PRIVATE).getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
+            getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, Context.MODE_PRIVATE)
+                .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
 
         textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
 

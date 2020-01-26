@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -44,7 +43,10 @@ class Departments : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedDepartment = view.tag as Department
-        getPreferences(MODE_PRIVATE).edit { putLong(CURRENT_DEPARTMENT_ID, selectedDepartment.id) }
+
+        getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
+            .edit().putLong(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
+            .apply()
 
         startActivity(Intent(this, Positions::class.java))
     }
