@@ -1,15 +1,15 @@
 package com.example.myapplication.data.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import com.example.myapplication.entities.Position
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PositionDao {
 
     @Query("SELECT * FROM position WHERE departmentId = :departmentId")
-    fun findAllByDepartment(departmentId: Long): LiveData<List<Position>>
+    fun findAllByDepartment(departmentId: Long): Flow<List<Position>>
 
     @Query("SELECT id FROM position")
     fun findAllIds(): List<Long>

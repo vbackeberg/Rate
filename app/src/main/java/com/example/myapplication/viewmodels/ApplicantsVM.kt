@@ -3,6 +3,8 @@ package com.example.myapplication.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Applicant
 import com.example.myapplication.entities.Score
@@ -17,25 +19,26 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
     private val scoreDao = database.scoreDao()
 
     fun getAll(positionId: Long, departmentId: Long): LiveData<MutableList<Applicant>> {
-        return applicantDao.findAllByPositionAndDepartment(positionId, departmentId)
+        return applicantDao.findAllByPositionAndDepartment(positionId, departmentId).asLiveData()
     }
 
-    fun newApplicant(name: String, positionId: Long, departmentId: Long) = CoroutineScope(Dispatchers.IO).launch {
-        database.runInTransaction {
-            val applicantId = applicantDao.insert(Applicant(0L, positionId, departmentId, name))
-            val scores = mutableListOf<Score>()
-            competencyDao.findAllIds().forEach { competencyId ->
-                scores.add(Score(competencyId, applicantId, 0))
+    fun newApplicant(name: String, positionId: Long, departmentId: Long) =
+        CoroutineScope(Dispatchers.IO).launch {
+            database.runInTransaction {
+                val applicantId = applicantDao.insert(Applicant(0L, positionId, departmentId, name))
+                val scores = mutableListOf<Score>()
+                competencyDao.findAllIds().forEach { competencyId ->
+                    scores.add(Score(competencyId, applicantId, 0))
+                }
+                scoreDao.insertMany(scores)
             }
-            scoreDao.insertMany(scores)
         }
-    }
 
-    fun update(applicant: Applicant) = CoroutineScope(Dispatchers.IO).launch {
+    fun update(applicant: Applicant) = viewModelScope.launch {
         applicantDao.update(applicant)
     }
 
-    fun delete(applicant: Applicant) = CoroutineScope(Dispatchers.IO).launch {
+    fun delete(applicant: Applicant) = viewModelScope.launch {
         applicantDao.delete(applicant)
     }
 }

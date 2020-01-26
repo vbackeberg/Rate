@@ -3,6 +3,8 @@ package com.example.myapplication.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.CompetencyArea
 import com.example.myapplication.entities.CompetencyAreaWithImportance
@@ -19,7 +21,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
     private val positionDao = database.positionDao()
 
     fun getAll(positionId: Long): LiveData<List<CompetencyAreaWithImportance>> {
-        return competencyAreaDao.findAllByPosition(positionId)
+        return competencyAreaDao.findAllByPosition(positionId).asLiveData()
     }
 
     suspend fun get(positionId: Long): Position {
@@ -37,15 +39,15 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun update(importance: Importance) = CoroutineScope(Dispatchers.IO).launch {
+    fun update(importance: Importance) = viewModelScope.launch {
         importanceDao.update(importance)
     }
 
-    fun update(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
+    fun update(competencyArea: CompetencyArea) = viewModelScope.launch {
         competencyAreaDao.update(competencyArea)
     }
 
-    fun delete(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
+    fun delete(competencyArea: CompetencyArea) = viewModelScope.launch {
         competencyAreaDao.delete(competencyArea)
     }
 }

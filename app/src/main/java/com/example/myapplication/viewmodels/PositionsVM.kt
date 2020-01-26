@@ -3,6 +3,8 @@ package com.example.myapplication.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Importance
 import com.example.myapplication.entities.Position
@@ -17,7 +19,7 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
     private val positionDao = database.positionDao()
 
     fun getAll(departmentId: Long): LiveData<List<Position>> {
-        return positionDao.findAllByDepartment(departmentId)
+        return positionDao.findAllByDepartment(departmentId).asLiveData()
     }
 
     fun newPosition(name: String, departmentId: Long) = CoroutineScope(Dispatchers.IO).launch {
@@ -31,11 +33,11 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun update(position: Position) = CoroutineScope(Dispatchers.IO).launch {
+    fun update(position: Position) = viewModelScope.launch {
         positionDao.update(position)
     }
 
-    fun delete(position: Position) = CoroutineScope(Dispatchers.IO).launch {
+    fun delete(position: Position) = viewModelScope.launch {
         positionDao.delete(position)
     }
 }

@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 14,
-    "identityHash": "44b670bd7724979443832342cd6c206a",
+    "version": 11,
+    "identityHash": "172b47e732f31523fd1c8728fc9498e0",
     "entities": [
       {
         "tableName": "CompetencyArea",
@@ -129,7 +129,7 @@
       },
       {
         "tableName": "Department",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -141,7 +141,7 @@
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -234,7 +234,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '44b670bd7724979443832342cd6c206a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '172b47e732f31523fd1c8728fc9498e0')"
     ]
   }
 }
