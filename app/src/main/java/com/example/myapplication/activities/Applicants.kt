@@ -10,13 +10,11 @@ import android.view.ActionMode
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.CURRENT_APPLICANT_ID
-import com.example.myapplication.CURRENT_DEPARTMENT_ID
-import com.example.myapplication.CURRENT_POSITION_ID
-import com.example.myapplication.R
+import com.example.myapplication.*
 import com.example.myapplication.entities.Applicant
 import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
@@ -47,10 +45,8 @@ class Applicants : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedApplicant = view.tag as Applicant
-
-        getSharedPreferences(CURRENT_APPLICANT_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_APPLICANT_ID, selectedApplicant.id)
-            .apply()
+        getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+            .edit { putLong(CURRENT_APPLICANT_ID, selectedApplicant.id) }
 
         startActivity(Intent(this, CompetencyAreas::class.java))
     }
@@ -69,9 +65,9 @@ class Applicants : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applicants)
 
-        currentDepartmentId = getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
+        currentDepartmentId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
             .getLong(CURRENT_DEPARTMENT_ID, 0L)
-        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
+        currentPositionId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
             .getLong(CURRENT_POSITION_ID, 0L)
 
         applicantsVm = ViewModelProvider(this).get(ApplicantsVM::class.java)

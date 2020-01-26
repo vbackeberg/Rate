@@ -3,7 +3,6 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -14,12 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.CURRENT_APPLICANT_ID
-import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
-import com.example.myapplication.CURRENT_POSITION_ID
-import com.example.myapplication.R
+import com.example.myapplication.*
 import com.example.myapplication.entities.CompetencyWithScore
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
@@ -78,13 +73,12 @@ class Competencies : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
 
-        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
+        currentPositionId = getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
             .getLong(CURRENT_POSITION_ID, 0L)
-        currentApplicantId = getSharedPreferences(CURRENT_APPLICANT_ID, Context.MODE_PRIVATE)
+        currentApplicantId = getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
             .getLong(CURRENT_APPLICANT_ID, 0L)
-        currentCompetencyAreaId =
-            getSharedPreferences(CURRENT_COMPETENCY_AREA_ID, Context.MODE_PRIVATE)
-                .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
+        currentCompetencyAreaId = getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+            .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
 
         textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
 

@@ -11,13 +11,14 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.PositionsAdapter
 import com.example.myapplication.viewmodels.PositionsVM
@@ -47,10 +48,8 @@ class Positions : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedPosition = view.tag as Position
-
-        getSharedPreferences(CURRENT_POSITION_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_POSITION_ID, selectedPosition.id)
-            .apply()
+        getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+            .edit { putLong(CURRENT_POSITION_ID, selectedPosition.id) }
 
         startActivity(Intent(this, Applicants::class.java))
     }
@@ -69,7 +68,7 @@ class Positions : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
 
-        currentDepartmentId = getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
+        currentDepartmentId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
             .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
         positionsVM = ViewModelProvider(this).get(PositionsVM::class.java)

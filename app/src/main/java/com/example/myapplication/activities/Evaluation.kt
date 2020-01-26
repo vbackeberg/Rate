@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.viewadapters.EvaluationAdapter
 import com.example.myapplication.viewmodels.EvaluationVM
 import kotlinx.android.synthetic.main.content_evaluation.*
@@ -27,9 +28,9 @@ class Evaluation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evaluation)
 
-        currentDepartmentId = getSharedPreferences(CURRENT_DEPARTMENT_ID, Context.MODE_PRIVATE)
+        currentDepartmentId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
             .getLong(CURRENT_DEPARTMENT_ID, 0L)
-        currentPositionId = getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
+        currentPositionId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
             .getLong(CURRENT_POSITION_ID, 0L)
 
         evaluationVM = ViewModelProvider(this).get(EvaluationVM::class.java)

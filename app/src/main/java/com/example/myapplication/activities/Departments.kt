@@ -10,11 +10,13 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.R
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.entities.Department
 import com.example.myapplication.viewadapters.DepartmentsAdapter
 import com.example.myapplication.viewmodels.DepartmentsVM
@@ -43,10 +45,8 @@ class Departments : AppCompatActivity() {
 
     private val onItemClickListener = View.OnClickListener { view ->
         selectedDepartment = view.tag as Department
-
-        getSharedPreferences(CURRENT_DEPARTMENT_ID, MODE_PRIVATE)
-            .edit().putLong(CURRENT_DEPARTMENT_ID, selectedDepartment.id)
-            .apply()
+        getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+            .edit { putLong(CURRENT_DEPARTMENT_ID, selectedDepartment.id) }
 
         startActivity(Intent(this, Positions::class.java))
     }
