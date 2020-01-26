@@ -26,6 +26,9 @@ import com.example.myapplication.viewmodels.CompetencyAreasVM
 import kotlinx.android.synthetic.main.activity_competency_areas.*
 import kotlinx.android.synthetic.main.content_competency_areas.*
 import kotlinx.android.synthetic.main.dialog.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @SuppressLint("InflateParams")
 class CompetencyAreas : AppCompatActivity() {
@@ -93,12 +96,12 @@ class CompetencyAreas : AppCompatActivity() {
             if (competencyAreas.isEmpty()) enableTutorial() else disableTutorial()
         })
 
-//        CoroutineScope(Dispatchers.Main).launch {
-//            title = resources.getString(
-//                R.string.competency_areas_toolbar_title,
-//                competencyAreasVM.get(currentPositionId).name
-//            )
-//        }
+        CoroutineScope(Dispatchers.Main).launch {
+            title = resources.getString(
+                R.string.competency_areas_toolbar_title,
+                competencyAreasVM.get(currentPositionId)
+            )
+        }
 
         fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
             .apply { setTarget(fabCompetencyAreasNew) }

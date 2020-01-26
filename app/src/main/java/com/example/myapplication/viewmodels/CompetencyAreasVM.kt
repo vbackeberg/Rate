@@ -22,7 +22,7 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
         return competencyAreaDao.findAllByPosition(positionId)
     }
 
-    fun get(positionId: Long): LiveData<Position> {
+    suspend fun get(positionId: Long): Position {
         return positionDao.findById(positionId)
     }
 

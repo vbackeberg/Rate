@@ -18,7 +18,7 @@ interface PositionDao {
     fun insert(position: Position): Long
 
     @Query("SELECT * FROM position WHERE id = :id")
-    fun findById(id: Long): LiveData<Position>
+    suspend fun findById(id: Long): Position
 
     @Update
     suspend fun update(position: Position)
