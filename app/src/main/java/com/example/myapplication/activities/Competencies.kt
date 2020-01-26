@@ -85,18 +85,18 @@ class Competencies : AppCompatActivity() {
         textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
 
         competenciesVM = ViewModelProvider(this).get(CompetenciesVM::class.java)
+        competenciesVM.getAll(currentApplicantId, currentCompetencyAreaId)
+            .observe(this, Observer { competencies ->
+                viewAdapter.updateData(competencies)
+                if (competencies.isEmpty()) enableTutorial() else disableTutorial()
+            })
+
         CoroutineScope(Dispatchers.IO).launch {
             title = resources.getString(
                 R.string.competencies_toolbar_title,
                 competenciesVM.get(currentCompetencyAreaId).name
             )
         }
-
-        competenciesVM.getAll(currentApplicantId, currentCompetencyAreaId)
-            .observe(this, Observer { competencies ->
-                viewAdapter.updateData(competencies)
-                if (competencies.isEmpty()) enableTutorial() else disableTutorial()
-            })
 
         fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
         fabAnimator.setTarget(fabCompetenciesNew)
