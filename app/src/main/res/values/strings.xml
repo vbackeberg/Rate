@@ -13,7 +13,7 @@
     <string name="departments_dialog_new">Neue Abteilung anlegen</string>
     <string name="departments_dialog_rename">Abteilung umbenennen</string>
 
-    <string name="applicants_activity_title">Student</string>
+    <string name="applicants_activity_title">Bewerber</string>
     <string name="applicants_content_text">Missing applicant id!</string>
     <string name="applicants_tutorial_text">Bisher wurden noch keine Bewerber angelegt.\n\nTippen Sie auf das Plus-Icon, um einen neuen Bewerber anzulegen.</string>
     <string name="applicants_toolbar_title">Bewerber für %1$s</string>
