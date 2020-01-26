@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.CURRENT_POSITION_ID
@@ -86,13 +85,17 @@ class CompetencyAreas : AppCompatActivity() {
         currentPositionId = getPreferences(MODE_PRIVATE).getLong(CURRENT_POSITION_ID, 0L)
 
         competencyAreasVM = ViewModelProvider(this).get(CompetencyAreasVM::class.java)
-        competencyAreasVM.get(currentPositionId).observe(this, Observer { position ->
-            title = resources.getString(R.string.competency_areas_toolbar_title, position.name)
-        })
         competencyAreasVM.getAll(currentPositionId).observe(this, Observer { competencyAreas ->
             viewAdapter.updateData(competencyAreas)
             if (competencyAreas.isEmpty()) enableTutorial() else disableTutorial()
         })
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            title = resources.getString(
+//                R.string.competency_areas_toolbar_title,
+//                competencyAreasVM.get(currentPositionId).name
+//            )
+//        }
 
         fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
             .apply { setTarget(fabCompetencyAreasNew) }
