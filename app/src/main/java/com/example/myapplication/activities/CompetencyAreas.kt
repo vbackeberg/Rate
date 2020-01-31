@@ -99,7 +99,7 @@ class CompetencyAreas : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             title = resources.getString(
                 R.string.competency_areas_toolbar_title,
-                competencyAreasVM.get(currentPositionId)
+                competencyAreasVM.get(currentPositionId).name
             )
         }
 
