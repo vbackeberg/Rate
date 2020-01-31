@@ -10,7 +10,6 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <item name="dur"></item>
 
         <item name="buttonBarPositiveButtonStyle">@style/AppTheme.Button</item>
         <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button</item>
@@ -23,7 +22,7 @@
     </style>
 
     <style name="AppTheme.ActionMode" parent="Widget.AppCompat.ActionMode">
-        <item name="background">@color/colorSecondary</item>
+        <item name="background">@color/colorPrimary</item>
 
     </style>
 </resources>

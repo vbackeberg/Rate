@@ -1,11 +1,8 @@
 package com.example.myapplication.data.daos
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
-import androidx.room.Update
 import com.example.myapplication.entities.Position
 
 @Dao
@@ -21,8 +18,11 @@ interface PositionDao {
     fun insert(position: Position): Long
 
     @Query("SELECT * FROM position WHERE id = :id")
-    fun findById(id: Long): LiveData<Position>
+    suspend fun findById(id: Long): Position
 
     @Update
     suspend fun update(position: Position)
+
+    @Delete
+    suspend fun delete(position: Position)
 }

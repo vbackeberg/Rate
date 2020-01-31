@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -12,9 +11,10 @@ import com.example.myapplication.entities.Department
 import kotlinx.android.synthetic.main.item_departments.view.*
 
 class DepartmentsAdapter(
-    private val onItemClickListener: View.OnClickListener
+    private val onItemClickListener: View.OnClickListener,
+    private val onItemLongClickListener: View.OnLongClickListener
 ) : RecyclerView.Adapter<DepartmentsAdapter.DepartmentViewHolder>() {
-    private var departments: List<Department> = emptyList()
+    private var departments = emptyList<Department>()
 
     fun updateData(newData: List<Department>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(departments, newData))
@@ -29,7 +29,7 @@ class DepartmentsAdapter(
             false
         )
 
-        return DepartmentViewHolder(view, onItemClickListener)
+        return DepartmentViewHolder(view, onItemClickListener, onItemLongClickListener)
     }
 
     override fun onBindViewHolder(holder: DepartmentViewHolder, position: Int) {
@@ -38,22 +38,22 @@ class DepartmentsAdapter(
 
     override fun getItemCount() = departments.size
 
-    class DepartmentViewHolder(view: View, onItemClickListener: View.OnClickListener) :
+    class DepartmentViewHolder(
+        view: View,
+        onItemClickListener: View.OnClickListener,
+        onItemLongClickListener: View.OnLongClickListener
+    ) :
         RecyclerView.ViewHolder(view) {
-        var id = 0L
-        val name: TextView = itemView.departmentName
-        val applicantsCount: TextView = itemView.departmentApplicantsCount
-
         init {
-            itemView.tag = this
             itemView.setOnClickListener(onItemClickListener)
+            itemView.setOnLongClickListener(onItemLongClickListener)
         }
 
         @SuppressLint("SetTextI18n")
         fun bind(department: Department) {
-            name.text = department.name
-            applicantsCount.text = "Anzahl der Bewerber: 4"
-            id = department.id
+            itemView.tag = department
+            itemView.departmentName.text = department.name
+            itemView.departmentApplicantsCount.text = "Anzahl der Bewerber: 4"
         }
     }
 }

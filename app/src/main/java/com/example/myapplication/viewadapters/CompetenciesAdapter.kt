@@ -4,21 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.entities.CompetencyWithScore
-import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.item_competencies.view.*
 
-class CompetenciesAdapter(activity: AppCompatActivity) :
+class CompetenciesAdapter(
+    private val onItemLongClickListener: View.OnLongClickListener,
+    private val onSeekBarChangeListener: SeekBar.OnSeekBarChangeListener
+) :
     RecyclerView.Adapter<CompetenciesAdapter.CompetencyViewHolder>() {
-    private var competencies: List<CompetencyWithScore> = emptyList()
-    private val competenciesVM: CompetenciesVM =
-        ViewModelProviders.of(activity).get(CompetenciesVM::class.java)
+    private var competencies = emptyList<CompetencyWithScore>()
 
     fun updateData(newData: List<CompetencyWithScore>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencies, newData))
@@ -33,7 +30,11 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
             false
         )
 
-        return CompetencyViewHolder(view, competenciesVM)
+        return CompetencyViewHolder(
+            view,
+            onItemLongClickListener,
+            onSeekBarChangeListener
+        )
     }
 
     override fun onBindViewHolder(holder: CompetencyViewHolder, position: Int) {
@@ -44,39 +45,20 @@ class CompetenciesAdapter(activity: AppCompatActivity) :
 
     class CompetencyViewHolder(
         view: View,
-        competenciesVM: CompetenciesVM
-    ) :
-        RecyclerView.ViewHolder(view) {
-        private val seekBarCompetency: SeekBar = view.seekBarCompetency
-        private val textViewCompetency: TextView = view.textViewCompetency
-        private lateinit var competency: CompetencyWithScore
+        onItemLongClickListener: View.OnLongClickListener,
+        onSeekBarChangeListener: SeekBar.OnSeekBarChangeListener
+    ) : RecyclerView.ViewHolder(view) {
 
         init {
-            view.seekBarCompetency
-                .setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                    override fun onProgressChanged(
-                        seekBar: SeekBar?,
-                        progress: Int,
-                        fromUser: Boolean
-                    ) {
-                        competency.score.value = progress
-                        competenciesVM.update(competency.score)
-                    }
-
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
-                    }
-
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
-                    }
-                })
+            itemView.setOnLongClickListener(onItemLongClickListener)
+            itemView.seekBarCompetency.setOnSeekBarChangeListener(onSeekBarChangeListener)
         }
 
         fun bind(competency: CompetencyWithScore) {
-            this.competency = competency
-            textViewCompetency.text = competency.competency.name
-            seekBarCompetency.progress = competency.score.value
+            itemView.tag = competency
+            itemView.seekBarCompetency.tag = competency
+            itemView.seekBarCompetency.progress = competency.score.value
+            itemView.textViewCompetency.text = competency.competency.name
         }
     }
 }

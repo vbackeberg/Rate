@@ -1,10 +1,8 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.CompetencyArea
 import com.example.myapplication.entities.CompetencyAreaWithImportance
@@ -20,12 +18,12 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
     private val importanceDao = database.importanceDao()
     private val positionDao = database.positionDao()
 
-    private val positionId = application
-        .getSharedPreferences(CURRENT_POSITION_ID, Context.MODE_PRIVATE)
-        .getLong(CURRENT_POSITION_ID, 0L)
-
-    fun getAll(): LiveData<List<CompetencyAreaWithImportance>> {
+    fun getAll(positionId: Long): LiveData<List<CompetencyAreaWithImportance>> {
         return competencyAreaDao.findAllByPosition(positionId)
+    }
+
+    suspend fun get(positionId: Long): Position {
+        return positionDao.findById(positionId)
     }
 
     fun newCompetencyArea(name: String) = CoroutineScope(Dispatchers.IO).launch {
@@ -43,7 +41,11 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
         importanceDao.update(importance)
     }
 
-    fun get(): LiveData<Position> {
-        return positionDao.findById(positionId)
+    fun update(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
+        competencyAreaDao.update(competencyArea)
+    }
+
+    fun delete(competencyArea: CompetencyArea) = CoroutineScope(Dispatchers.IO).launch {
+        competencyAreaDao.delete(competencyArea)
     }
 }

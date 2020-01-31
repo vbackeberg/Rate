@@ -3,46 +3,82 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
+import android.view.ActionMode
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.CURRENT_DEPARTMENT_ID
+import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
-import com.example.myapplication.entities.Department
+import com.example.myapplication.SELECTED_IDS
+import com.example.myapplication.entities.Position
 import com.example.myapplication.viewadapters.PositionsAdapter
 import com.example.myapplication.viewmodels.PositionsVM
 import kotlinx.android.synthetic.main.activity_positions.*
 import kotlinx.android.synthetic.main.content_positions.*
 import kotlinx.android.synthetic.main.dialog.view.*
 
+@SuppressLint("InflateParams")
 class Positions : AppCompatActivity() {
-    private var viewAdapter: PositionsAdapter = PositionsAdapter()
-    private var viewManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     private lateinit var positionsVM: PositionsVM
-    private lateinit var department: Department
     private lateinit var fabAnimator: Animator
+    private lateinit var selectedPosition: Position
+    private var currentDepartmentId = 0L
+
+    private val actionModeCallback = object : ActionModeCallback() {
+        override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.menu_actionbar_rename -> rename(actionMode)
+                R.id.menu_actionbar_delete -> {
+                    positionsVM.delete(selectedPosition)
+                    actionMode.finish()
+                }
+            }
+            return true
+        }
+    }
+
+    private val onItemClickListener = View.OnClickListener { view ->
+        selectedPosition = view.tag as Position
+        getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+            .edit { putLong(CURRENT_POSITION_ID, selectedPosition.id) }
+
+        startActivity(Intent(this, Applicants::class.java))
+    }
+
+    private val onItemLongClickListener = View.OnLongClickListener { view ->
+        selectedPosition = view.tag as Position
+
+        startActionMode(actionModeCallback)
+        true
+    }
+
+    private var viewAdapter = PositionsAdapter(onItemClickListener, onItemLongClickListener)
+    private var viewManager = LinearLayoutManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
-        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
-            .apply { setTarget(fabPositionsNew) }
 
-        positionsVM = ViewModelProviders.of(this).get(PositionsVM::class.java)
-        positionsVM.get().observe(this, Observer { department ->
-            this.department = department
-            title = department.name
-        })
-        positionsVM.getAll().observe(this, Observer { positions ->
+        currentDepartmentId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
+            .getLong(CURRENT_DEPARTMENT_ID, 0L)
+
+        positionsVM = ViewModelProvider(this).get(PositionsVM::class.java)
+        positionsVM.getAll(currentDepartmentId).observe(this, Observer { positions ->
             viewAdapter.updateData(positions)
             if (positions.isEmpty()) enableTutorial() else disableTutorial()
         })
+
+        fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
+        fabAnimator.setTarget(fabPositionsNew)
 
         fabPositionsNew.setOnClickListener { new() }
 
@@ -53,28 +89,16 @@ class Positions : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_item_rename -> rename()
-            else                  -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    @SuppressLint("InflateParams")
     private fun new() {
-        val builder = AlertDialog.Builder(this)
         val input = layoutInflater.inflate(R.layout.dialog, null)
-
-        builder
-            .setTitle(R.string.dialog_new_position)
+        AlertDialog.Builder(this)
+            .setTitle(R.string.positions_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-                positionsVM.newPosition(input.editTextNameDialog.editableText.toString())
+                positionsVM.newPosition(
+                    input.editTextNameDialog.editableText.toString(),
+                    currentDepartmentId
+                )
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
@@ -83,20 +107,19 @@ class Positions : AppCompatActivity() {
             .show()
     }
 
-    @SuppressLint("InflateParams")
-    private fun rename(): Boolean {
-        val builder = AlertDialog.Builder(this)
+    private fun rename(actionMode: ActionMode): Boolean {
         val input = layoutInflater.inflate(R.layout.dialog, null)
-
-        builder
-            .setTitle(R.string.dialog_rename_apply)
+        AlertDialog.Builder(this)
+            .setTitle(R.string.positions_dialog_rename)
             .setView(input)
             .setPositiveButton(R.string.dialog_rename_apply) { _, _ ->
-                department.name = input.editTextNameDialog.editableText.toString()
-                positionsVM.update(department)
+                selectedPosition.name = input.editTextNameDialog.editableText.toString()
+                positionsVM.update(selectedPosition)
+                actionMode.finish()
             }
-            .setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
+            .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
+                actionMode.finish()
             }
             .create()
             .show()
