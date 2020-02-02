@@ -9,7 +9,7 @@ import com.example.myapplication.entities.CompetencyWithScore
 interface CompetencyDao {
 
     @Transaction
-    @Query("SELECT * FROM competency JOIN score ON competency.id = score.competencyId WHERE applicantId = :applicantId AND competencyAreaId = :competencyAreaId")
+    @Query("SELECT * FROM competency, score WHERE competency.id = score.competencyId AND applicantId = :applicantId AND competencyAreaId = :competencyAreaId")
     fun findAllByApplicantAndCompetencyArea(
         applicantId: Long,
         competencyAreaId: Long
