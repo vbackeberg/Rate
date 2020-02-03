@@ -44,5 +44,6 @@
 
     <string name="dialog_new_apply">Erstellen</string>
     <string name="dialog_new_hint">Name</string>
+    <string name="evaluation_image">Bewerber</string>
 
 </resources>
