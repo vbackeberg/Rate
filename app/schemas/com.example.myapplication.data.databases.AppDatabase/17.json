@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 15,
-    "identityHash": "1b2b9445fab63c7abedee16138689264",
+    "version": 17,
+    "identityHash": "44b670bd7724979443832342cd6c206a",
     "entities": [
       {
         "tableName": "CompetencyArea",
@@ -155,7 +155,7 @@
       },
       {
         "tableName": "Applicant",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `positionId` INTEGER NOT NULL, `name` TEXT NOT NULL, `score` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `positionId` INTEGER NOT NULL, `departmentId` INTEGER NOT NULL, `name` TEXT NOT NULL, `score` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -166,6 +166,12 @@
           {
             "fieldPath": "positionId",
             "columnName": "positionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "departmentId",
+            "columnName": "departmentId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -228,7 +234,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1b2b9445fab63c7abedee16138689264')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '44b670bd7724979443832342cd6c206a')"
     ]
   }
 }

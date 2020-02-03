@@ -3,6 +3,7 @@ package com.example.myapplication.services
 import android.app.Application
 import com.example.myapplication.SingletonHolder
 import com.example.myapplication.data.databases.AppDatabase
+import com.example.myapplication.entities.CompetencyAreaWithImportance
 import com.example.myapplication.entities.CompetencyWithScore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,29 +16,28 @@ class ScoreService private constructor(application: Application) {
     private val competencyAreaDao = database.competencyAreaDao()
 
     suspend fun update(applicantId: Long, positionId: Long) {
-        val importanceByCompetencyArea = CoroutineScope(Dispatchers.IO)
-            .async {
-                competencyAreaDao
-                    .findAllByPositionSuspend(positionId)
-                    .associate { Pair(it.id, it.importance.value) }
-            }
+        val competencyAreasWithImportance = CoroutineScope(Dispatchers.IO)
+            .async { competencyAreaDao.findAllByPositionSuspend(positionId) }
 
         val competenciesWithScore = CoroutineScope(Dispatchers.IO)
             .async { competencyDao.findAllByApplicantSuspend(applicantId) }
 
         applicantDao.updateScore(
             applicantId,
-            calculateScore(competenciesWithScore.await(), importanceByCompetencyArea.await())
+            calculateScore(competenciesWithScore.await(), competencyAreasWithImportance.await())
         )
     }
 
     private fun calculateScore(
         competencies: List<CompetencyWithScore>,
-        importanceByCompetencyArea: Map<Long, Int>
+        competencyAreas: List<CompetencyAreaWithImportance>
     ): Int {
 
-        return competencies.sumBy { competency ->
-            competency.score.value * importanceByCompetencyArea.getValue(competency.competency.competencyAreaId)
+        return competencyAreas.sumBy { competencyArea ->
+            competencyArea.importance.value *
+            competencies
+                .filter { competency -> competency.competency.competencyAreaId == competencyArea.id }
+                .sumBy { competency -> competency.score.value }
         }
     }
 
