@@ -83,7 +83,8 @@ class Competencies : AppCompatActivity() {
         textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
 
         competenciesVM = ViewModelProvider(this).get(CompetenciesVM::class.java)
-        competenciesVM.getAll(currentApplicantId, currentCompetencyAreaId)
+        competenciesVM.search(currentApplicantId)
+        competenciesVM.competencies
             .observe(this, Observer { competencies ->
                 viewAdapter.updateData(competencies)
                 if (competencies.isEmpty()) enableTutorial() else disableTutorial()

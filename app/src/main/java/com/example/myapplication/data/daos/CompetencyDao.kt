@@ -1,5 +1,6 @@
 package com.example.myapplication.data.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.entities.CompetencyWithScore
@@ -13,7 +14,7 @@ interface CompetencyDao {
     fun findAllByApplicantAndCompetencyArea(
         applicantId: Long,
         competencyAreaId: Long
-    ): Flow<List<CompetencyWithScore>>
+    ): LiveData<List<CompetencyWithScore>>
 
     @Transaction
     @Query("SELECT * FROM competency JOIN score ON competency.id = score.competencyId WHERE applicantId = :applicantId")

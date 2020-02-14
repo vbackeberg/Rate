@@ -1,10 +1,7 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.entities.CompetencyArea
@@ -24,10 +21,22 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
     private val scoreService = ScoreService.getInstance(application)
 
-    fun getAll(applicantId: Long, competencyAreaId: Long): LiveData<List<CompetencyWithScore>> {
-        return competencyDao
-            .findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
-            .asLiveData()
+    private val applicantIdLD = MutableLiveData<Long>()
+
+//    fun getAll(applicantId: Long, competencyAreaId: Long): LiveData<List<CompetencyWithScore>> {
+//        return competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
+//    }
+
+    val competencies: LiveData<List<CompetencyWithScore>> = Transformations.switchMap(
+        applicantIdLD,
+        ::temp
+    )
+
+    private fun temp(applicantId: Long) =
+        competencyDao.findAllByApplicantAndCompetencyArea(applicantId, 1L)
+
+    fun search(applicantId: Long) {
+        this.applicantIdLD.value = applicantId
     }
 
     suspend fun get(competencyAreaId: Long): CompetencyArea {
