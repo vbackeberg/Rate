@@ -85,7 +85,7 @@ class Competencies : AppCompatActivity() {
         lifecycleScope.launch {
             title = resources.getString(
                 R.string.competencies_toolbar_title,
-                competenciesVM.get().name
+                competenciesVM.competencyArea.await().name
             )
         }
 

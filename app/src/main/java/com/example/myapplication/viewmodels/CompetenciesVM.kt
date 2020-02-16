@@ -14,6 +14,7 @@ import com.example.myapplication.entities.Score
 import com.example.myapplication.services.ScoreService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class CompetenciesVM(application: Application) : AndroidViewModel(application) {
@@ -44,7 +45,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         ::getAll
     )
 
-    suspend fun get(): CompetencyArea = competencyAreaDao.findById(competencyAreaId.value)
+    val competencyArea = viewModelScope.async{ competencyAreaDao.findById(competencyAreaId.value) }
 
     fun update(score: Score, positionId: Long) = viewModelScope.launch {
         scoreDao.update(score)
