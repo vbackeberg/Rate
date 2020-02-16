@@ -83,12 +83,13 @@ class Competencies : AppCompatActivity() {
         textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
 
         competenciesVM = ViewModelProvider(this).get(CompetenciesVM::class.java)
-        competenciesVM.search(currentApplicantId)
-        competenciesVM.competencies
-            .observe(this, Observer { competencies ->
-                viewAdapter.updateData(competencies)
-                if (competencies.isEmpty()) enableTutorial() else disableTutorial()
-            })
+
+        textViewTitleCompetencies.text = "Bewerber-Id: ${competenciesVM.applicantId.value}"
+
+        competenciesVM.competencies.observe(this, Observer { competencies ->
+            viewAdapter.updateData(competencies)
+            if (competencies.isEmpty()) enableTutorial() else disableTutorial()
+        })
 
         CoroutineScope(Dispatchers.IO).launch {
             title = resources.getString(

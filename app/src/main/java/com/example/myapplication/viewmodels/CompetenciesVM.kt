@@ -1,7 +1,11 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
+import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.*
+import com.example.myapplication.CURRENT_APPLICANT_ID
+import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Competency
 import com.example.myapplication.entities.CompetencyArea
@@ -21,23 +25,27 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
     private val scoreService = ScoreService.getInstance(application)
 
-    private val applicantIdLD = MutableLiveData<Long>()
-
-//    fun getAll(applicantId: Long, competencyAreaId: Long): LiveData<List<CompetencyWithScore>> {
-//        return competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
-//    }
-
-    val competencies: LiveData<List<CompetencyWithScore>> = Transformations.switchMap(
-        applicantIdLD,
-        ::temp
+    val applicantId = MutableLiveData<Long>(
+        application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE).getLong(
+            CURRENT_APPLICANT_ID,
+            0L
+        )
     )
 
-    private fun temp(applicantId: Long) =
-        competencyDao.findAllByApplicantAndCompetencyArea(applicantId, 1L)
+    val competencyAreaId = MutableLiveData<Long>(
+        application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE).getLong(
+            CURRENT_COMPETENCY_AREA_ID,
+            0L
+        )
+    )
 
-    fun search(applicantId: Long) {
-        this.applicantIdLD.value = applicantId
-    }
+    val competencies: LiveData<List<CompetencyWithScore>> = Transformations.switchMap(
+        MutableLiveData<List<Long>>(listOfNotNull(applicantId.value, competencyAreaId.value)),
+        ::getAll
+    )
+
+    private fun getAll(params: List<Long>) =
+        competencyDao.findAllByApplicantAndCompetencyArea(params[0], params[1])
 
     suspend fun get(competencyAreaId: Long): CompetencyArea {
         return competencyAreaDao.findById(competencyAreaId)
