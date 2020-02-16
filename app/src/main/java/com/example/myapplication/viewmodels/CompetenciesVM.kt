@@ -44,12 +44,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         ::getAll
     )
 
-    private fun getAll(params: List<Long>) =
-        competencyDao.findAllByApplicantAndCompetencyArea(params[0], params[1])
-
-    suspend fun get(competencyAreaId: Long): CompetencyArea {
-        return competencyAreaDao.findById(competencyAreaId)
-    }
+    suspend fun get(): CompetencyArea = competencyAreaDao.findById(competencyAreaId.value)
 
     fun update(score: Score, positionId: Long) = viewModelScope.launch {
         scoreDao.update(score)
@@ -60,10 +55,11 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         competencyDao.update(competency)
     }
 
-    fun newCompetency(name: String, competencyAreaId: Long) =
+    fun newCompetency(name: String) =
         CoroutineScope(Dispatchers.IO).launch {
             database.runInTransaction {
-                val competencyId = competencyDao.insert(Competency(0L, competencyAreaId, name))
+                val competencyId =
+                    competencyDao.insert(Competency(0L, competencyAreaId.value!!, name))
                 val scores = mutableListOf<Score>()
                 applicantDao.findAllIds().forEach { applicantId ->
                     scores.add(Score(competencyId, applicantId, 0))
@@ -75,4 +71,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     fun delete(selectedCompetency: Competency) = viewModelScope.launch {
         competencyDao.delete(selectedCompetency)
     }
+
+    private fun getAll(params: List<Long>) =
+        competencyDao.findAllByApplicantAndCompetencyArea(params[0], params[1])
 }

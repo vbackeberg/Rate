@@ -20,7 +20,7 @@ interface CompetencyAreaDao {
     suspend fun update(competencyArea: CompetencyArea)
 
     @Query("SELECT * FROM competencyArea WHERE id = :id")
-    suspend fun findById(id: Long): CompetencyArea
+    suspend fun findById(id: Long?): CompetencyArea
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(competencyArea: CompetencyArea): Long

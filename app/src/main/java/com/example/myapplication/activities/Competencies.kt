@@ -31,8 +31,6 @@ class Competencies : AppCompatActivity() {
     private lateinit var competenciesVM: CompetenciesVM
     private lateinit var selectedCompetency: CompetencyWithScore
     private var currentPositionId = 0L
-    private var currentApplicantId = 0L
-    private var currentCompetencyAreaId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -72,29 +70,21 @@ class Competencies : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
-
-        currentPositionId = getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
-        currentApplicantId = getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
-            .getLong(CURRENT_APPLICANT_ID, 0L)
-        currentCompetencyAreaId = getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
-            .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
-
-        textViewTitleCompetencies.text = "Bewerber-Id: $currentApplicantId"
-
         competenciesVM = ViewModelProvider(this).get(CompetenciesVM::class.java)
-
-        textViewTitleCompetencies.text = "Bewerber-Id: ${competenciesVM.applicantId.value}"
-
         competenciesVM.competencies.observe(this, Observer { competencies ->
             viewAdapter.updateData(competencies)
             if (competencies.isEmpty()) enableTutorial() else disableTutorial()
         })
 
+        currentPositionId = getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+            .getLong(CURRENT_POSITION_ID, 0L)
+
+        textViewTitleCompetencies.text = "Bewerber-Id: ${competenciesVM.applicantId.value}"
+
         CoroutineScope(Dispatchers.IO).launch {
             title = resources.getString(
                 R.string.competencies_toolbar_title,
-                competenciesVM.get(currentCompetencyAreaId).name
+                competenciesVM.get().name
             )
         }
 
@@ -121,8 +111,7 @@ class Competencies : AppCompatActivity() {
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
                 competenciesVM.newCompetency(
-                    input.editTextNameDialog.editableText.toString(),
-                    currentCompetencyAreaId
+                    input.editTextNameDialog.editableText.toString()
                 )
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
