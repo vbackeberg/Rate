@@ -40,7 +40,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         )
     )
 
-    val competencies: LiveData<List<CompetencyWithScore>> = Transformations.switchMap(
+    val competencies = Transformations.switchMap(
         MutableLiveData<List<Long>>(listOfNotNull(applicantId.value, competencyAreaId.value)),
         ::getAll
     )
