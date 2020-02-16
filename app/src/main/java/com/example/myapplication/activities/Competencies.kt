@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.*
 import com.example.myapplication.entities.CompetencyWithScore
@@ -81,7 +82,7 @@ class Competencies : AppCompatActivity() {
 
         textViewTitleCompetencies.text = "Bewerber-Id: ${competenciesVM.applicantId.value}"
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             title = resources.getString(
                 R.string.competencies_toolbar_title,
                 competenciesVM.get().name
