@@ -53,7 +53,7 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
@@ -68,5 +68,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.fragment:fragment:1.2.0'
+    implementation 'androidx.fragment:fragment:1.2.1'
 }
