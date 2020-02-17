@@ -3,7 +3,6 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -17,7 +16,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
-import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
 import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.entities.CompetencyAreaWithImportance
@@ -35,7 +33,6 @@ class CompetencyAreas : AppCompatActivity() {
     private lateinit var fabAnimator: Animator
     private lateinit var competencyAreasVM: CompetencyAreasVM
     private lateinit var selectedCompetencyArea: CompetencyAreaWithImportance
-    private var currentPositionId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -87,11 +84,8 @@ class CompetencyAreas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competency_areas)
 
-        currentPositionId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
-
         competencyAreasVM = ViewModelProvider(this).get(CompetencyAreasVM::class.java)
-        competencyAreasVM.getAll(currentPositionId).observe(this, Observer { competencyAreas ->
+        competencyAreasVM.competencyAreas.observe(this, Observer { competencyAreas ->
             viewAdapter.updateData(competencyAreas)
             if (competencyAreas.isEmpty()) enableTutorial() else disableTutorial()
         })
@@ -99,7 +93,7 @@ class CompetencyAreas : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             title = resources.getString(
                 R.string.competency_areas_toolbar_title,
-                competencyAreasVM.get(currentPositionId).name
+                competencyAreasVM.position.await().name
             )
         }
 

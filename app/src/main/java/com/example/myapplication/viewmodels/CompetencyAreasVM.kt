@@ -1,17 +1,17 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.content.Context
+import androidx.lifecycle.*
+import com.example.myapplication.CURRENT_POSITION_ID
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.CompetencyArea
 import com.example.myapplication.entities.CompetencyAreaWithImportance
 import com.example.myapplication.entities.Importance
-import com.example.myapplication.entities.Position
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class CompetencyAreasVM(application: Application) : AndroidViewModel(application) {
@@ -20,13 +20,16 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
     private val importanceDao = database.importanceDao()
     private val positionDao = database.positionDao()
 
-    fun getAll(positionId: Long): LiveData<List<CompetencyAreaWithImportance>> {
-        return competencyAreaDao.findAllByPosition(positionId).asLiveData()
-    }
+    val positionId = MutableLiveData<Long>(
+        application.getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE).getLong(
+            CURRENT_POSITION_ID,
+            0L
+        )
+    )
 
-    suspend fun get(positionId: Long): Position {
-        return positionDao.findById(positionId)
-    }
+    val competencyAreas = Transformations.switchMap(positionId, ::getAll)
+
+    val position = viewModelScope.async { positionDao.findById(positionId.value!!) }
 
     fun newCompetencyArea(name: String) = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
@@ -49,5 +52,9 @@ class CompetencyAreasVM(application: Application) : AndroidViewModel(application
 
     fun delete(competencyArea: CompetencyArea) = viewModelScope.launch {
         competencyAreaDao.delete(competencyArea)
+    }
+
+    private fun getAll(positionId: Long): LiveData<List<CompetencyAreaWithImportance>> {
+        return competencyAreaDao.findAllByPosition(positionId).asLiveData()
     }
 }
