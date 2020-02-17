@@ -1,10 +1,11 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.content.Context
+import androidx.lifecycle.*
+import com.example.myapplication.CURRENT_DEPARTMENT_ID
+import com.example.myapplication.CURRENT_POSITION_ID
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Applicant
 import com.example.myapplication.entities.Score
@@ -18,14 +19,30 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
     private val competencyDao = database.competencyDao()
     private val scoreDao = database.scoreDao()
 
-    fun getAll(positionId: Long, departmentId: Long): LiveData<MutableList<Applicant>> {
-        return applicantDao.findAllByPositionAndDepartment(positionId, departmentId).asLiveData()
-    }
+    val positionId = MutableLiveData<Long>(
+        application.getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE).getLong(
+            CURRENT_POSITION_ID,
+            0L
+        )
+    )
 
-    fun newApplicant(name: String, positionId: Long, departmentId: Long) =
+    val departmentId = MutableLiveData<Long>(
+        application.getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE).getLong(
+            CURRENT_DEPARTMENT_ID,
+            0L
+        )
+    )
+
+    val applicants = Transformations.switchMap(
+        MutableLiveData<List<Long>>(listOfNotNull(positionId.value, departmentId.value)),
+        ::getAll
+    )
+
+    fun newApplicant(name: String) =
         CoroutineScope(Dispatchers.IO).launch {
             database.runInTransaction {
-                val applicantId = applicantDao.insert(Applicant(0L, positionId, departmentId, name))
+                val applicantId = applicantDao
+                    .insert(Applicant(0L, positionId.value!!, departmentId.value!!, name))
                 val scores = mutableListOf<Score>()
                 competencyDao.findAllIds().forEach { competencyId ->
                     scores.add(Score(competencyId, applicantId, 0))
@@ -40,5 +57,9 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
 
     fun delete(applicant: Applicant) = viewModelScope.launch {
         applicantDao.delete(applicant)
+    }
+
+    private fun getAll(ids: List<Long>): LiveData<MutableList<Applicant>> {
+        return applicantDao.findAllByPositionAndDepartment(ids[0], ids[1])
     }
 }

@@ -3,7 +3,6 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -14,7 +13,9 @@ import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.*
+import com.example.myapplication.CURRENT_APPLICANT_ID
+import com.example.myapplication.R
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.entities.Applicant
 import com.example.myapplication.viewadapters.ApplicantsAdapter
 import com.example.myapplication.viewmodels.ApplicantsVM
@@ -27,8 +28,6 @@ class Applicants : AppCompatActivity() {
     private lateinit var applicantsVm: ApplicantsVM
     private lateinit var fabAnimator: Animator
     private lateinit var selectedApplicant: Applicant
-    private var currentDepartmentId = 0L
-    private var currentPositionId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -65,17 +64,11 @@ class Applicants : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applicants)
 
-        currentDepartmentId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
-            .getLong(CURRENT_DEPARTMENT_ID, 0L)
-        currentPositionId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
-
         applicantsVm = ViewModelProvider(this).get(ApplicantsVM::class.java)
-        applicantsVm.getAll(currentPositionId, currentDepartmentId)
-            .observe(this, Observer { applicants ->
-                viewAdapter.updateData(applicants)
-                if (applicants.isEmpty()) enableTutorial() else disableTutorial()
-            })
+        applicantsVm.applicants.observe(this, Observer { applicants ->
+            viewAdapter.updateData(applicants)
+            if (applicants.isEmpty()) enableTutorial() else disableTutorial()
+        })
 
         fabAnimator = AnimatorInflater.loadAnimator(this, R.animator.fab_animator)
             .apply { setTarget(fabApplicantsNew) }
@@ -96,12 +89,7 @@ class Applicants : AppCompatActivity() {
             .setTitle(R.string.applicants_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-                applicantsVm
-                    .newApplicant(
-                        input.editTextNameDialog.editableText.toString(),
-                        currentPositionId,
-                        currentDepartmentId
-                    )
+                applicantsVm.newApplicant(input.editTextNameDialog.editableText.toString())
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()

@@ -1,9 +1,9 @@
 package com.example.myapplication.data.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import com.example.myapplication.entities.Applicant
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ApplicantDao {
@@ -13,7 +13,7 @@ interface ApplicantDao {
     fun findAllByPositionAndDepartment(
         positionId: Long,
         departmentId: Long
-    ): Flow<MutableList<Applicant>>
+    ): LiveData<MutableList<Applicant>>
 
     @Query("SELECT id FROM applicant")
     fun findAllIds(): List<Long>
