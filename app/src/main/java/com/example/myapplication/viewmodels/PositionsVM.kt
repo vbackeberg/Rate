@@ -1,10 +1,10 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.content.Context
+import androidx.lifecycle.*
+import com.example.myapplication.CURRENT_DEPARTMENT_ID
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Importance
 import com.example.myapplication.entities.Position
@@ -18,13 +18,18 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
     private val importanceDao = database.importanceDao()
     private val positionDao = database.positionDao()
 
-    fun getAll(departmentId: Long): LiveData<List<Position>> {
-        return positionDao.findAllByDepartment(departmentId).asLiveData()
-    }
+    private val departmentId = MutableLiveData<Long>(
+        application.getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE).getLong(
+            CURRENT_DEPARTMENT_ID,
+            0L
+        )
+    )
 
-    fun newPosition(name: String, departmentId: Long) = CoroutineScope(Dispatchers.IO).launch {
+    val positions = Transformations.switchMap(departmentId, ::getAll)
+
+    fun newPosition(name: String) = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
-            val positionId = positionDao.insert(Position(0L, departmentId, name))
+            val positionId = positionDao.insert(Position(0L, departmentId.value!!, name))
             val importances = mutableListOf<Importance>()
             competencyAreaDao.findAllIds().forEach { competencyAreaId ->
                 importances.add(Importance(positionId, competencyAreaId, 0))
@@ -39,5 +44,9 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
 
     fun delete(position: Position) = viewModelScope.launch {
         positionDao.delete(position)
+    }
+
+    private fun getAll(departmentId: Long): LiveData<List<Position>> {
+        return positionDao.findAllByDepartment(departmentId)
     }
 }

@@ -3,7 +3,6 @@ package com.example.myapplication.activities
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -15,7 +14,6 @@ import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.CURRENT_DEPARTMENT_ID
 import com.example.myapplication.CURRENT_POSITION_ID
 import com.example.myapplication.R
 import com.example.myapplication.SELECTED_IDS
@@ -31,7 +29,6 @@ class Positions : AppCompatActivity() {
     private lateinit var positionsVM: PositionsVM
     private lateinit var fabAnimator: Animator
     private lateinit var selectedPosition: Position
-    private var currentDepartmentId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -68,11 +65,8 @@ class Positions : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_positions)
 
-        currentDepartmentId = getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
-            .getLong(CURRENT_DEPARTMENT_ID, 0L)
-
         positionsVM = ViewModelProvider(this).get(PositionsVM::class.java)
-        positionsVM.getAll(currentDepartmentId).observe(this, Observer { positions ->
+        positionsVM.positions.observe(this, Observer { positions ->
             viewAdapter.updateData(positions)
             if (positions.isEmpty()) enableTutorial() else disableTutorial()
         })
@@ -95,10 +89,7 @@ class Positions : AppCompatActivity() {
             .setTitle(R.string.positions_dialog_new)
             .setView(input)
             .setPositiveButton(R.string.dialog_new_apply) { _, _ ->
-                positionsVM.newPosition(
-                    input.editTextNameDialog.editableText.toString(),
-                    currentDepartmentId
-                )
+                positionsVM.newPosition(input.editTextNameDialog.editableText.toString())
             }
             .setNeutralButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.cancel()
