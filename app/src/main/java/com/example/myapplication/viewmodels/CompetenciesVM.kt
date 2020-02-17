@@ -27,14 +27,14 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
     private val scoreService = ScoreService.getInstance(application)
 
-    val applicantId = MutableLiveData<Long>(
+    private val applicantId = MutableLiveData<Long>(
         application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE).getLong(
             CURRENT_APPLICANT_ID,
             0L
         )
     )
 
-    val competencyAreaId = MutableLiveData<Long>(
+    private val competencyAreaId = MutableLiveData<Long>(
         application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE).getLong(
             CURRENT_COMPETENCY_AREA_ID,
             0L

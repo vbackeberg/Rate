@@ -19,14 +19,14 @@ class ApplicantsVM(application: Application) : AndroidViewModel(application) {
     private val competencyDao = database.competencyDao()
     private val scoreDao = database.scoreDao()
 
-    val positionId = MutableLiveData<Long>(
+    private val positionId = MutableLiveData<Long>(
         application.getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE).getLong(
             CURRENT_POSITION_ID,
             0L
         )
     )
 
-    val departmentId = MutableLiveData<Long>(
+    private val departmentId = MutableLiveData<Long>(
         application.getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE).getLong(
             CURRENT_DEPARTMENT_ID,
             0L
