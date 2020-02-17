@@ -74,6 +74,6 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         competencyDao.delete(selectedCompetency)
     }
 
-    private fun getAll(params: List<Long>) =
-        competencyDao.findAllByApplicantAndCompetencyArea(params[0], params[1])
+    private fun getAll(ids: List<Long>) =
+        competencyDao.findAllByApplicantAndCompetencyArea(ids[0], ids[1])
 }
