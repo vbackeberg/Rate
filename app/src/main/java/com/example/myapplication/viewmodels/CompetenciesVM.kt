@@ -2,14 +2,15 @@ package com.example.myapplication.viewmodels
 
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.viewModelScope
 import com.example.myapplication.CURRENT_APPLICANT_ID
 import com.example.myapplication.CURRENT_COMPETENCY_AREA_ID
 import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.data.databases.AppDatabase
 import com.example.myapplication.entities.Competency
-import com.example.myapplication.entities.CompetencyArea
-import com.example.myapplication.entities.CompetencyWithScore
 import com.example.myapplication.entities.Score
 import com.example.myapplication.services.ScoreService
 import kotlinx.coroutines.CoroutineScope
@@ -45,7 +46,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         ::getAll
     )
 
-    val competencyArea = viewModelScope.async{ competencyAreaDao.findById(competencyAreaId.value) }
+    val competencyArea = viewModelScope.async { competencyAreaDao.findById(competencyAreaId.value) }
 
     fun update(score: Score, positionId: Long) = viewModelScope.launch {
         scoreDao.update(score)
