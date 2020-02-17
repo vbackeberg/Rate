@@ -15,15 +15,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.*
+import com.example.myapplication.CURRENT_POSITION_ID
+import com.example.myapplication.R
+import com.example.myapplication.SELECTED_IDS
 import com.example.myapplication.entities.CompetencyWithScore
 import com.example.myapplication.viewadapters.CompetenciesAdapter
 import com.example.myapplication.viewmodels.CompetenciesVM
 import kotlinx.android.synthetic.main.activity_competencies.*
 import kotlinx.android.synthetic.main.content_competencies.*
 import kotlinx.android.synthetic.main.dialog.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @SuppressLint("InflateParams")
