@@ -33,7 +33,6 @@
     <string name="positions_dialog_new">Neue Position anlegen</string>
     <string name="positions_dialog_rename">Position umbenennen</string>
 
-    <string name="evaluation_activity_title">Evaluation</string>
 
     <string name="competency_areas_activity_title">Kompetenzbereiche</string>
     <string name="competency_areas_toolbar_title">Kompetenzbereiche für %1$s</string>
@@ -42,8 +41,10 @@
     <string name="competency_areas_dialog_new">Neuen Kompetenzbereich anlegen</string>
     <string name="competency_areas_dialog_rename">Kompetenzbereich umbenennen…</string>
 
+    <string name="evaluation_activity_title">Evaluation</string>
+    <string name="evaluation_image">Bewerber</string>
+
     <string name="dialog_new_apply">Erstellen</string>
     <string name="dialog_new_hint">Name</string>
-    <string name="evaluation_image">Bewerber</string>
 
 </resources>
