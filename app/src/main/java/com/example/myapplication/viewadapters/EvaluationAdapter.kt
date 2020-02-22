@@ -39,7 +39,7 @@ class EvaluationAdapter : RecyclerView.Adapter<EvaluationAdapter.EvaluationViewH
 
         @SuppressLint("SetTextI18n")
         fun bind(applicant: Applicant) {
-            itemView.evaluationApplicantName.text = applicant.name
+            itemView.evaluationApplicantName.text = "Name: " + applicant.name
             itemView.evaluationApplicantScore.text = "Bewertung: " + applicant.score.toString()
         }
     }
