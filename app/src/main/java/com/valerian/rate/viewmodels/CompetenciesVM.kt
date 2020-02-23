@@ -8,6 +8,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.valerian.rate.CURRENT_APPLICANT_ID
 import com.valerian.rate.CURRENT_COMPETENCY_AREA_ID
+import com.valerian.rate.CURRENT_POSITION_ID
 import com.valerian.rate.SELECTED_IDS
 import com.valerian.rate.data.databases.AppDatabase
 import com.valerian.rate.entities.Competency
@@ -28,17 +29,16 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val scoreService = ScoreService.getInstance(application)
 
     val applicantId = MutableLiveData<Long>(
-        application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE).getLong(
-            CURRENT_APPLICANT_ID,
-            0L
-        )
+        application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+            .getLong(CURRENT_APPLICANT_ID, 0L)
     )
 
+    val positionId = application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+        .getLong(CURRENT_POSITION_ID, 0L)
+
     private val competencyAreaId = MutableLiveData<Long>(
-        application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE).getLong(
-            CURRENT_COMPETENCY_AREA_ID,
-            0L
-        )
+        application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
+            .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
     )
 
     val competencies = Transformations.switchMap(
@@ -48,7 +48,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
 
     val competencyArea = viewModelScope.async { competencyAreaDao.findById(competencyAreaId.value) }
 
-    fun update(score: Score, positionId: Long) = viewModelScope.launch {
+    fun update(score: Score) = viewModelScope.launch {
         scoreDao.update(score)
         scoreService.update(score.applicantId, positionId)
     }

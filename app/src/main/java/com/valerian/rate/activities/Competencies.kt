@@ -15,9 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.valerian.rate.CURRENT_POSITION_ID
 import com.valerian.rate.R
-import com.valerian.rate.SELECTED_IDS
 import com.valerian.rate.entities.CompetencyWithScore
 import com.valerian.rate.viewadapters.CompetenciesAdapter
 import com.valerian.rate.viewmodels.CompetenciesVM
@@ -31,7 +29,6 @@ class Competencies : AppCompatActivity() {
     private lateinit var fabAnimator: Animator
     private lateinit var competenciesVM: CompetenciesVM
     private lateinit var selectedCompetency: CompetencyWithScore
-    private var currentPositionId = 0L
 
     private val actionModeCallback = object : ActionModeCallback() {
         override fun onActionItemClicked(actionMode: ActionMode, item: MenuItem): Boolean {
@@ -57,7 +54,7 @@ class Competencies : AppCompatActivity() {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
             selectedCompetency = seekBar.tag as CompetencyWithScore
             selectedCompetency.score.value = progress
-            competenciesVM.update(selectedCompetency.score, currentPositionId)
+            competenciesVM.update(selectedCompetency.score)
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -76,9 +73,6 @@ class Competencies : AppCompatActivity() {
             viewAdapter.updateData(competencies)
             if (competencies.isEmpty()) enableTutorial() else disableTutorial()
         })
-
-        currentPositionId = getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
-            .getLong(CURRENT_POSITION_ID, 0L)
 
         textViewTitleCompetencies.text = "Bewerber-Id: ${competenciesVM.applicantId.value}"
 
