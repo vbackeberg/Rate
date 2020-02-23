@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.myapplication">
+          package="com.valerian.rate">
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".activities.Departments"
+            android:name="com.valerian.rate.activities.Departments"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,44 +20,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.Positions"
+            android:name="com.valerian.rate.activities.Positions"
             android:label="@string/positions_activity_title"
-            android:parentActivityName=".activities.Departments">
+            android:parentActivityName="com.valerian.rate.activities.Departments">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.activities.Departments" />
+                android:value="com.valerian.rate.activities.Departments" />
         </activity>
         <activity
-            android:name=".activities.Applicants"
+            android:name="com.valerian.rate.activities.Applicants"
             android:label="@string/applicants_activity_title"
-            android:parentActivityName=".activities.Competencies">
+            android:parentActivityName="com.valerian.rate.activities.Competencies">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.activities.Competencies" />
+                android:value="com.valerian.rate.activities.Competencies" />
         </activity>
         <activity
-            android:name=".activities.CompetencyAreas"
+            android:name="com.valerian.rate.activities.CompetencyAreas"
             android:label="@string/competency_areas_activity_title"
-            android:parentActivityName=".activities.Applicants">
+            android:parentActivityName="com.valerian.rate.activities.Applicants">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.activities.Positions" />
+                android:value="com.valerian.rate.activities.Positions" />
         </activity>
         <activity
-            android:name=".activities.Competencies"
+            android:name="com.valerian.rate.activities.Competencies"
             android:label="@string/competencies_activity_title"
-            android:parentActivityName=".activities.CompetencyAreas">
+            android:parentActivityName="com.valerian.rate.activities.CompetencyAreas">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.activities.Applicants" />
+                android:value="com.valerian.rate.activities.Applicants" />
         </activity>
         <activity
-            android:name=".activities.Evaluation"
+            android:name="com.valerian.rate.activities.Evaluation"
             android:label="@string/evaluation_activity_title"
-            android:parentActivityName=".activities.Departments">
+            android:parentActivityName="com.valerian.rate.activities.Departments">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myapplication.activities.Departments" />
+                android:value="com.valerian.rate.activities.Departments" />
         </activity>
     </application>
 
