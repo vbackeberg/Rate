@@ -1,6 +1,5 @@
 package com.valerian.rate.data.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.valerian.rate.entities.Competency
 import com.valerian.rate.entities.CompetencyWithScore
@@ -13,7 +12,7 @@ interface CompetencyDao {
     fun findAllByApplicantAndCompetencyArea(
         applicantId: Long,
         competencyAreaId: Long
-    ): LiveData<List<CompetencyWithScore>>
+    ): List<CompetencyWithScore>
 
     @Transaction
     @Query("SELECT * FROM competency JOIN score ON competency.id = score.competencyId WHERE applicantId = :applicantId")
