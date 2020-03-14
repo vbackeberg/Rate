@@ -68,13 +68,14 @@ class Competencies : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competencies)
+
         competenciesVM = ViewModelProvider(this).get(CompetenciesVM::class.java)
         competenciesVM.competencies.observe(this, Observer { competencies ->
             viewAdapter.updateData(competencies)
             if (competencies.isEmpty()) enableTutorial() else disableTutorial()
         })
 
-        textViewTitleCompetencies.text = "Bewerber-Id: ${competenciesVM.applicantId.value}"
+        textViewTitleCompetencies.text = "Debug: Bewerber-Id: ${competenciesVM.applicantId}"
 
         lifecycleScope.launch {
             title = resources.getString(
