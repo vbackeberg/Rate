@@ -39,18 +39,18 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     val competencyArea = viewModelScope.async(Dispatchers.IO) { competencyAreaDao.findById(competencyAreaId) }
 
     val competencies = MutableLiveData<List<CompetencyWithScore>>().also {
-        viewModelScope.launch(Dispatchers.IO) { refreshCompetencies() }
+        viewModelScope.launch(Dispatchers.IO) { loadCompetencies() }
     }
 
     fun update(score: Score) = viewModelScope.launch(Dispatchers.IO) {
         scoreDao.update(score)
         scoreService.update(score.applicantId, positionId)
-        refreshCompetencies()
+        loadCompetencies()
     }
 
     fun update(competency: Competency) = viewModelScope.launch(Dispatchers.IO) {
         competencyDao.update(competency)
-        refreshCompetencies()
+        loadCompetencies()
     }
 
     fun newCompetency(name: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -61,7 +61,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
                 scores.add(Score(competencyId, applicantId, 0))
             }
             scoreDao.insertMany(scores)
-            refreshCompetencies()
+            loadCompetencies()
         }
     }
 
@@ -69,7 +69,7 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         competencyDao.delete(selectedCompetency)
     }
 
-    private fun refreshCompetencies() {
+    private fun loadCompetencies() {
         competencies.postValue(
             competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
         )
