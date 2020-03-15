@@ -36,7 +36,8 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     private val competencyAreaId = application.getSharedPreferences(SELECTED_IDS, MODE_PRIVATE)
         .getLong(CURRENT_COMPETENCY_AREA_ID, 0L)
 
-    val competencyArea = viewModelScope.async(Dispatchers.IO) { competencyAreaDao.findById(competencyAreaId) }
+    val competencyArea =
+        viewModelScope.async(Dispatchers.IO) { competencyAreaDao.findById(competencyAreaId) }
 
     val competencies = MutableLiveData<List<CompetencyWithScore>>().also {
         viewModelScope.launch(Dispatchers.IO) { loadCompetencies() }
