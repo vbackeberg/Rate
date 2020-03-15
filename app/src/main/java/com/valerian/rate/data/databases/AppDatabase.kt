@@ -17,7 +17,7 @@ import com.valerian.rate.entities.*
         Applicant::class,
         Score::class
     ],
-    version = 18
+    version = 19
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun competencyAreaDao(): CompetencyAreaDao
