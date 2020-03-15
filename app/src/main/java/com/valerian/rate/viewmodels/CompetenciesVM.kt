@@ -43,31 +43,39 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) { loadCompetencies() }
     }
 
-    fun update(score: Score) = viewModelScope.launch(Dispatchers.IO) {
-        scoreDao.update(score)
-        scoreService.update(score.applicantId, positionId)
-        loadCompetencies()
-    }
-
-    fun update(competency: Competency) = viewModelScope.launch(Dispatchers.IO) {
-        competencyDao.update(competency)
-        loadCompetencies()
-    }
-
-    fun newCompetency(name: String) = viewModelScope.launch(Dispatchers.IO) {
-        database.runInTransaction {
-            val competencyId = competencyDao.insert(Competency(0L, competencyAreaId, name))
-            val scores = mutableListOf<Score>()
-            applicantDao.findAllIds().forEach { applicantId ->
-                scores.add(Score(competencyId, applicantId, 0))
-            }
-            scoreDao.insertMany(scores)
+    fun update(score: Score) {
+        viewModelScope.launch(Dispatchers.IO) {
+            scoreDao.update(score)
+            scoreService.update(score.applicantId, positionId)
             loadCompetencies()
         }
     }
 
-    fun delete(selectedCompetency: Competency) = viewModelScope.launch(Dispatchers.IO) {
-        competencyDao.delete(selectedCompetency)
+    fun update(competency: Competency) {
+        viewModelScope.launch(Dispatchers.IO) {
+            competencyDao.update(competency)
+            loadCompetencies()
+        }
+    }
+
+    fun newCompetency(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            database.runInTransaction {
+                val competencyId = competencyDao.insert(Competency(0L, competencyAreaId, name))
+                val scores = mutableListOf<Score>()
+                applicantDao.findAllIds().forEach { applicantId ->
+                    scores.add(Score(competencyId, applicantId, 0))
+                }
+                scoreDao.insertMany(scores)
+                loadCompetencies()
+            }
+        }
+    }
+
+    fun delete(selectedCompetency: Competency) {
+        viewModelScope.launch(Dispatchers.IO) {
+            competencyDao.delete(selectedCompetency)
+        }
     }
 
     private fun loadCompetencies() {
