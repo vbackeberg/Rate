@@ -1,16 +1,16 @@
 package com.valerian.rate.data.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.valerian.rate.entities.CompetencyArea
 import com.valerian.rate.entities.CompetencyAreaWithImportance
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CompetencyAreaDao {
 
     @Transaction
     @Query("SELECT * FROM competencyArea JOIN importance ON competencyArea.id = importance.competencyAreaId WHERE positionId = :positionId")
-    fun findAllByPosition(positionId: Long): Flow<List<CompetencyAreaWithImportance>>
+    fun findAllByPosition(positionId: Long): LiveData<List<CompetencyAreaWithImportance>>
 
     @Transaction
     @Query("SELECT * FROM competencyArea JOIN importance ON competencyArea.id = importance.competencyAreaId WHERE positionId = :positionId")
