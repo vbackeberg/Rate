@@ -1,15 +1,15 @@
 package com.valerian.rate.data.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import com.valerian.rate.entities.Department
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DepartmentDao {
 
     @Query("SELECT * FROM department")
-    fun findAll(): Flow<List<Department>>
+    fun findAll(): LiveData<List<Department>>
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(department: Department)

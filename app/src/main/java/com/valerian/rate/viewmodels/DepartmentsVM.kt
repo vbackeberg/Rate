@@ -3,7 +3,6 @@ package com.valerian.rate.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.valerian.rate.data.databases.AppDatabase
 import com.valerian.rate.entities.Department
@@ -13,7 +12,7 @@ class DepartmentsVM(application: Application) : AndroidViewModel(application) {
     private val departmentDao = AppDatabase.getDatabase(application).departmentDao()
 
     fun getAll(): LiveData<List<Department>> {
-        return departmentDao.findAll().asLiveData()
+        return departmentDao.findAll()
     }
 
     fun newDepartment(name: String) = viewModelScope.launch {
