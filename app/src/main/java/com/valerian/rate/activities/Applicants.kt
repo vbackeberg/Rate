@@ -65,7 +65,7 @@ class Applicants : AppCompatActivity() {
         setContentView(R.layout.activity_applicants)
 
         applicantsVm = ViewModelProvider(this).get(ApplicantsVM::class.java)
-        applicantsVm.applicants.observe(this, Observer { applicants ->
+        applicantsVm.getAll().observe(this, Observer { applicants ->
             viewAdapter.updateData(applicants)
             if (applicants.isEmpty()) enableTutorial() else disableTutorial()
         })
