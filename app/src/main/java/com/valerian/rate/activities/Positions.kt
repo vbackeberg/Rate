@@ -66,7 +66,7 @@ class Positions : AppCompatActivity() {
         setContentView(R.layout.activity_positions)
 
         positionsVM = ViewModelProvider(this).get(PositionsVM::class.java)
-        positionsVM.positions.observe(this, Observer { positions ->
+        positionsVM.getAll().observe(this, Observer { positions ->
             viewAdapter.updateData(positions)
             if (positions.isEmpty()) enableTutorial() else disableTutorial()
         })

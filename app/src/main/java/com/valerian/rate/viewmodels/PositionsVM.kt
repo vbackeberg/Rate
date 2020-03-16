@@ -2,7 +2,9 @@ package com.valerian.rate.viewmodels
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.valerian.rate.CURRENT_DEPARTMENT_ID
 import com.valerian.rate.SELECTED_IDS
 import com.valerian.rate.data.databases.AppDatabase
@@ -18,18 +20,17 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
     private val importanceDao = database.importanceDao()
     private val positionDao = database.positionDao()
 
-    private val departmentId = MutableLiveData<Long>(
-        application.getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE).getLong(
-            CURRENT_DEPARTMENT_ID,
-            0L
-        )
-    )
+    private val departmentId = application
+        .getSharedPreferences(SELECTED_IDS, Context.MODE_PRIVATE)
+        .getLong(CURRENT_DEPARTMENT_ID, 0L)
 
-    val positions = Transformations.switchMap(departmentId, ::getAll)
+    fun getAll(): LiveData<List<Position>> {
+        return positionDao.findAllByDepartment(departmentId)
+    }
 
     fun newPosition(name: String) = CoroutineScope(Dispatchers.IO).launch {
         database.runInTransaction {
-            val positionId = positionDao.insert(Position(0L, departmentId.value!!, name))
+            val positionId = positionDao.insert(Position(0L, departmentId, name))
             val importances = mutableListOf<Importance>()
             competencyAreaDao.findAllIds().forEach { competencyAreaId ->
                 importances.add(Importance(positionId, competencyAreaId, 0))
@@ -38,15 +39,11 @@ class PositionsVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun update(position: Position) = viewModelScope.launch {
-        positionDao.update(position)
+    fun update(position: Position) {
+        viewModelScope.launch { positionDao.update(position) }
     }
 
-    fun delete(position: Position) = viewModelScope.launch {
-        positionDao.delete(position)
-    }
-
-    private fun getAll(departmentId: Long): LiveData<List<Position>> {
-        return positionDao.findAllByDepartment(departmentId)
+    fun delete(position: Position) {
+        viewModelScope.launch { positionDao.delete(position) }
     }
 }
