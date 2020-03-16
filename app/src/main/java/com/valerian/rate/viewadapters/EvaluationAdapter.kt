@@ -18,6 +18,7 @@ class EvaluationAdapter : RecyclerView.Adapter<EvaluationAdapter.EvaluationViewH
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(applicants, newData))
         this.applicants = newData
         diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged() // Workaround
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EvaluationViewHolder {

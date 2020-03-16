@@ -22,6 +22,7 @@ class CompetencyAreasAdapter(
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencyAreas, newData))
         this.competencyAreas = newData
         diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged() // Workaround
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompetencyAreaViewHolder {

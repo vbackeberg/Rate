@@ -19,6 +19,7 @@ class PositionsAdapter(
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(positions, newData))
         this.positions = newData
         diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged() // Workaround
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PositionViewHolder {

@@ -21,6 +21,7 @@ class CompetenciesAdapter(
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(competencies, newData))
         this.competencies = newData
         diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged() // Workaround
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompetencyViewHolder {

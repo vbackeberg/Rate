@@ -20,6 +20,7 @@ class DepartmentsAdapter(
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(departments, newData))
         this.departments = newData
         diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged() // Workaround as comparison on update does not work correctly.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DepartmentViewHolder {
