@@ -3,7 +3,7 @@ package com.valerian.rate.viewmodels
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.valerian.rate.CURRENT_APPLICANT_ID
 import com.valerian.rate.CURRENT_COMPETENCY_AREA_ID
@@ -39,22 +39,20 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
     val competencyArea =
         viewModelScope.async(Dispatchers.IO) { competencyAreaDao.findById(competencyAreaId) }
 
-    val competencies = MutableLiveData<List<CompetencyWithScore>>().also {
-        viewModelScope.launch(Dispatchers.IO) { loadCompetencies() }
+    fun getAll(): LiveData<List<CompetencyWithScore>> {
+        return competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
     }
 
     fun update(score: Score) {
         viewModelScope.launch(Dispatchers.IO) {
             scoreDao.update(score)
             scoreService.update(score.applicantId, positionId)
-            loadCompetencies()
         }
     }
 
     fun update(competency: Competency) {
         viewModelScope.launch(Dispatchers.IO) {
             competencyDao.update(competency)
-            loadCompetencies()
         }
     }
 
@@ -67,7 +65,6 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
                     scores.add(Score(competencyId, applicantId, 0))
                 }
                 scoreDao.insertMany(scores)
-                loadCompetencies()
             }
         }
     }
@@ -76,12 +73,6 @@ class CompetenciesVM(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             competencyDao.delete(selectedCompetency)
         }
-    }
-
-    private fun loadCompetencies() {
-        competencies.postValue(
-            competencyDao.findAllByApplicantAndCompetencyArea(applicantId, competencyAreaId)
-        )
     }
 }
 

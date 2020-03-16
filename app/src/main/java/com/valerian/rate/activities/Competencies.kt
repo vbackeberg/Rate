@@ -70,7 +70,7 @@ class Competencies : AppCompatActivity() {
         setContentView(R.layout.activity_competencies)
 
         competenciesVM = ViewModelProvider(this).get(CompetenciesVM::class.java)
-        competenciesVM.competencies.observe(this, Observer { competencies ->
+        competenciesVM.getAll().observe(this, Observer { competencies ->
             viewAdapter.updateData(competencies)
             if (competencies.isEmpty()) enableTutorial() else disableTutorial()
         })
