@@ -17,9 +17,6 @@
       <option name="SPACES_AROUND_KEY_VALUE_DELIMITER" value="true" />
       <option name="KEEP_BLANK_LINES" value="true" />
     </Properties>
-    <XML>
-      <option name="XML_ALIGN_ATTRIBUTES" value="true" />
-    </XML>
     <codeStyleSettings language="JAVA">
       <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
       <option name="METHOD_CALL_CHAIN_WRAP" value="2" />
@@ -124,7 +121,6 @@
                   <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
                 </AND>
               </match>
-              <order>ANDROID_ATTRIBUTE_ORDER</order>
             </rule>
           </section>
           <section>
