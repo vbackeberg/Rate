@@ -9,14 +9,14 @@ import com.valerian.rate.entities.CompetencyWithScore
 interface CompetencyDao {
 
     @Transaction
-    @Query("SELECT * FROM competency, score WHERE competency.id = score.competencyId AND applicantId = :applicantId AND competencyAreaId = :competencyAreaId")
+    @Query("SELECT * FROM score JOIN competency ON score.competencyId = competency.id WHERE applicantId = :applicantId AND competencyAreaId = :competencyAreaId")
     fun findAllByApplicantAndCompetencyArea(
         applicantId: Long,
         competencyAreaId: Long
     ): LiveData<List<CompetencyWithScore>>
 
     @Transaction
-    @Query("SELECT * FROM competency JOIN score ON competency.id = score.competencyId WHERE applicantId = :applicantId")
+    @Query("SELECT * FROM score JOIN competency ON score.competencyId = competency.id WHERE applicantId = :applicantId")
     suspend fun findAllByApplicantSuspend(applicantId: Long): List<CompetencyWithScore>
 
     @Query("SELECT id FROM applicant")

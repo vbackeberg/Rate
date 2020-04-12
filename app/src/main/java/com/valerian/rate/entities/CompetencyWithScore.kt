@@ -4,12 +4,12 @@ import androidx.room.Embedded
 import androidx.room.Relation
 
 data class CompetencyWithScore(
-    @Embedded val competency: Competency,
+    @Embedded val score: Score,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "competencyId"
+        parentColumn = "competencyId",
+        entityColumn = "id"
     )
-    val score: Score
+    val competency: Competency
 ) : Id {
     override val id: Long
         get() = competency.id
