@@ -4,12 +4,12 @@ import androidx.room.Embedded
 import androidx.room.Relation
 
 data class CompetencyAreaWithImportance(
-    @Embedded val competencyArea: CompetencyArea,
+    @Embedded val importance: Importance,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "competencyAreaId"
+        parentColumn = "competencyAreaId",
+        entityColumn = "id"
     )
-    val importance: Importance
+    val competencyArea: CompetencyArea
 ) : Id {
     override val id: Long
         get() = competencyArea.id

@@ -9,11 +9,11 @@ import com.valerian.rate.entities.CompetencyAreaWithImportance
 interface CompetencyAreaDao {
 
     @Transaction
-    @Query("SELECT * FROM competencyArea JOIN importance ON competencyArea.id = importance.competencyAreaId WHERE positionId = :positionId")
+    @Query("SELECT * FROM importance JOIN competencyArea ON importance.competencyAreaId = competencyArea.id WHERE positionId = :positionId")
     fun findAllByPosition(positionId: Long): LiveData<List<CompetencyAreaWithImportance>>
 
     @Transaction
-    @Query("SELECT * FROM competencyArea JOIN importance ON competencyArea.id = importance.competencyAreaId WHERE positionId = :positionId")
+    @Query("SELECT * FROM importance JOIN competencyArea ON importance.competencyAreaId = competencyArea.id WHERE positionId = :positionId")
     suspend fun findAllByPositionSuspend(positionId: Long): List<CompetencyAreaWithImportance>
 
     @Update
